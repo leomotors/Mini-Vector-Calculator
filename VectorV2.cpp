@@ -1,12 +1,13 @@
 /*  
     * Project 「Vector Calculator」
     * 総制作　Leomotors
-    * Version: 20w43a
-    * Released on: 2020-10-19
+    * Version: 20w44a
     ? Change Log: Now Fully functional
     TODO Simp(lify) code
     TODO Make this resists against human error
     TODO Make this resists against input from Teproanyx
+    ! Add .vscode for VSCode compilation via mingw g++
+    ! Also add formatting style to settings
 */
 
 #include <math.h>
