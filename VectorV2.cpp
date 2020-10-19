@@ -1,7 +1,7 @@
 /*  
     * Project 「Vector Calculator」
     * 総制作　Leomotors
-    * Version: 20w44a
+    * Version: 20w43c
     ? Change Log: Now Fully functional
     TODO Simp(lify) code
     TODO Make this resists against human error
