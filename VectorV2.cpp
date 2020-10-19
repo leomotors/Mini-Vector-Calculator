@@ -76,7 +76,7 @@ int main()
 void vectorOperation()
 {
     int choice, temp;
-    int u, v, w;
+    int u, v;
     cls();
     printMenu();
     printf("Enter choice: ");
@@ -230,7 +230,8 @@ void printvec(float *u)
 
 void saveVector(float *u)
 {
-    int w, choice;
+    int w;
+    char choice;
     printf("Where you want to save vector? : ");
     scanf("%d", &w);
     if (vector[w] != NULL)
