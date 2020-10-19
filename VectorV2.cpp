@@ -5,9 +5,10 @@
     ? Change Log: Now Fully functional
     TODO Simp(lify) code
     TODO Make this resists against human error
-    TODO Make this resists against input from Teproanyx
+    TODO Make this resists against input from @Teproanyx
     ! Add .vscode for VSCode compilation via mingw g++
     ! Also add formatting style to settings
+    ! Add .gitignore for working with git (For more information, contact @Teproanyx)
 */
 
 #include <math.h>
