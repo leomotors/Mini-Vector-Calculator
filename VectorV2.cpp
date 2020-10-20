@@ -50,10 +50,16 @@ int main()
         printf("[2] Do operations!\n");
         printf("[3] Set terminal (command prompt)'s color\n");
         printf("[4] Lab: Import Vector\n");
+        printf("[0] Exit\n");
         printf("Your Choice: ");
         scanf("%d", &choice);
         switch (choice)
         {
+        case 0:
+            printf("Thanks for using this program! Press any to exit...");
+            getchar();
+            getchar();
+            return 0;
         case 1:
             inputVector();
             break;
