@@ -1,14 +1,20 @@
-# TUProject501
+# TUProject501 : Vector Calculator
 
-Triam Udom > Wichai > Semes 1
+Used to be Project for Triam Udom Suksa School
+
+Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wichai
+
+Now is being developed further.
 
 ## Current Version
 
   Release: v. 1.3.0 //Used to present to Wichai
   
-  Beta: snapshot 2.0-pre1
+  Beta: snapshot 2.0-pre2
   
 ## Vector Program Version History
+
+  2020-10-20 2.0-pre2: Fix input error and related.
 
   2020-10-20 2.0-pre1: Fix some input Error and misc things.
 
