@@ -1,13 +1,12 @@
 /**
  * * Project 「Vector Calculator」
  * * 総制作　Leomotors
- * * Version: 20w43c
- * * Released on: 2020-10-19
- * ? Add .vscode for VSCode compilation via mingw g++
- * ? Also add formatting style to settings
- * ? Add .gitignore for working with git (For more information, contact @Teproanyx)
- * TODO Simp(lify) code
- * TODO Make this resists against human error
+ * * Version: 20w44c
+ * * Released on: 2020-10-20
+ * ? Added Color terminal return for linux users.
+ * ? Added IsVector Function for Error preventing
+ * TODO SIMP(lify) more code
+ * TODO Make this resists against human error further more
  * TODO Make this resists against input from @Teproanyx
  */
 
