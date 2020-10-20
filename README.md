@@ -20,7 +20,7 @@ Triam Udom > Wichai > Semes 1
   
   2020-10-16 20w42a: lazy to write shit here.
 
-## Credit
+## Credits
 
   Thanks to Teproanyx for helping me 🙂
   
