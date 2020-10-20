@@ -1,13 +1,12 @@
 /**
  * * Project 「Vector Calculator」
  * * 総制作　Leomotors
- * * Version: 2.0-pre1
+ * * Version: 2.0-pre2
  * * Released on: 2020-10-20
- * ? Added Color terminal return for linux users.
- * ? Added IsVector Function for Error preventing
+ * ? Now resists against intensive input error in part of Int
  * TODO SIMP(lify) more code
- * TODO Make this resists against human error further more
  * TODO Make this resists against input from @Teproanyx
+ * TODO Resistance against input error in part of String and Float
  */
 
 #include <ctype.h>
