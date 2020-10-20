@@ -1,6 +1,7 @@
 /**
  * * Project 「Vector Calculator」
- * * 総制作　Leomotors
+ * * 総制作　@Leomotors
+ * * Honor contributor @Teproanyx
  * * Version: 2.0-pre2
  * * Released on: 2020-10-20
  * ? Now resists against intensive input error in part of Int
