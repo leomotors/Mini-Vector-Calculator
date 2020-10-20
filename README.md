@@ -17,3 +17,8 @@ Triam Udom > Wichai > Semes 1
   2020-10-19 20w43a: Program now fully functional
   
   2020-10-16 20w42a: lazy to write shit here.
+
+## Credit
+
+  Thanks to Teproanyx for helping me 🙂
+  
