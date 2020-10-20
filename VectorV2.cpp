@@ -29,6 +29,7 @@ void setColor();
 void cls();
 void ShowAllVectors();
 
+bool isVector(int);
 void importVector();
 
 //* Vector Operation
@@ -100,11 +101,25 @@ void vectorOperation()
     {
         printf("Select Vector: ");
         scanf("%d", &u);
+        if (!isVector(u))
+        {
+            printf("Vector not available, Please any to continue...");
+            getchar();
+            getchar();
+            return;
+        }
     }
     else
     {
         printf("Select Two Vectors: ");
         scanf("%d %d", &u, &v);
+        if (!(isVector(u) && isVector(v)))
+        {
+            printf("One or Both of vector not available, Please any to continue...");
+            getchar();
+            getchar();
+            return;
+        }
     }
     switch (choice)
     {
@@ -171,6 +186,11 @@ void ShowAllVectors()
             printvec(vector[m]);
         }
     }
+}
+
+bool isVector(int u)
+{
+    return vector[u] != NULL;
 }
 
 void importVector()
