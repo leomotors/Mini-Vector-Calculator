@@ -1,13 +1,18 @@
 # TUProject501
+
 Triam Udom > Wichai > Semes 1
 
-# Current Version:
+## Current Version
 
   Release: v. 1.3.0 //Used to present to Wichai
   
-  Beta: snapshot 20w43a
+  Beta: snapshot 20w43c
   
-# Vector Program Version History
+## Vector Program Version History
+
+  2020-10-19 20w43c: Program ready to be developed in VSCode
+
+  2020-10-19 20w43b: Delete unrelated files
 
   2020-10-19 20w43a: Program now fully functional
   

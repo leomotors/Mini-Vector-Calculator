@@ -1,17 +1,19 @@
-/*  
-    * Project 「Vector Calculator」
-    * 総制作　Leomotors
-    * Version: 20w43a
-    * Released on: 2020-10-19
-    ? Change Log: Now Fully functional
-    TODO Simp(lify) code
-    TODO Make this resists against human error
-    TODO Make this resists against input from Teproanyx
-*/
+/**
+ * * Project 「Vector Calculator」
+ * * 総制作　Leomotors
+ * * Version: 20w43c
+ * * Released on: 2020-10-19
+ * ? Add .vscode for VSCode compilation via mingw g++
+ * ? Also add formatting style to settings
+ * ? Add .gitignore for working with git (For more information, contact @Teproanyx)
+ * TODO Simp(lify) code
+ * TODO Make this resists against human error
+ * TODO Make this resists against input from @Teproanyx
+ */
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #define i 0
 #define j 1
 #define k 2
@@ -74,7 +76,7 @@ int main()
 void vectorOperation()
 {
     int choice, temp;
-    int u, v, w;
+    int u, v;
     cls();
     printMenu();
     printf("Enter choice: ");
@@ -88,7 +90,7 @@ void vectorOperation()
         getchar();
         return;
     }
-    if(choice==1||choice==2)
+    if (choice == 1 || choice == 2)
     {
         printf("Select Vector: ");
         scanf("%d", &u);
@@ -98,40 +100,40 @@ void vectorOperation()
         printf("Select Two Vectors: ");
         scanf("%d %d", &u, &v);
     }
-    switch(choice)
+    switch (choice)
     {
-        case 1:
-        {
-            printf("Size of Vector is %.2f\n", vectorSize(vector[u]));
-            break;
-        }
-        case 2:
-        {
-            printf("Enter scalar to multiply with: ");
-            scanf("%d", &temp);
-            printvec(scalarMult(vector[u], temp));
-            break;
-        }
-        case 3:
-            printvec(addVector(vector[u], vector[v]));
-            saveVector(addVector(vector[u], vector[v]));
-            break;
-        case 4:
-            printf("Result is %.2f\n",dotProduct(vector[u],vector[v]));
-            break;
-        case 5:
-            printvec(crossProduct(vector[u],vector[v]));
-            saveVector(crossProduct(vector[u],vector[v]));
-            break;
-        case 6:
-            printvec(scalarMult(vector[v],dotProduct(vector[u],vector[v])/pow(vectorSize(vector[v]),2)));
-            saveVector(scalarMult(vector[v],dotProduct(vector[u],vector[v])/pow(vectorSize(vector[v]),2)));
-            break;
-        case 7:
-            printf("Area is %.2f\n",vectorSize(crossProduct(vector[u],vector[v])));
-            break;
-        default:
-            printf("Error 003: Default kicks in, function: vectorOperation\n");
+    case 1:
+    {
+        printf("Size of Vector is %.2f\n", vectorSize(vector[u]));
+        break;
+    }
+    case 2:
+    {
+        printf("Enter scalar to multiply with: ");
+        scanf("%d", &temp);
+        printvec(scalarMult(vector[u], temp));
+        break;
+    }
+    case 3:
+        printvec(addVector(vector[u], vector[v]));
+        saveVector(addVector(vector[u], vector[v]));
+        break;
+    case 4:
+        printf("Result is %.2f\n", dotProduct(vector[u], vector[v]));
+        break;
+    case 5:
+        printvec(crossProduct(vector[u], vector[v]));
+        saveVector(crossProduct(vector[u], vector[v]));
+        break;
+    case 6:
+        printvec(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
+        saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
+        break;
+    case 7:
+        printf("Area is %.2f\n", vectorSize(crossProduct(vector[u], vector[v])));
+        break;
+    default:
+        printf("Error 003: Default kicks in, function: vectorOperation\n");
     }
     getchar();
     getchar();
@@ -167,26 +169,26 @@ void ShowAllVectors()
 
 void importVector()
 {
-    int slot=0;
-    float a1,a2,a3;
+    int slot = 0;
+    float a1, a2, a3;
     FILE *inputFile;
     if ((inputFile = fopen("Data1.txt", "r")) == NULL)
     {
         printf("Error! opening file");
         return;
     }
-    while(true)
+    while (true)
     {
-        fscanf(inputFile,"%d %f %f %f",&slot,&a1,&a2,&a3);
-        if(vector[slot]==NULL)
+        fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
+        if (vector[slot] == NULL)
         {
             vector[slot] = new float[3];
             vector[slot][i] = a1;
             vector[slot][j] = a2;
             vector[slot][k] = a3;
-        }    
+        }
         else
-            break;  
+            break;
     }
     fclose(inputFile);
 }
@@ -201,8 +203,9 @@ void inputVector()
     {
         if (vector[slot] != NULL)
         {
-            printf("Vector already exists, Overwrite?\n Press 'N' to decline,"
-                   " otherwise any key: ");
+            printf(
+                "Vector already exists, Overwrite?\n Press 'N' to decline,"
+                " otherwise any key: ");
             scanf(" %c", &confirm);
             if (confirm == 'N')
                 return;
@@ -227,7 +230,8 @@ void printvec(float *u)
 
 void saveVector(float *u)
 {
-    int w, choice;
+    int w;
+    char choice;
     printf("Where you want to save vector? : ");
     scanf("%d", &w);
     if (vector[w] != NULL)
@@ -243,17 +247,18 @@ void saveVector(float *u)
 void setColor()
 {
     char col[10], syn[10];
-    printf("\nColor attributes are specified by TWO hex digits -- the first "
-           "corresponds to the background; the second the foreground."
-           "\nEach digit can be any of the following values:\n\n"
-           "\t0 = Black       8 = Gray\n"
-           "\t1 = Blue        9 = Light Blue\n"
-           "\t2 = Green       A = Light Green\n"
-           "\t3 = Aqua        B = Light Aqua\n"
-           "\t4 = Red         C = Light Red\n"
-           "\t5 = Purple      D = Light Purple\n"
-           "\t6 = Yellow      E = Light Yellow\n"
-           "\t7 = White       F = Bright White\n");
+    printf(
+        "\nColor attributes are specified by TWO hex digits -- the first "
+        "corresponds to the background; the second the foreground."
+        "\nEach digit can be any of the following values:\n\n"
+        "\t0 = Black       8 = Gray\n"
+        "\t1 = Blue        9 = Light Blue\n"
+        "\t2 = Green       A = Light Green\n"
+        "\t3 = Aqua        B = Light Aqua\n"
+        "\t4 = Red         C = Light Red\n"
+        "\t5 = Purple      D = Light Purple\n"
+        "\t6 = Yellow      E = Light Yellow\n"
+        "\t7 = White       F = Bright White\n");
     printf("Enter color (Only works in Windows through cmd!): ");
     scanf("%s", col);
     sprintf(syn, "color %s", col);
