@@ -237,15 +237,18 @@ void printvec(float *u)
 void saveVector(float *u)
 {
     int w;
-    char choice;
+    char choice[10];
     printf("Where you want to save vector? : ");
     scanf("%d", &w);
     if (vector[w] != NULL)
     {
         printf("This slot already has vector in it. Overwrite? : ");
-        scanf(" %c", &choice);
-        if (choice == 'N')
+        scanf("%s", choice);
+        if (choice[0] == 'N')
+        {
+            saveVector(u);
             return;
+        }
     }
     vector[w] = u;
 }
