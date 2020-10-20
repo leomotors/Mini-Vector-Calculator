@@ -38,5 +38,5 @@ Now is being developed further.
 
 ### Further Developments : V2
 
-  Thanks to Teproanyx for helping me 🙂
+  Thanks to @Teproanyx for helping me 🙂
   
