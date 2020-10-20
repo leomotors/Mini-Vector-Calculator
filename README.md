@@ -28,5 +28,15 @@ Now is being developed further.
 
 ## Credits
 
+### Initial Developments : Project presenting to Wichai
+
+  総制作・Supervisor・Mentor : @Leomotors
+
+  Helper programmer : Kaimook , Oui
+
+  Speaker : Every person in the group except Mentor (@Leomotors)
+
+### Further Developments : V2
+
   Thanks to Teproanyx for helping me 🙂
   
