@@ -255,6 +255,7 @@ void saveVector(float *u)
 
 void setColor()
 {
+#if defined(_WIN32)
     char col[10], syn[10];
     printf(
         "\nColor attributes are specified by TWO hex digits -- the first "
@@ -268,10 +269,16 @@ void setColor()
         "\t5 = Purple      D = Light Purple\n"
         "\t6 = Yellow      E = Light Yellow\n"
         "\t7 = White       F = Bright White\n");
-    printf("Enter color (Only works in Windows through cmd!): ");
+    printf("Enter color: ");
     scanf("%s", col);
     sprintf(syn, "color %s", col);
     system(syn);
+#else
+    printf("This is only supported on Windows!\n");
+    printf("Press any to continue...");
+    getchar();
+    getchar();
+#endif
     cls();
 }
 
