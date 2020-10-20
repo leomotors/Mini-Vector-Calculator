@@ -76,7 +76,9 @@ int main()
             importVector();
             break;
         default:
-            printf("Error\n");
+            printf("Invalid choice, please try again.\n");
+            printf("Press any to continue...");
+            getchar();
             break;
         }
     }
