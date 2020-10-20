@@ -1,7 +1,7 @@
 /**
  * * Project 「Vector Calculator」
  * * 総制作　Leomotors
- * * Version: 20w44c
+ * * Version: 2.0-pre1
  * * Released on: 2020-10-20
  * ? Added Color terminal return for linux users.
  * ? Added IsVector Function for Error preventing

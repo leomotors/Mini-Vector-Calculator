@@ -6,11 +6,11 @@ Triam Udom > Wichai > Semes 1
 
   Release: v. 1.3.0 //Used to present to Wichai
   
-  Beta: snapshot 20w43d
+  Beta: snapshot 2.0-pre1
   
 ## Vector Program Version History
 
-  2020-10-20 20w43d: Fix some input Error and misc things.
+  2020-10-20 2.0-pre1: Fix some input Error and misc things.
 
   2020-10-19 20w43c: Program ready to be developed in VSCode
 
