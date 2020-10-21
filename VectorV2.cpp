@@ -2,9 +2,11 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.0-pre2
- * * Released on: 2020-10-20
- * ? Now resists against intensive input error in part of Int
+ * * Version: 2.0-rc1
+ * * Released on: 2020-10-21
+ * ? Add Import and Export Function
+ * ? Now able to select file names easily
+ * ? SIMP(l)ed some code
  * TODO SIMP(lify) more code
  * TODO Make this resists against input from @Teproanyx
  * TODO Resistance against input error in part of String and Float
@@ -36,7 +38,7 @@ void ShowAllVectors();
 
 bool isVector(int);
 void importVector();
-void saveVectorToFile();
+void exportVector();
 long long getlong(const char *);
 int getInt(const char *);
 
@@ -59,7 +61,7 @@ int main()
         printf("[2] Do operations!\n");
         printf("[3] Set terminal (command prompt)'s color\n");
         printf("[4] Lab: Import Vector\n");
-        printf("[5] Lab: Save Vector\n");
+        printf("[5] Lab: Export Vector\n");
         printf("[0] Exit\n");
         choice = getInt("Your Choice: ");
         switch (choice)
@@ -81,7 +83,7 @@ int main()
             importVector();
             break;
         case 5:
-            saveVectorToFile();
+            exportVector();
             break;
         default:
             printf("Invalid choice, please try again.\n");
@@ -211,9 +213,12 @@ void importVector()
     printf("Enter file name: ");
     scanf("%s", filename);
     sprintf(filename, "%s.txt", filename);
-    if ((inputFile = fopen("Data1.txt", "r")) == NULL)
+    if ((inputFile = fopen(filename, "r")) == NULL)
     {
         printf("Error upon opening files, File may not exist.\n");
+        printf("Press any to continue...");
+        getchar();
+        getchar();
         return;
     }
     while (true)
@@ -232,7 +237,7 @@ void importVector()
     fclose(inputFile);
 }
 
-void saveVectorToFile()
+void exportVector()
 {
     char filename[30];
     FILE *outputFile;
