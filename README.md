@@ -10,9 +10,11 @@ Now is being developed further.
 
   Release: v. 1.3.0 //Used to present to Wichai
   
-  Beta: snapshot 2.0-pre2
+  Beta: snapshot 2.0-rc1
   
 ## Vector Program Version History
+
+  2020-10-21 2.0-rc1: Import and Export Function Upgraded
 
   2020-10-20 2.0-pre2: Fix input error and related.
 
