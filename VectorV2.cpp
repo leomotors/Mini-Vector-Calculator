@@ -2,9 +2,12 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.0
+ * * Version: 2.1
  * * Released on: 2020-10-21
+ * ? Edit ImportVector function
+ * ? Add deleteAllVectors function
  * ? Rearranged functions, Ready for release 2.0!
+ * ! TODO Take care of memory leaks
  * TODO SIMP(lify) more code
  * TODO Make this resists against input from @Teproanyx (rn maybe done?)
  */
@@ -36,6 +39,7 @@ void printvec(float *);
 void ShowAllVectors();
 void saveVector(float *);
 bool isVector(int);
+void deleteAllVectors();
 
 // * Import and Export
 void importVector();
@@ -65,6 +69,7 @@ int main()
         printf("[3] Set terminal (command prompt)'s color\n");
         printf("[4] Lab: Import Vector\n");
         printf("[5] Lab: Export Vector\n");
+        printf("[6] Delete all Vectors\n");
         printf("[0] Exit\n");
         choice = getInt("Your Choice: ");
         switch (choice)
@@ -87,6 +92,9 @@ int main()
             break;
         case 5:
             exportVector();
+            break;
+        case 6:
+            deleteAllVectors();
             break;
         default:
             printf("Invalid choice, please try again.\n");
@@ -250,6 +258,8 @@ void inputVector()
         float *u = new float[3];
         printf("Enter Vector (i,j,k): ");
         scanf("%f %f %f", &u[i], &u[j], &u[k]);
+        if (vector[slot] != NULL)
+            delete[] vector[slot];
         vector[slot] = u;
     }
     else
@@ -300,6 +310,7 @@ void saveVector(float *u)
                 return;
             }
         } while (choice[0] != 'Y');
+        delete[] vector[w];
     }
     vector[w] = u;
 }
@@ -309,9 +320,35 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
+void deleteAllVectors()
+{
+    for (int c = 0; c < vectorSlotCount; c++)
+        vector[c] = NULL;
+    printf("All vectors have been deleted, press any to continue...");
+    getchar();
+}
+
 // * Import and Export
 void importVector()
 {
+    bool started = false;
+    char choice[10];
+    for (int c = 0; c < vectorSlotCount; c++)
+    {
+        if (isVector(c) != NULL)
+            started = true;
+    }
+    if (started)
+    {
+        do
+        {
+            printf("Using this function will remove all existing vector, continue? [Y/N]: ");
+            scanf("%s", choice);
+            if (choice[0] == 'N')
+                return;
+        } while (choice[0] != 'Y');
+        deleteAllVectors();
+    }
     int slot = 0;
     float a1, a2, a3;
     char tmp[50], filename[100];
