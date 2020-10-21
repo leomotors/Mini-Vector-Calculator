@@ -257,8 +257,6 @@ void inputVector()
         float *u = new float[3];
         printf("Enter Vector (i,j,k): ");
         scanf("%f %f %f", &u[i], &u[j], &u[k]);
-        if (vector[slot] != NULL)
-            delete[] vector[slot];
         vector[slot] = u;
     }
     else
@@ -309,7 +307,6 @@ void saveVector(float *u)
                 return;
             }
         } while (choice[0] != 'Y');
-        delete[] vector[w];
     }
     vector[w] = u;
 }
