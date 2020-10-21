@@ -12,15 +12,18 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <string.h>
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 #define i 0
 #define j 1
 #define k 2
 
-float *vector[100] = {NULL};
+#define vectorSlotCount 100
+float *vector[vectorSlotCount] = {NULL};
 
 void vectorOperation();
 void printMenu();
@@ -33,6 +36,7 @@ void ShowAllVectors();
 
 bool isVector(int);
 void importVector();
+void saveVectorToFile();
 long long getlong(const char *);
 int getInt(const char *);
 
@@ -55,6 +59,7 @@ int main()
         printf("[2] Do operations!\n");
         printf("[3] Set terminal (command prompt)'s color\n");
         printf("[4] Lab: Import Vector\n");
+        printf("[5] Lab: Save Vector\n");
         printf("[0] Exit\n");
         choice = getInt("Your Choice: ");
         switch (choice)
@@ -74,6 +79,9 @@ int main()
             break;
         case 4:
             importVector();
+            break;
+        case 5:
+            saveVectorToFile();
             break;
         default:
             printf("Invalid choice, please try again.\n");
@@ -99,6 +107,8 @@ void vectorOperation()
         getchar();
         return;
     }
+    ShowAllVectors();
+    printf("\n");
     if (choice == 1 || choice == 2)
     {
         u = getInt("Select Vector: ");
@@ -177,7 +187,7 @@ void printMenu()
 
 void ShowAllVectors()
 {
-    for (int m = 0; m < 100; m++)
+    for (int m = 0; m < vectorSlotCount; m++)
     {
         if (vector[m] != NULL)
         {
@@ -196,10 +206,14 @@ void importVector()
 {
     int slot = 0;
     float a1, a2, a3;
+    char filename[30];
     FILE *inputFile;
+    printf("Enter file name: ");
+    scanf("%s", filename);
+    sprintf(filename, "%s.txt", filename);
     if ((inputFile = fopen("Data1.txt", "r")) == NULL)
     {
-        printf("Error! opening file");
+        printf("Error upon opening files, File may not exist.\n");
         return;
     }
     while (true)
@@ -216,6 +230,22 @@ void importVector()
             break;
     }
     fclose(inputFile);
+}
+
+void saveVectorToFile()
+{
+    char filename[30];
+    FILE *outputFile;
+    printf("Enter file name: ");
+    scanf("%s", filename);
+    sprintf(filename, "%s.txt", filename);
+    outputFile = fopen(filename, "w");
+    for (int c = 0; c < vectorSlotCount; c++)
+    {
+        if (vector[c] != NULL)
+            fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
+    }
+    fclose(outputFile);
 }
 
 long getLong(const char *prompt) // * By @Teproanyx Modified by @Leomotors
@@ -292,7 +322,7 @@ void inputVector()
     int slot;
     char confirm[10];
     slot = getInt("Which slot you want? : ");
-    if (slot >= 0 && slot < 100)
+    if (slot >= 0 && slot < vectorSlotCount)
     {
         if (vector[slot] != NULL)
         {
