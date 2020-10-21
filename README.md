@@ -6,15 +6,35 @@ Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wic
 
 Now is being developed further.
 
+## Program's Abilities
+
+  This program can do Simple Vector Calculating including add, multiply with
+  scalar, dot product, cross product, project a vector on another,
+  find size, find area of parrallelogram corresponding to two vectors.
+
 ## Version
 
   Presented Version: v1.3.0
 
   Current Release: v2.1.1
-  
-## Vector Program Version History
 
-  2020-10-21 2.1.1: Misc Code Brushing
+## Credits
+
+### Initial Developments : Project presenting to Wichai
+
+  総制作・Supervisor・Mentor : @Leomotors
+
+  Helper programmer : Kaimook , Oui
+
+  Speaker : Every person in the group except Mentor (@Leomotors)
+
+### Further Developments : V2
+
+  Thanks to @Teproanyx for helping me 🙂
+
+## Program Version History
+
+  2020-10-21 2.1.1: Misc Code Brushing and Readme Edit
   
   2020-10-21 2.1: Import Vector Function Change and New Function added
 
@@ -33,18 +53,3 @@ Now is being developed further.
   2020-10-19 20w43a: Program now fully functional
   
   2020-10-16 20w42a: lazy to write shit here.
-
-## Credits
-
-### Initial Developments : Project presenting to Wichai
-
-  総制作・Supervisor・Mentor : @Leomotors
-
-  Helper programmer : Kaimook , Oui
-
-  Speaker : Every person in the group except Mentor (@Leomotors)
-
-### Further Developments : V2
-
-  Thanks to @Teproanyx for helping me 🙂
-  
