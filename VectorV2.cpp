@@ -2,9 +2,11 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.0
+ * * Version: 2.0.1
  * * Released on: 2020-10-21
+ * ? Edit ImportVector function
  * ? Rearranged functions, Ready for release 2.0!
+ * ! TODO Take care of memory leaks
  * TODO SIMP(lify) more code
  * TODO Make this resists against input from @Teproanyx (rn maybe done?)
  */
