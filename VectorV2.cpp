@@ -223,7 +223,6 @@ void setColor() // ! Only supported on Windows
     printf("This is only supported on Windows!\n");
     printf("Press any to continue...");
     getchar();
-    getchar();
 #endif
     cls();
 }
