@@ -10,10 +10,12 @@ Now is being developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.0
+  Current Release: v2.0.1
   
 ## Vector Program Version History
 
+  2020-10-21 2.1: Import Vector Function Change
+  
   2020-10-21 2.0: Finally release for Vector Version 2!
 
   2020-10-21 2.0-rc1: Import and Export Function Upgraded
