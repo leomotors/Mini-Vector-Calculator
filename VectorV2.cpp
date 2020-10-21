@@ -2,7 +2,7 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.1
+ * * Version: 2.1.1
  * * Released on: 2020-10-21
  * ? Edit ImportVector function
  * ? Add deleteAllVectors function
