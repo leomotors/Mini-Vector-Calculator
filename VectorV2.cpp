@@ -2,14 +2,11 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.0-rc1
+ * * Version: 2.0
  * * Released on: 2020-10-21
- * ? Add Import and Export Function
- * ? Now able to select file names easily
- * ? SIMP(l)ed some code
+ * ? Rearranged functions, Ready for release 2.0!
  * TODO SIMP(lify) more code
- * TODO Make this resists against input from @Teproanyx
- * TODO Resistance against input error in part of String and Float
+ * TODO Make this resists against input from @Teproanyx (rn maybe done?)
  */
 
 #include <ctype.h>
@@ -27,22 +24,28 @@
 #define vectorSlotCount 100
 float *vector[vectorSlotCount] = {NULL};
 
+// * Menu's Stuff
 void vectorOperation();
-void printMenu();
+void printOperationMenu();
+void setColor(); // ! Only supported on Windows
+void cls();
+
+// * Vector management
 void inputVector();
 void printvec(float *);
-void saveVector(float *);
-void setColor();
-void cls();
 void ShowAllVectors();
-
+void saveVector(float *);
 bool isVector(int);
+
+// * Import and Export
 void importVector();
 void exportVector();
+
+// * Safe input by @Teproanyx and modified by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
 
-//* Vector Operation
+// * Vector Operation Part
 float vectorSize(float *);
 float *scalarMult(float *, float);
 float *addVector(float *, float *);
@@ -94,12 +97,13 @@ int main()
     }
 }
 
+// * Menu's Stuff
 void vectorOperation()
 {
     int choice, temp;
     int u, v;
     cls();
-    printMenu();
+    printOperationMenu();
     choice = getInt("Enter choice: ");
     if (choice == 0)
         return;
@@ -171,7 +175,7 @@ void vectorOperation()
     getchar();
 }
 
-void printMenu()
+void printOperationMenu()
 {
     printf("==========================================\n");
     printf("Please select functions!\n");
@@ -187,6 +191,79 @@ void printMenu()
     printf("[0] Exit\n");
 }
 
+void setColor() // ! Only supported on Windows
+{
+#if defined(_WIN32)
+    char col[10], syn[10];
+    printf(
+        "\nColor attributes are specified by TWO hex digits -- the first "
+        "corresponds to the background; the second the foreground."
+        "\nEach digit can be any of the following values:\n\n"
+        "\t0 = Black       8 = Gray\n"
+        "\t1 = Blue        9 = Light Blue\n"
+        "\t2 = Green       A = Light Green\n"
+        "\t3 = Aqua        B = Light Aqua\n"
+        "\t4 = Red         C = Light Red\n"
+        "\t5 = Purple      D = Light Purple\n"
+        "\t6 = Yellow      E = Light Yellow\n"
+        "\t7 = White       F = Bright White\n");
+    printf("Enter color: ");
+    scanf("%s", col);
+    sprintf(syn, "color %s", col);
+    system(syn);
+#else
+    printf("This is only supported on Windows!\n");
+    printf("Press any to continue...");
+    getchar();
+    getchar();
+#endif
+    cls();
+}
+
+void cls() // * By @Teproanyx
+{
+#if defined(_WIN32)
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+// * Vector management
+void inputVector()
+{
+    int slot;
+    char confirm[10];
+    slot = getInt("Which slot you want? : ");
+    if (slot >= 0 && slot < vectorSlotCount)
+    {
+        if (vector[slot] != NULL)
+        {
+            do
+            {
+                printf("Vector already exists, Overwrite? [Y/N]: ");
+                scanf("%s", confirm);
+                if (confirm[0] == 'N')
+                    return;
+            } while (confirm[0] != 'Y');
+        }
+        float *u = new float[3];
+        printf("Enter Vector (i,j,k): ");
+        scanf("%f %f %f", &u[i], &u[j], &u[k]);
+        vector[slot] = u;
+    }
+    else
+    {
+        printf("Invalid index!\nPress any to continue!");
+        getchar();
+    }
+}
+
+void printvec(float *u)
+{
+    printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
+}
+
 void ShowAllVectors()
 {
     for (int m = 0; m < vectorSlotCount; m++)
@@ -199,11 +276,40 @@ void ShowAllVectors()
     }
 }
 
+void saveVector(float *u)
+{
+    int w;
+    char choice[10];
+    do
+    {
+        printf("Do you want to save vector? [Y/N]: ");
+        scanf("%s", choice);
+        if (choice[0] == 'N')
+            return;
+    } while (choice[0] != 'Y');
+    w = getInt("Where you want to save vector? : ");
+    if (vector[w] != NULL)
+    {
+        do
+        {
+            printf("This slot already has vector in it. Overwrite? [Y/N]: ");
+            scanf("%s", choice);
+            if (choice[0] == 'N')
+            {
+                saveVector(u);
+                return;
+            }
+        } while (choice[0] != 'Y');
+    }
+    vector[w] = u;
+}
+
 bool isVector(int u)
 {
     return vector[u] != NULL;
 }
 
+// * Import and Export
 void importVector()
 {
     int slot = 0;
@@ -266,7 +372,8 @@ void exportVector()
     fclose(outputFile);
 }
 
-long getLong(const char *prompt) // * By @Teproanyx Modified by @Leomotors
+// * Safe input by @Teproanyx and modified by @Leomotors
+long getLong(const char *prompt)
 {
     while (true)
     {
@@ -321,7 +428,7 @@ long getLong(const char *prompt) // * By @Teproanyx Modified by @Leomotors
     }
 }
 
-int getInt(const char *prompt) // * By @Teproanyx Modified by @Leomotors
+int getInt(const char *prompt)
 {
     while (true)
     {
@@ -335,106 +442,7 @@ int getInt(const char *prompt) // * By @Teproanyx Modified by @Leomotors
     }
 }
 
-void inputVector()
-{
-    int slot;
-    char confirm[10];
-    slot = getInt("Which slot you want? : ");
-    if (slot >= 0 && slot < vectorSlotCount)
-    {
-        if (vector[slot] != NULL)
-        {
-            do
-            {
-                printf("Vector already exists, Overwrite? [Y/N]: ");
-                scanf("%s", confirm);
-                if (confirm[0] == 'N')
-                    return;
-            } while (confirm[0] != 'Y');
-        }
-        float *u = new float[3];
-        printf("Enter Vector (i,j,k): ");
-        scanf("%f %f %f", &u[i], &u[j], &u[k]);
-        vector[slot] = u;
-    }
-    else
-    {
-        printf("Invalid index!\nPress any to continue!");
-        getchar();
-    }
-}
-
-void printvec(float *u)
-{
-    printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
-}
-
-void saveVector(float *u)
-{
-    int w;
-    char choice[10];
-    do
-    {
-        printf("Do you want to save vector? [Y/N]: ");
-        scanf("%s", choice);
-        if (choice[0] == 'N')
-            return;
-    } while (choice[0] != 'Y');
-    w = getInt("Where you want to save vector? : ");
-    if (vector[w] != NULL)
-    {
-        do
-        {
-            printf("This slot already has vector in it. Overwrite? [Y/N]: ");
-            scanf("%s", choice);
-            if (choice[0] == 'N')
-            {
-                saveVector(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
-    }
-    vector[w] = u;
-}
-
-void setColor()
-{
-#if defined(_WIN32)
-    char col[10], syn[10];
-    printf(
-        "\nColor attributes are specified by TWO hex digits -- the first "
-        "corresponds to the background; the second the foreground."
-        "\nEach digit can be any of the following values:\n\n"
-        "\t0 = Black       8 = Gray\n"
-        "\t1 = Blue        9 = Light Blue\n"
-        "\t2 = Green       A = Light Green\n"
-        "\t3 = Aqua        B = Light Aqua\n"
-        "\t4 = Red         C = Light Red\n"
-        "\t5 = Purple      D = Light Purple\n"
-        "\t6 = Yellow      E = Light Yellow\n"
-        "\t7 = White       F = Bright White\n");
-    printf("Enter color: ");
-    scanf("%s", col);
-    sprintf(syn, "color %s", col);
-    system(syn);
-#else
-    printf("This is only supported on Windows!\n");
-    printf("Press any to continue...");
-    getchar();
-    getchar();
-#endif
-    cls();
-}
-
-void cls() // * By @Teproanyx
-{
-#if defined(_WIN32)
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
+// * Vector Operation Part
 float vectorSize(float *u)
 {
     float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
