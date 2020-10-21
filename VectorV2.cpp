@@ -315,6 +315,25 @@ bool isVector(int u)
 // * Import and Export
 void importVector()
 {
+    bool started = false;
+    char choice[10];
+    for (int c = 0; c < vectorSlotCount; c++)
+    {
+        if (isVector(c) != NULL)
+            started = true;
+    }
+    if (started)
+    {
+        do
+        {
+            printf("Using this function will remove all existing vector, continue? [Y/N]: ");
+            scanf("%s", choice);
+            if (choice[0] == 'N')
+                return;
+        } while (choice[0] != 'Y');
+        for (int c = 0; c < vectorSlotCount; c++)
+            vector[c] = NULL;
+    }
     int slot = 0;
     float a1, a2, a3;
     char tmp[50], filename[100];
