@@ -8,9 +8,9 @@ Now is being developed further.
 
 ## Program's Abilities
 
-  This program can do Simple Vector Calculating including add, multiply with
-  scalar, dot product, cross product, project a vector on another,
-  find size, find area of parrallelogram corresponding to two vectors.
+  This program can do Simple Vector Calculating including Add, Multiply with
+  scalar, Dot product, Cross product, Project a vector on another,
+  Find size, Find area of parrallelogram corresponding to two vectors.
 
 ## Version
 
