@@ -2,9 +2,10 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.0.1
+ * * Version: 2.1
  * * Released on: 2020-10-21
  * ? Edit ImportVector function
+ * ? Add deleteAllVectors function
  * ? Rearranged functions, Ready for release 2.0!
  * ! TODO Take care of memory leaks
  * TODO SIMP(lify) more code
@@ -38,6 +39,7 @@ void printvec(float *);
 void ShowAllVectors();
 void saveVector(float *);
 bool isVector(int);
+void deleteAllVectors();
 
 // * Import and Export
 void importVector();
@@ -67,6 +69,7 @@ int main()
         printf("[3] Set terminal (command prompt)'s color\n");
         printf("[4] Lab: Import Vector\n");
         printf("[5] Lab: Export Vector\n");
+        printf("[6] Delete all Vectors\n");
         printf("[0] Exit\n");
         choice = getInt("Your Choice: ");
         switch (choice)
@@ -89,6 +92,9 @@ int main()
             break;
         case 5:
             exportVector();
+            break;
+        case 6:
+            deleteAllVectors();
             break;
         default:
             printf("Invalid choice, please try again.\n");
@@ -314,6 +320,14 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
+void deleteAllVectors()
+{
+    for (int c = 0; c < vectorSlotCount; c++)
+        vector[c] = NULL;
+    printf("All vectors have been deleted, press any to continue...");
+    getchar();
+}
+
 // * Import and Export
 void importVector()
 {
@@ -333,8 +347,7 @@ void importVector()
             if (choice[0] == 'N')
                 return;
         } while (choice[0] != 'Y');
-        for (int c = 0; c < vectorSlotCount; c++)
-            vector[c] = NULL;
+        deleteAllVectors();
     }
     int slot = 0;
     float a1, a2, a3;
