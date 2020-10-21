@@ -6,13 +6,15 @@ Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wic
 
 Now is being developed further.
 
-## Current Version
+## Version
 
-  Release: v. 1.3.0 //Used to present to Wichai
-  
-  Beta: snapshot 2.0-rc1
+  Presented Version: v1.3.0
+
+  Current Release: v2.0
   
 ## Vector Program Version History
+
+  2020-10-21 2.0: Finally release for Vector Version 2!
 
   2020-10-21 2.0-rc1: Import and Export Function Upgraded
 
