@@ -208,11 +208,11 @@ void importVector()
 {
     int slot = 0;
     float a1, a2, a3;
-    char filename[30];
+    char tmp[50], filename[100];
     FILE *inputFile;
     printf("Enter file name: ");
-    scanf("%s", filename);
-    sprintf(filename, "%s.txt", filename);
+    scanf("%s", tmp);
+    sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
         printf("Error upon opening files, File may not exist.\n");
@@ -239,11 +239,24 @@ void importVector()
 
 void exportVector()
 {
-    char filename[30];
+    char tmp[50], filename[100];
+    char choice[10];
     FILE *outputFile;
     printf("Enter file name: ");
-    scanf("%s", filename);
-    sprintf(filename, "%s.txt", filename);
+    scanf("%s", tmp);
+    sprintf(filename, "VectorSave/%s.txt", tmp);
+    if ((outputFile = fopen(filename, "r")) != NULL)
+    {
+        do
+        {
+            printf("File already exists, Overwrite? [Y/N]: ");
+            scanf("%s", choice);
+            if (choice[0] == 'N')
+            {
+                return;
+            }
+        } while (choice[0] != 'Y');
+    }
     outputFile = fopen(filename, "w");
     for (int c = 0; c < vectorSlotCount; c++)
     {
@@ -331,12 +344,13 @@ void inputVector()
     {
         if (vector[slot] != NULL)
         {
-            printf(
-                "Vector already exists, Overwrite?\n Press 'N' to decline,"
-                " otherwise any key: ");
-            scanf("%s", confirm);
-            if (confirm[0] == 'N')
-                return;
+            do
+            {
+                printf("Vector already exists, Overwrite? [Y/N]: ");
+                scanf("%s", confirm);
+                if (confirm[0] == 'N')
+                    return;
+            } while (confirm[0] != 'Y');
         }
         float *u = new float[3];
         printf("Enter Vector (i,j,k): ");
@@ -359,16 +373,26 @@ void saveVector(float *u)
 {
     int w;
     char choice[10];
+    do
+    {
+        printf("Do you want to save vector? [Y/N]: ");
+        scanf("%s", choice);
+        if (choice[0] == 'N')
+            return;
+    } while (choice[0] != 'Y');
     w = getInt("Where you want to save vector? : ");
     if (vector[w] != NULL)
     {
-        printf("This slot already has vector in it. Overwrite? : ");
-        scanf("%s", choice);
-        if (choice[0] == 'N')
+        do
         {
-            saveVector(u);
-            return;
-        }
+            printf("This slot already has vector in it. Overwrite? [Y/N]: ");
+            scanf("%s", choice);
+            if (choice[0] == 'N')
+            {
+                saveVector(u);
+                return;
+            }
+        } while (choice[0] != 'Y');
     }
     vector[w] = u;
 }
