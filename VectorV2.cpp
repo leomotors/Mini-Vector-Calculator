@@ -254,6 +254,7 @@ void inputVector()
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
+            delete vector[slot];
         }
         float *u = new float[3];
         printf("Enter Vector (i,j,k): ");
@@ -308,6 +309,7 @@ void saveVector(float *u)
                 return;
             }
         } while (choice[0] != 'Y');
+        delete vector[w];
     }
     vector[w] = u;
 }
