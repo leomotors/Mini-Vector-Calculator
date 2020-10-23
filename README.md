@@ -16,7 +16,7 @@ Now is being developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.1.2
+  Current Release: v2.1.2.1
 
 ## Credits
 
