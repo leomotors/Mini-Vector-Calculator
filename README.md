@@ -16,7 +16,7 @@ Now is being developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.1.1
+  Current Release: v2.1.2
 
 ## Credits
 
@@ -34,6 +34,8 @@ Now is being developed further.
 
 ## Program Version History
 
+  2020-10-21 2.1.2: Add some prevention to memory leaks
+  
   2020-10-21 2.1.1: Misc Code Brushing and Readme Edit
   
   2020-10-21 2.1: Import Vector Function Change and New Function added
