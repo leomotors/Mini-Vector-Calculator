@@ -34,6 +34,8 @@ Now is being developed further.
 
 ## Program Version History
 
+  2020-10-21 2.1.2.1: Edit description to state success on fixing against Memory Leaks
+
   2020-10-21 2.1.2: Add some prevention to memory leaks
   
   2020-10-21 2.1.1: Misc Code Brushing and Readme Edit
