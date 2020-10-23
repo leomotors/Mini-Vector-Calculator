@@ -319,7 +319,13 @@ bool isVector(int u)
 void deleteAllVectors()
 {
     for (int c = 0; c < vectorSlotCount; c++)
-        vector[c] = NULL;
+    {
+        if (vector[c] != NULL)
+        {
+            delete vector[c];
+            vector[c] = NULL;
+        }
+    }
     printf("All vectors have been deleted, press any to continue...");
     getchar();
 }
