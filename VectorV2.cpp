@@ -48,6 +48,13 @@ void deleteAllVectors();
 void importVector();
 void exportVector();
 
+// * Vector Operation Part
+float vectorSize(float *);
+float *scalarMult(float *, float);
+float *addVector(float *, float *);
+float dotProduct(float *, float *);
+float *crossProduct(float *, float *);
+
 // * Safe input by @Teproanyx
 // * Modified to fit this program by @Leomotors
 long long getlong(const char *);
@@ -56,13 +63,6 @@ float getFloat(const char *);
 double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
-
-// * Vector Operation Part
-float vectorSize(float *);
-float *scalarMult(float *, float);
-float *addVector(float *, float *);
-float dotProduct(float *, float *);
-float *crossProduct(float *, float *);
 
 int main()
 {
@@ -420,7 +420,50 @@ void exportVector()
     fclose(outputFile);
 }
 
-// * Safe input by @Teproanyx and modified by @Leomotors
+// * Vector Operation Part
+float vectorSize(float *u)
+{
+    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
+    result = sqrt(result);
+    return result;
+}
+
+float *scalarMult(float *u, float num)
+{
+    float *w = new float[3];
+    w[i] = num * u[i];
+    w[j] = num * u[j];
+    w[k] = num * u[k];
+    return w;
+}
+
+float *addVector(float *u, float *v)
+{
+    float *w = new float[3];
+    w[i] = u[i] + v[i];
+    w[j] = u[j] + v[j];
+    w[k] = u[k] + v[k];
+    return w;
+}
+
+float dotProduct(float *u, float *v)
+{
+    float result;
+    result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
+    return result;
+}
+
+float *crossProduct(float *u, float *v)
+{
+    float *w = new float[3];
+    w[i] = u[j] * v[k] - u[k] * v[j];
+    w[j] = u[k] * v[i] - v[k] * u[i];
+    w[k] = u[i] * v[j] - v[i] * u[j];
+    return w;
+}
+
+// * Safe input by @Teproanyx
+// * Modified to fit this program by @Leomotors
 long getLong(const char *prompt)
 {
     char *buffer = getString(prompt);
@@ -542,46 +585,4 @@ void memoryError(const void *pointer)
         printf("Not enough RAM. Terminating program...\n");
         exit(EXIT_FAILURE);
     }
-}
-
-// * Vector Operation Part
-float vectorSize(float *u)
-{
-    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
-    result = sqrt(result);
-    return result;
-}
-
-float *scalarMult(float *u, float num)
-{
-    float *w = new float[3];
-    w[i] = num * u[i];
-    w[j] = num * u[j];
-    w[k] = num * u[k];
-    return w;
-}
-
-float *addVector(float *u, float *v)
-{
-    float *w = new float[3];
-    w[i] = u[i] + v[i];
-    w[j] = u[j] + v[j];
-    w[k] = u[k] + v[k];
-    return w;
-}
-
-float dotProduct(float *u, float *v)
-{
-    float result;
-    result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
-    return result;
-}
-
-float *crossProduct(float *u, float *v)
-{
-    float *w = new float[3];
-    w[i] = u[j] * v[k] - u[k] * v[j];
-    w[j] = u[k] * v[i] - v[k] * u[i];
-    w[k] = u[i] * v[j] - v[i] * u[j];
-    return w;
 }
