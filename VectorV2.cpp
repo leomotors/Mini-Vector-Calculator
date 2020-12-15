@@ -46,11 +46,12 @@ void deleteAllVectors();
 void importVector();
 void exportVector();
 
-// * Safe input by @Teproanyx and modified by @Leomotors
+// * Safe input by @Teproanyx
+// * Modified to fit this program by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
 double getDouble(const char *);
-char *getString(const char *prompt);
+char *getString(const char *);
 
 // * Vector Operation Part
 float vectorSize(float *);
