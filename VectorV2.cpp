@@ -268,11 +268,9 @@ void inputVector()
             delete vector[slot];
         }
         float *u = new float[3];
-        printf("Enter Vector (i,j,k): ");
-        u = getDouble("");
-        v =
-            // scanf("%f %f %f", &u[i], &u[j], &u[k]);
-            vector[slot] = u;
+        char *buffer = getString("Please enter vector (i,j,k): ");
+        sscanf(buffer, "%f %f %f%c", &u[i], &u[j], &u[k]);
+        vector[slot] = u;
     }
     else
     {
@@ -301,11 +299,10 @@ void ShowAllVectors()
 void saveVector(float *u)
 {
     int w;
-    char choice[10];
+    char *choice;
     do
     {
-        printf("Do you want to save vector? [Y/N]: ");
-        scanf("%s", choice);
+        choice = getString("Do you want to save vector? [Y/N]: ");
         if (choice[0] == 'N')
             return;
     } while (choice[0] != 'Y');
@@ -314,8 +311,7 @@ void saveVector(float *u)
     {
         do
         {
-            printf("This slot already has vector in it. Overwrite? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
                 saveVector(u);
@@ -350,7 +346,7 @@ void deleteAllVectors()
 void importVector()
 {
     bool started = false;
-    char choice[10];
+    char *choice;
     for (int c = 0; c < vectorSlotCount; c++)
     {
         if (isVector(c) != NULL)
@@ -360,8 +356,7 @@ void importVector()
     {
         do
         {
-            printf("Using this function will remove all existing vector, continue? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("Using this function will remove all existing vector, continue? [Y/N]: ");
             if (choice[0] == 'N')
                 return;
         } while (choice[0] != 'Y');
@@ -400,18 +395,16 @@ void importVector()
 
 void exportVector()
 {
-    char tmp[50], filename[100];
-    char choice[10];
+    char *tmp, *choice;
+    char filename[100];
     FILE *outputFile;
-    printf("Enter file name: ");
-    scanf("%s", tmp);
+    tmp = getString("Enter file name: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         do
         {
-            printf("File already exists, Overwrite? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("File already exists, Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
                 return;
@@ -434,7 +427,8 @@ long getLong(const char *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        return getLong("Input error, please try again!\n");
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
     }
 
     char *end = NULL;
@@ -445,7 +439,8 @@ long getLong(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        return getLong("Input error, please try again!\n");
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
     }
 
     free(buffer);
@@ -458,7 +453,8 @@ int getInt(const char *prompt)
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        return getInt("Input error, please try again!\n");
+        printf("Input error, please try again!\n");
+        return getInt(prompt);
     }
     return (int)n;
 }
@@ -480,7 +476,8 @@ double getDouble(const char *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        return getLong("Input error, please try again!\n");
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
     }
 
     char *end = NULL;
@@ -491,7 +488,8 @@ double getDouble(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        return getDouble("Input error, please try again!\n");
+        printf("Input error, please try again!\n");
+        return getDouble(prompt);
     }
 
     free(buffer);
@@ -508,7 +506,8 @@ char *getString(const char *prompt)
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        return getString("Error, try again:");
+        printf("Error, try again!\n");
+        return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
@@ -519,7 +518,8 @@ char *getString(const char *prompt)
         {
             free(buffer);
             free(subBuffer);
-            return getString("Read Error(WTF HOW), try again:");
+            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            return getString(prompt);
         }
 
         size *= 2;
