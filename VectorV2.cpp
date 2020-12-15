@@ -14,6 +14,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <float.h>
 #include <string.h>
 #define INITIAL_BUFFER 8
 
@@ -51,6 +52,7 @@ void exportVector();
 // * Modified to fit this program by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
+float getFloat(const char *);
 double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
@@ -251,7 +253,7 @@ void cls() // * By @Teproanyx
 void inputVector()
 {
     int slot;
-    char confirm[10];
+    char *confirm;
     slot = getInt("Which slot you want? : ");
     if (slot >= 0 && slot < vectorSlotCount)
     {
@@ -259,8 +261,7 @@ void inputVector()
         {
             do
             {
-                printf("Vector already exists, Overwrite? [Y/N]: ");
-                scanf("%s", confirm);
+                confirm = getString("Vector already exists, Overwrite? [Y/N]: ");
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
@@ -268,8 +269,10 @@ void inputVector()
         }
         float *u = new float[3];
         printf("Enter Vector (i,j,k): ");
-        scanf("%f %f %f", &u[i], &u[j], &u[k]);
-        vector[slot] = u;
+        u = getDouble("");
+        v =
+            // scanf("%f %f %f", &u[i], &u[j], &u[k]);
+            vector[slot] = u;
     }
     else
     {
@@ -458,6 +461,17 @@ int getInt(const char *prompt)
         return getInt("Input error, please try again!\n");
     }
     return (int)n;
+}
+
+float getFloat(const char *prompt)
+{
+    double temp = getDouble(prompt);
+    if (temp > FLT_MAX || temp < FLT_MIN)
+    {
+        printf("Error! Overflowed!\n");
+        return getFloat(prompt);
+    }
+    return (float)temp;
 }
 
 double getDouble(const char *prompt)
