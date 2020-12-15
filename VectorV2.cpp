@@ -364,10 +364,10 @@ void importVector()
     }
     int slot = 0;
     float a1, a2, a3;
-    char tmp[50], filename[100];
+    char *tmp;
+    char filename[100];
     FILE *inputFile;
-    printf("Enter file name: ");
-    scanf("%s", tmp);
+    tmp = getString("Enter file name: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
