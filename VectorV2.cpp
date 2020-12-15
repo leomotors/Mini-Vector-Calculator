@@ -29,6 +29,7 @@
 float *vector[vectorSlotCount] = {NULL};
 
 // * Menu's Stuff
+void printMainMenu();
 void vectorOperation();
 void printOperationMenu();
 void setColor(); // ! Only supported on Windows
@@ -67,14 +68,7 @@ int main()
     {
         cls();
         ShowAllVectors();
-        printf("\nWhat do you want to do?\n");
-        printf("[1] Input new vector!\n");
-        printf("[2] Do operations!\n");
-        printf("[3] Set terminal (command prompt)'s color\n");
-        printf("[4] Lab: Import Vector\n");
-        printf("[5] Lab: Export Vector\n");
-        printf("[6] Delete all Vectors\n");
-        printf("[0] Exit\n");
+        printMainMenu();
         choice = getInt("Your Choice: ");
         switch (choice)
         {
@@ -110,6 +104,18 @@ int main()
 }
 
 // * Menu's Stuff
+void printMainMenu()
+{
+    printf("\nWhat do you want to do?\n");
+    printf("[1] Input new vector!\n");
+    printf("[2] Do operations!\n");
+    printf("[3] Set terminal (command prompt)'s color\n");
+    printf("[4] Lab: Import Vector\n");
+    printf("[5] Lab: Export Vector\n");
+    printf("[6] Delete all Vectors\n");
+    printf("[0] Exit\n");
+}
+
 void vectorOperation()
 {
     int choice, temp;
