@@ -374,7 +374,6 @@ void importVector()
         printf("Error upon opening files, File may not exist.\n");
         printf("Press any to continue...");
         getchar();
-        getchar();
         return;
     }
     while (true)
