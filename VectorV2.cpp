@@ -15,6 +15,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <string.h>
+#define INITIAL_BUFFER 8
 
 #include <math.h>
 #include <stdio.h>
@@ -48,6 +49,8 @@ void exportVector();
 // * Safe input by @Teproanyx and modified by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
+double getDouble(const char *);
+char *getString(const char *prompt);
 
 // * Vector Operation Part
 float vectorSize(float *);
@@ -416,70 +419,106 @@ void exportVector()
 // * Safe input by @Teproanyx and modified by @Leomotors
 long getLong(const char *prompt)
 {
-    while (true)
+    char *buffer = getString(prompt);
+    if (buffer[0] == '\0')
     {
-        printf("%s", prompt);
-        char buffer[21];
-        if (scanf("%20s", buffer) == EOF)
-        {
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        if (getchar() != '\n')
-        {
-            getchar();
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        bool error = false;
-        for (int c = 0, n = strlen(buffer); c < n; c++)
-        {
-            if (c == 0)
-            {
-                if (buffer[c] != '-' && !isdigit(buffer[c]))
-                {
-                    error = true;
-                    break;
-                }
-            }
-            else if (!isdigit(buffer[c]))
-            {
-                error = true;
-                break;
-            }
-        }
-        if (error)
-        {
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        errno = 0;
-        long n = strtol(buffer, NULL, 10);
-        if (errno == ERANGE)
-        {
-            printf("Value too large\n");
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        return n;
+        free(buffer);
+        return getLong("Input error, please try again!\n");
     }
+
+    char *end = NULL;
+    errno = 0;
+
+    long n = strtol(buffer, &end, 10);
+    if (errno || *end != '\0')
+    {
+        free(buffer);
+        fprintf(stderr, "Value conversion error\n");
+        return getLong("Input error, please try again!\n");
+    }
+
+    free(buffer);
+
+    return n;
 }
 
 int getInt(const char *prompt)
 {
-    while (true)
+    long n = getLong(prompt);
+    if (n > INT_MAX || n < INT_MIN)
     {
-        long n = getLong(prompt);
-        if (n > INT_MAX || n < INT_MIN)
+        return getInt("Input error, please try again!\n");
+    }
+    return (int)n;
+}
+
+double getDouble(const char *prompt)
+{
+    char *buffer = getString(prompt);
+    if (buffer[0] == '\0')
+    {
+        free(buffer);
+        return getLong("Input error, please try again!\n");
+    }
+
+    char *end = NULL;
+    errno = 0;
+
+    double n = strtod(buffer, &end);
+    if (errno || *end != '\0')
+    {
+        free(buffer);
+        fprintf(stderr, "Value conversion error\n");
+        return getDouble("Input error, please try again!\n");
+    }
+
+    free(buffer);
+
+    return n;
+}
+
+char *getString(const char *prompt)
+{
+    size_t size = INITIAL_BUFFER;
+    printf("%s", prompt);
+    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    memoryError(buffer);
+    if (fgets(buffer, size + 1, stdin) == NULL)
+    {
+        free(buffer);
+        return getString("Error, try again:");
+    }
+    while (buffer[strlen(buffer) - 1] != '\n')
+    {
+        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        memoryError(subBuffer);
+
+        if (fgets(subBuffer, size + 1, stdin) == NULL)
         {
-            printf("Input error, please try again!\n");
-            continue;
+            free(buffer);
+            free(subBuffer);
+            return getString("Read Error(WTF HOW), try again:");
         }
-        return (int)n;
+
+        size *= 2;
+        buffer = (char *)realloc(buffer, size + 1);
+        memoryError(buffer);
+
+        strncat(buffer, subBuffer, size / 2);
+        free(subBuffer);
+    }
+    buffer[strlen(buffer) - 1] = '\0';
+    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    memoryError(buffer);
+    return buffer;
+}
+
+void memoryError(const void *pointer)
+{
+    if (pointer == NULL)
+    {
+        printf("Not enough RAM. Terminating program...\n");
+        exit(EXIT_FAILURE);
     }
 }
 
