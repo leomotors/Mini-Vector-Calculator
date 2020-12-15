@@ -53,6 +53,7 @@ long long getlong(const char *);
 int getInt(const char *);
 double getDouble(const char *);
 char *getString(const char *);
+void memoryError(const void *);
 
 // * Vector Operation Part
 float vectorSize(float *);
@@ -212,7 +213,8 @@ void printOperationMenu()
 void setColor() // ! Only supported on Windows
 {
 #if defined(_WIN32)
-    char col[10], syn[10];
+    char *col;
+    char syn[10];
     printf(
         "\nColor attributes are specified by TWO hex digits -- the first "
         "corresponds to the background; the second the foreground."
@@ -225,8 +227,7 @@ void setColor() // ! Only supported on Windows
         "\t5 = Purple      D = Light Purple\n"
         "\t6 = Yellow      E = Light Yellow\n"
         "\t7 = White       F = Bright White\n");
-    printf("Enter color: ");
-    scanf("%s", col);
+    col = getString("Enter color: ");
     sprintf(syn, "color %s", col);
     system(syn);
 #else
