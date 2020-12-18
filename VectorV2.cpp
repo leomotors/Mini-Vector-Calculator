@@ -14,7 +14,9 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <float.h>
 #include <string.h>
+#define INITIAL_BUFFER 8
 
 #include <math.h>
 #include <stdio.h>
@@ -28,6 +30,7 @@
 float *vector[vectorSlotCount] = {NULL};
 
 // * Menu's Stuff
+void printMainMenu();
 void vectorOperation();
 void printOperationMenu();
 void setColor(); // ! Only supported on Windows
@@ -45,16 +48,21 @@ void deleteAllVectors();
 void importVector();
 void exportVector();
 
-// * Safe input by @Teproanyx and modified by @Leomotors
-long long getlong(const char *);
-int getInt(const char *);
-
 // * Vector Operation Part
 float vectorSize(float *);
 float *scalarMult(float *, float);
 float *addVector(float *, float *);
 float dotProduct(float *, float *);
 float *crossProduct(float *, float *);
+
+// * Safe input by @Teproanyx
+// * Modified to fit this program by @Leomotors
+long long getlong(const char *);
+int getInt(const char *);
+float getFloat(const char *);
+double getDouble(const char *);
+char *getString(const char *);
+void memoryError(const void *);
 
 int main()
 {
@@ -63,14 +71,7 @@ int main()
     {
         cls();
         ShowAllVectors();
-        printf("\nWhat do you want to do?\n");
-        printf("[1] Input new vector!\n");
-        printf("[2] Do operations!\n");
-        printf("[3] Set terminal (command prompt)'s color\n");
-        printf("[4] Lab: Import Vector\n");
-        printf("[5] Lab: Export Vector\n");
-        printf("[6] Delete all Vectors\n");
-        printf("[0] Exit\n");
+        printMainMenu();
         choice = getInt("Your Choice: ");
         switch (choice)
         {
@@ -106,6 +107,18 @@ int main()
 }
 
 // * Menu's Stuff
+void printMainMenu()
+{
+    printf("\nWhat do you want to do?\n");
+    printf("[1] Input new vector!\n");
+    printf("[2] Do operations!\n");
+    printf("[3] Set terminal (command prompt)'s color\n");
+    printf("[4] Lab: Import Vector\n");
+    printf("[5] Lab: Export Vector\n");
+    printf("[6] Delete all Vectors\n");
+    printf("[0] Exit\n");
+}
+
 void vectorOperation()
 {
     int choice, temp;
@@ -202,7 +215,8 @@ void printOperationMenu()
 void setColor() // ! Only supported on Windows
 {
 #if defined(_WIN32)
-    char col[10], syn[10];
+    char *col;
+    char syn[10];
     printf(
         "\nColor attributes are specified by TWO hex digits -- the first "
         "corresponds to the background; the second the foreground."
@@ -215,8 +229,7 @@ void setColor() // ! Only supported on Windows
         "\t5 = Purple      D = Light Purple\n"
         "\t6 = Yellow      E = Light Yellow\n"
         "\t7 = White       F = Bright White\n");
-    printf("Enter color: ");
-    scanf("%s", col);
+    col = getString("Enter color: ");
     sprintf(syn, "color %s", col);
     system(syn);
 #else
@@ -240,7 +253,7 @@ void cls() // * By @Teproanyx
 void inputVector()
 {
     int slot;
-    char confirm[10];
+    char *confirm;
     slot = getInt("Which slot you want? : ");
     if (slot >= 0 && slot < vectorSlotCount)
     {
@@ -248,16 +261,15 @@ void inputVector()
         {
             do
             {
-                printf("Vector already exists, Overwrite? [Y/N]: ");
-                scanf("%s", confirm);
+                confirm = getString("Vector already exists, Overwrite? [Y/N]: ");
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
             delete vector[slot];
         }
         float *u = new float[3];
-        printf("Enter Vector (i,j,k): ");
-        scanf("%f %f %f", &u[i], &u[j], &u[k]);
+        char *buffer = getString("Please enter vector (i,j,k): ");
+        sscanf(buffer, "%f %f %f%c", &u[i], &u[j], &u[k]);
         vector[slot] = u;
     }
     else
@@ -287,11 +299,10 @@ void ShowAllVectors()
 void saveVector(float *u)
 {
     int w;
-    char choice[10];
+    char *choice;
     do
     {
-        printf("Do you want to save vector? [Y/N]: ");
-        scanf("%s", choice);
+        choice = getString("Do you want to save vector? [Y/N]: ");
         if (choice[0] == 'N')
             return;
     } while (choice[0] != 'Y');
@@ -300,8 +311,7 @@ void saveVector(float *u)
     {
         do
         {
-            printf("This slot already has vector in it. Overwrite? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
                 saveVector(u);
@@ -336,7 +346,7 @@ void deleteAllVectors()
 void importVector()
 {
     bool started = false;
-    char choice[10];
+    char *choice;
     for (int c = 0; c < vectorSlotCount; c++)
     {
         if (isVector(c) != NULL)
@@ -346,8 +356,7 @@ void importVector()
     {
         do
         {
-            printf("Using this function will remove all existing vector, continue? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("Using this function will remove all existing vector, continue? [Y/N]: ");
             if (choice[0] == 'N')
                 return;
         } while (choice[0] != 'Y');
@@ -355,16 +364,15 @@ void importVector()
     }
     int slot = 0;
     float a1, a2, a3;
-    char tmp[50], filename[100];
+    char *tmp;
+    char filename[100];
     FILE *inputFile;
-    printf("Enter file name: ");
-    scanf("%s", tmp);
+    tmp = getString("Enter file name: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
         printf("Error upon opening files, File may not exist.\n");
         printf("Press any to continue...");
-        getchar();
         getchar();
         return;
     }
@@ -386,18 +394,16 @@ void importVector()
 
 void exportVector()
 {
-    char tmp[50], filename[100];
-    char choice[10];
+    char *tmp, *choice;
+    char filename[100];
     FILE *outputFile;
-    printf("Enter file name: ");
-    scanf("%s", tmp);
+    tmp = getString("Enter file name: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         do
         {
-            printf("File already exists, Overwrite? [Y/N]: ");
-            scanf("%s", choice);
+            choice = getString("File already exists, Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
                 return;
@@ -411,76 +417,6 @@ void exportVector()
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
     fclose(outputFile);
-}
-
-// * Safe input by @Teproanyx and modified by @Leomotors
-long getLong(const char *prompt)
-{
-    while (true)
-    {
-        printf("%s", prompt);
-        char buffer[21];
-        if (scanf("%20s", buffer) == EOF)
-        {
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        if (getchar() != '\n')
-        {
-            getchar();
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        bool error = false;
-        for (int c = 0, n = strlen(buffer); c < n; c++)
-        {
-            if (c == 0)
-            {
-                if (buffer[c] != '-' && !isdigit(buffer[c]))
-                {
-                    error = true;
-                    break;
-                }
-            }
-            else if (!isdigit(buffer[c]))
-            {
-                error = true;
-                break;
-            }
-        }
-        if (error)
-        {
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        errno = 0;
-        long n = strtol(buffer, NULL, 10);
-        if (errno == ERANGE)
-        {
-            printf("Value too large\n");
-            printf("Input error, please try again!\n");
-            continue;
-        }
-
-        return n;
-    }
-}
-
-int getInt(const char *prompt)
-{
-    while (true)
-    {
-        long n = getLong(prompt);
-        if (n > INT_MAX || n < INT_MIN)
-        {
-            printf("Input error, please try again!\n");
-            continue;
-        }
-        return (int)n;
-    }
 }
 
 // * Vector Operation Part
@@ -523,4 +459,129 @@ float *crossProduct(float *u, float *v)
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
     return w;
+}
+
+// * Safe input by @Teproanyx
+// * Modified to fit this program by @Leomotors
+long getLong(const char *prompt)
+{
+    char *buffer = getString(prompt);
+    if (buffer[0] == '\0')
+    {
+        free(buffer);
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
+    }
+
+    char *end = NULL;
+    errno = 0;
+
+    long n = strtol(buffer, &end, 10);
+    if (errno || *end != '\0')
+    {
+        free(buffer);
+        fprintf(stderr, "Value conversion error\n");
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
+    }
+
+    free(buffer);
+
+    return n;
+}
+
+int getInt(const char *prompt)
+{
+    long n = getLong(prompt);
+    if (n > INT_MAX || n < INT_MIN)
+    {
+        printf("Input error, please try again!\n");
+        return getInt(prompt);
+    }
+    return (int)n;
+}
+
+float getFloat(const char *prompt)
+{
+    double temp = getDouble(prompt);
+    if (temp > FLT_MAX || temp < FLT_MIN)
+    {
+        printf("Error! Overflowed!\n");
+        return getFloat(prompt);
+    }
+    return (float)temp;
+}
+
+double getDouble(const char *prompt)
+{
+    char *buffer = getString(prompt);
+    if (buffer[0] == '\0')
+    {
+        free(buffer);
+        printf("Input error, please try again!\n");
+        return getLong(prompt);
+    }
+
+    char *end = NULL;
+    errno = 0;
+
+    double n = strtod(buffer, &end);
+    if (errno || *end != '\0')
+    {
+        free(buffer);
+        fprintf(stderr, "Value conversion error\n");
+        printf("Input error, please try again!\n");
+        return getDouble(prompt);
+    }
+
+    free(buffer);
+
+    return n;
+}
+
+char *getString(const char *prompt)
+{
+    size_t size = INITIAL_BUFFER;
+    printf("%s", prompt);
+    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    memoryError(buffer);
+    if (fgets(buffer, size + 1, stdin) == NULL)
+    {
+        free(buffer);
+        printf("Error, try again!\n");
+        return getString(prompt);
+    }
+    while (buffer[strlen(buffer) - 1] != '\n')
+    {
+        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        memoryError(subBuffer);
+
+        if (fgets(subBuffer, size + 1, stdin) == NULL)
+        {
+            free(buffer);
+            free(subBuffer);
+            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            return getString(prompt);
+        }
+
+        size *= 2;
+        buffer = (char *)realloc(buffer, size + 1);
+        memoryError(buffer);
+
+        strncat(buffer, subBuffer, size / 2);
+        free(subBuffer);
+    }
+    buffer[strlen(buffer) - 1] = '\0';
+    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    memoryError(buffer);
+    return buffer;
+}
+
+void memoryError(const void *pointer)
+{
+    if (pointer == NULL)
+    {
+        printf("Not enough RAM. Terminating program...\n");
+        exit(EXIT_FAILURE);
+    }
 }
