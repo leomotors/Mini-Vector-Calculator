@@ -16,7 +16,7 @@ Now is being developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.1.2.1
+  Current Release: v2.2
 
 ## Credits
 
@@ -33,6 +33,8 @@ Now is being developed further.
   Thanks to @Teproanyx for helping me 🙂
 
 ## Program Version History
+
+  2020-12-18 December 2020 Update (2.2): Implemented Safe Input V3
 
   2020-10-21 2.1.2.1: Edit description to state success on fixing against Memory Leaks
 
