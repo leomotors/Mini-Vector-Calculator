@@ -2,14 +2,10 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.1.2.1
- * * Released on: 2020-10-21
- * ? Successfully fixed Memory Leaks (Simpler than I thought!)
- * ? Edit ImportVector function
- * ? Add deleteAllVectors function
- * ? Rearranged functions, Ready for release 2.0!
- * TODO SIMP(lify) more code
- * TODO Make this resists against input from @Teproanyx (rn maybe done?)
+ * * Version: 2.2
+ * * Released on: 2020-12-18
+ * ? Implemented Safe Input V3 from @Teproanyx and customed
+ * TODO Maintanence program if needed
  */
 
 #include <ctype.h>
