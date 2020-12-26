@@ -2,9 +2,10 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.2
+ * * Version: 2.3
  * * Released on: 2020-12-18
- * ? Implemented Safe Input V3 from @Teproanyx and customed
+ * ? Program is now in .c
+ * ? Gained more efficiency and SPPPEEEEDDDD
  * TODO Maintanence program if needed
  */
 
@@ -12,6 +13,7 @@
 #include <errno.h>
 #include <float.h>
 #include <string.h>
+#include <stdbool.h>
 #define INITIAL_BUFFER 8
 
 #include <math.h>
@@ -26,23 +28,23 @@
 float *vector[vectorSlotCount] = {NULL};
 
 // * Menu's Stuff
-void printMainMenu();
-void vectorOperation();
-void printOperationMenu();
-void setColor(); // ! Only supported on Windows
-void cls();
+void printMainMenu(void);
+void vectorOperation(void);
+void printOperationMenu(void);
+void setColor(void); // ! Only supported on Windows
+void cls(void);
 
 // * Vector management
-void inputVector();
+void inputVector(void);
 void printvec(float *);
-void ShowAllVectors();
+void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
-void deleteAllVectors();
+void deleteAllVectors(void);
 
 // * Import and Export
-void importVector();
-void exportVector();
+void importVector(void);
+void exportVector(void);
 
 // * Vector Operation Part
 float vectorSize(float *);
@@ -60,7 +62,7 @@ double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
 
-int main()
+int main(void)
 {
     int choice;
     while (true)
@@ -103,7 +105,7 @@ int main()
 }
 
 // * Menu's Stuff
-void printMainMenu()
+void printMainMenu(void)
 {
     printf("\nWhat do you want to do?\n");
     printf("[1] Input new vector!\n");
@@ -115,7 +117,7 @@ void printMainMenu()
     printf("[0] Exit\n");
 }
 
-void vectorOperation()
+void vectorOperation(void)
 {
     int choice, temp;
     int u, v;
@@ -192,7 +194,7 @@ void vectorOperation()
     getchar();
 }
 
-void printOperationMenu()
+void printOperationMenu(void)
 {
     printf("==========================================\n");
     printf("Please select functions!\n");
@@ -208,7 +210,7 @@ void printOperationMenu()
     printf("[0] Exit\n");
 }
 
-void setColor() // ! Only supported on Windows
+void setColor(void) // ! Only supported on Windows
 {
 #if defined(_WIN32)
     char *col;
@@ -236,7 +238,7 @@ void setColor() // ! Only supported on Windows
     cls();
 }
 
-void cls() // * By @Teproanyx
+void cls(void) // * By @Teproanyx
 {
 #if defined(_WIN32)
     system("cls");
@@ -246,7 +248,7 @@ void cls() // * By @Teproanyx
 }
 
 // * Vector management
-void inputVector()
+void inputVector(void)
 {
     int slot;
     char *confirm;
@@ -261,11 +263,11 @@ void inputVector()
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
-            delete vector[slot];
+            free(vector[slot]);
         }
-        float *u = new float[3];
+        float *u = malloc(sizeof(*u) * 3);
         char *buffer = getString("Please enter vector (i,j,k): ");
-        sscanf(buffer, "%f %f %f%c", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
         vector[slot] = u;
     }
     else
@@ -280,7 +282,7 @@ void printvec(float *u)
     printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
 }
 
-void ShowAllVectors()
+void ShowAllVectors(void)
 {
     for (int m = 0; m < vectorSlotCount; m++)
     {
@@ -314,7 +316,7 @@ void saveVector(float *u)
                 return;
             }
         } while (choice[0] != 'Y');
-        delete vector[w];
+        free(vector[w]);
     }
     vector[w] = u;
 }
@@ -324,13 +326,13 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
-void deleteAllVectors()
+void deleteAllVectors(void)
 {
     for (int c = 0; c < vectorSlotCount; c++)
     {
         if (vector[c] != NULL)
         {
-            delete vector[c];
+            free(vector[c]);
             vector[c] = NULL;
         }
     }
@@ -339,13 +341,13 @@ void deleteAllVectors()
 }
 
 // * Import and Export
-void importVector()
+void importVector(void)
 {
     bool started = false;
     char *choice;
     for (int c = 0; c < vectorSlotCount; c++)
     {
-        if (isVector(c) != NULL)
+        if (isVector(c))
             started = true;
     }
     if (started)
@@ -377,7 +379,7 @@ void importVector()
         fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
-            vector[slot] = new float[3];
+            vector[slot] = malloc(sizeof(*vector) * 3);
             vector[slot][i] = a1;
             vector[slot][j] = a2;
             vector[slot][k] = a3;
@@ -388,7 +390,7 @@ void importVector()
     fclose(inputFile);
 }
 
-void exportVector()
+void exportVector(void)
 {
     char *tmp, *choice;
     char filename[100];
@@ -425,7 +427,7 @@ float vectorSize(float *u)
 
 float *scalarMult(float *u, float num)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
@@ -434,7 +436,7 @@ float *scalarMult(float *u, float num)
 
 float *addVector(float *u, float *v)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
@@ -450,7 +452,7 @@ float dotProduct(float *u, float *v)
 
 float *crossProduct(float *u, float *v)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -539,7 +541,7 @@ char *getString(const char *prompt)
 {
     size_t size = INITIAL_BUFFER;
     printf("%s", prompt);
-    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
@@ -549,7 +551,7 @@ char *getString(const char *prompt)
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
-        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        char *subBuffer = malloc((size + 1) * sizeof(*subBuffer));
         memoryError(subBuffer);
 
         if (fgets(subBuffer, size + 1, stdin) == NULL)
@@ -561,14 +563,14 @@ char *getString(const char *prompt)
         }
 
         size *= 2;
-        buffer = (char *)realloc(buffer, size + 1);
+        buffer = realloc(buffer, size + 1);
         memoryError(buffer);
 
         strncat(buffer, subBuffer, size / 2);
         free(subBuffer);
     }
     buffer[strlen(buffer) - 1] = '\0';
-    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    buffer = realloc(buffer, strlen(buffer) + 1);
     memoryError(buffer);
     return buffer;
 }
