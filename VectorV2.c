@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <float.h>
 #include <string.h>
+#include <stdbool.h>
 #define INITIAL_BUFFER 8
 
 #include <math.h>
@@ -261,9 +262,9 @@ void inputVector()
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
-            delete vector[slot];
+            free(vector[slot]);
         }
-        float *u = new float[3];
+        float *u = malloc(sizeof(*u) * 3);
         char *buffer = getString("Please enter vector (i,j,k): ");
         sscanf(buffer, "%f %f %f%c", &u[i], &u[j], &u[k]);
         vector[slot] = u;
@@ -314,7 +315,7 @@ void saveVector(float *u)
                 return;
             }
         } while (choice[0] != 'Y');
-        delete vector[w];
+        free(vector[w]);
     }
     vector[w] = u;
 }
@@ -330,7 +331,7 @@ void deleteAllVectors()
     {
         if (vector[c] != NULL)
         {
-            delete vector[c];
+            free(vector[c]);
             vector[c] = NULL;
         }
     }
@@ -377,7 +378,7 @@ void importVector()
         fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
-            vector[slot] = new float[3];
+            vector[slot] = malloc(sizeof(*vector) * 3);
             vector[slot][i] = a1;
             vector[slot][j] = a2;
             vector[slot][k] = a3;
@@ -425,7 +426,7 @@ float vectorSize(float *u)
 
 float *scalarMult(float *u, float num)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
@@ -434,7 +435,7 @@ float *scalarMult(float *u, float num)
 
 float *addVector(float *u, float *v)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
@@ -450,7 +451,7 @@ float dotProduct(float *u, float *v)
 
 float *crossProduct(float *u, float *v)
 {
-    float *w = new float[3];
+    float *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -539,7 +540,7 @@ char *getString(const char *prompt)
 {
     size_t size = INITIAL_BUFFER;
     printf("%s", prompt);
-    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
@@ -549,7 +550,7 @@ char *getString(const char *prompt)
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
-        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        char *subBuffer = malloc((size + 1) * sizeof(*subBuffer));
         memoryError(subBuffer);
 
         if (fgets(subBuffer, size + 1, stdin) == NULL)
@@ -561,14 +562,14 @@ char *getString(const char *prompt)
         }
 
         size *= 2;
-        buffer = (char *)realloc(buffer, size + 1);
+        buffer = realloc(buffer, size + 1);
         memoryError(buffer);
 
         strncat(buffer, subBuffer, size / 2);
         free(subBuffer);
     }
     buffer[strlen(buffer) - 1] = '\0';
-    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    buffer = realloc(buffer, strlen(buffer) + 1);
     memoryError(buffer);
     return buffer;
 }
