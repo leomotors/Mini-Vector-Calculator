@@ -28,23 +28,23 @@
 float *vector[vectorSlotCount] = {NULL};
 
 // * Menu's Stuff
-void printMainMenu();
-void vectorOperation();
-void printOperationMenu();
-void setColor(); // ! Only supported on Windows
-void cls();
+void printMainMenu(void);
+void vectorOperation(void);
+void printOperationMenu(void);
+void setColor(void); // ! Only supported on Windows
+void cls(void);
 
 // * Vector management
-void inputVector();
+void inputVector(void);
 void printvec(float *);
-void ShowAllVectors();
+void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
-void deleteAllVectors();
+void deleteAllVectors(void);
 
 // * Import and Export
-void importVector();
-void exportVector();
+void importVector(void);
+void exportVector(void);
 
 // * Vector Operation Part
 float vectorSize(float *);
@@ -62,7 +62,7 @@ double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
 
-int main()
+int main(void)
 {
     int choice;
     while (true)
@@ -267,7 +267,7 @@ void inputVector()
         }
         float *u = malloc(sizeof(*u) * 3);
         char *buffer = getString("Please enter vector (i,j,k): ");
-        sscanf(buffer, "%f %f %f%c", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
         vector[slot] = u;
     }
     else
