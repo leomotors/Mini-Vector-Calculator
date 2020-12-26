@@ -105,7 +105,7 @@ int main(void)
 }
 
 // * Menu's Stuff
-void printMainMenu()
+void printMainMenu(void)
 {
     printf("\nWhat do you want to do?\n");
     printf("[1] Input new vector!\n");
@@ -117,7 +117,7 @@ void printMainMenu()
     printf("[0] Exit\n");
 }
 
-void vectorOperation()
+void vectorOperation(void)
 {
     int choice, temp;
     int u, v;
@@ -194,7 +194,7 @@ void vectorOperation()
     getchar();
 }
 
-void printOperationMenu()
+void printOperationMenu(void)
 {
     printf("==========================================\n");
     printf("Please select functions!\n");
@@ -210,7 +210,7 @@ void printOperationMenu()
     printf("[0] Exit\n");
 }
 
-void setColor() // ! Only supported on Windows
+void setColor(void) // ! Only supported on Windows
 {
 #if defined(_WIN32)
     char *col;
@@ -238,7 +238,7 @@ void setColor() // ! Only supported on Windows
     cls();
 }
 
-void cls() // * By @Teproanyx
+void cls(void) // * By @Teproanyx
 {
 #if defined(_WIN32)
     system("cls");
@@ -248,7 +248,7 @@ void cls() // * By @Teproanyx
 }
 
 // * Vector management
-void inputVector()
+void inputVector(void)
 {
     int slot;
     char *confirm;
@@ -282,7 +282,7 @@ void printvec(float *u)
     printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
 }
 
-void ShowAllVectors()
+void ShowAllVectors(void)
 {
     for (int m = 0; m < vectorSlotCount; m++)
     {
@@ -326,7 +326,7 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
-void deleteAllVectors()
+void deleteAllVectors(void)
 {
     for (int c = 0; c < vectorSlotCount; c++)
     {
@@ -341,7 +341,7 @@ void deleteAllVectors()
 }
 
 // * Import and Export
-void importVector()
+void importVector(void)
 {
     bool started = false;
     char *choice;
@@ -390,7 +390,7 @@ void importVector()
     fclose(inputFile);
 }
 
-void exportVector()
+void exportVector(void)
 {
     char *tmp, *choice;
     char filename[100];
