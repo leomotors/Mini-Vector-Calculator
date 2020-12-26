@@ -2,9 +2,10 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.2
+ * * Version: 2.3
  * * Released on: 2020-12-18
- * ? Implemented Safe Input V3 from @Teproanyx and customed
+ * ? Program is now in .c
+ * ? Gained more efficiency and SPPPEEEEDDDD
  * TODO Maintanence program if needed
  */
 
@@ -346,7 +347,7 @@ void importVector()
     char *choice;
     for (int c = 0; c < vectorSlotCount; c++)
     {
-        if (isVector(c) != NULL)
+        if (isVector(c))
             started = true;
     }
     if (started)
