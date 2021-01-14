@@ -25,8 +25,8 @@
 #define j 1
 #define k 2
 
-#define vectorSlotCount 100
-float *vector[vectorSlotCount] = {NULL};
+#define vectorArraySize 100
+float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -264,7 +264,7 @@ void inputVector(void)
     int slot;
     char *confirm;
     slot = getInt("Which slot you want? : ");
-    if (slot >= 0 && slot < vectorSlotCount)
+    if (slot >= 0 && slot < vectorArraySize)
     {
         if (vector[slot] != NULL)
         {
@@ -295,7 +295,7 @@ void printvec(float *u)
 
 void ShowAllVectors(void)
 {
-    for (int m = 0; m < vectorSlotCount; m++)
+    for (int m = 0; m < vectorArraySize; m++)
     {
         if (vector[m] != NULL)
         {
@@ -339,7 +339,7 @@ bool isVector(int u)
 
 void deleteAllVectors(void)
 {
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
         {
@@ -356,7 +356,7 @@ void importVector(void)
 {
     bool started = false;
     char *choice;
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (isVector(c))
             started = true;
@@ -420,7 +420,7 @@ void exportVector(void)
         } while (choice[0] != 'Y');
     }
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
