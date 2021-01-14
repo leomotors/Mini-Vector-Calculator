@@ -2,21 +2,21 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.3
- * * Released on: 2020-12-18
- * ? Program is now in .c
- * ? Gained more efficiency and SPPPEEEEDDDD
+ * * Version: 2.4
+ * * Released on: 2021-01-14
+ * ? Overall Improvement
  * TODO Maintanence program if needed
  */
 
 #include <ctype.h>
 #include <errno.h>
 #include <float.h>
+#include <limits.h>
 #include <string.h>
-#include <stdbool.h>
 #define INITIAL_BUFFER 8
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -24,11 +24,13 @@
 #define j 1
 #define k 2
 
-#define vectorSlotCount 100
-float *vector[vectorSlotCount] = {NULL};
+#define vectorArraySize 100
+#define floatingPoint 2
+float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
+bool programCore(void);
 void vectorOperation(void);
 void printOperationMenu(void);
 void setColor(void); // ! Only supported on Windows
@@ -36,7 +38,7 @@ void cls(void);
 
 // * Vector management
 void inputVector(void);
-void printvec(float *);
+const char *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
@@ -64,50 +66,24 @@ void memoryError(const void *);
 
 int main(void)
 {
-    int choice;
+    printf("\nWelcome to Vector Calculator Program!\n\n");
+    printf("Press any key to continue...");
+    getchar();
     while (true)
     {
         cls();
+        printf("=====|Vector Calculator V2.4|=====\n\n");
         ShowAllVectors();
         printMainMenu();
-        choice = getInt("Your Choice: ");
-        switch (choice)
-        {
-        case 0:
-            printf("Thanks for using this program! Press any to exit...");
-            getchar();
+        if (!programCore())
             return 0;
-        case 1:
-            inputVector();
-            break;
-        case 2:
-            vectorOperation();
-            break;
-        case 3:
-            setColor();
-            break;
-        case 4:
-            importVector();
-            break;
-        case 5:
-            exportVector();
-            break;
-        case 6:
-            deleteAllVectors();
-            break;
-        default:
-            printf("Invalid choice, please try again.\n");
-            printf("Press any to continue...");
-            getchar();
-            break;
-        }
     }
 }
 
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nWhat do you want to do?\n");
+    printf("\nPlease select Function from below list.\n");
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
     printf("[3] Set terminal (command prompt)'s color\n");
@@ -117,21 +93,58 @@ void printMainMenu(void)
     printf("[0] Exit\n");
 }
 
+bool programCore(void)
+{
+    int choice = getInt("Your Choice: ");
+    switch (choice)
+    {
+    case 0:
+        printf("Thanks for using this program! Press any to exit...");
+        getchar();
+        return false; // * Tell next code in main to Exit program
+    case 1:
+        inputVector();
+        break;
+    case 2:
+        vectorOperation();
+        break;
+    case 3:
+        setColor();
+        break;
+    case 4:
+        importVector();
+        break;
+    case 5:
+        exportVector();
+        break;
+    case 6:
+        deleteAllVectors();
+        break;
+    default:
+        printf("Invalid choice, please try again.\n");
+        printf("Press any to continue...");
+        getchar();
+        break;
+    }
+    return true; // * User didn't wish to exit program
+}
+
 void vectorOperation(void)
 {
     int choice, temp;
     int u, v;
     cls();
     printOperationMenu();
-    choice = getInt("Enter choice: ");
+    choice = getInt("Selected Operation: ");
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        printf("Invalid choice, try again!\nPress any to continue...");
+        printf("Invalid choice, try again!\nPress any key to continue...");
         getchar();
         return;
     }
+    printf("\n");
     ShowAllVectors();
     printf("\n");
     if (choice == 1 || choice == 2)
@@ -139,7 +152,7 @@ void vectorOperation(void)
         u = getInt("Select Vector: ");
         if (!isVector(u))
         {
-            printf("Vector not available, Please any to continue...");
+            printf("Vector not available, Press any key to continue...");
             getchar();
             return;
         }
@@ -150,7 +163,7 @@ void vectorOperation(void)
         v = getInt("Select Second Vector: ");
         if (!(isVector(u) && isVector(v)))
         {
-            printf("One or Both of vector not available, Please any to continue...");
+            printf("One or Both of vector not available, Press any key to continue...");
             getchar();
             return;
         }
@@ -159,29 +172,25 @@ void vectorOperation(void)
     {
     case 1:
     {
-        printf("Size of Vector is %.2f\n", vectorSize(vector[u]));
+        printf("Size of Vector #%d is %.2f\n", u, vectorSize(vector[u]));
         break;
     }
     case 2:
     {
         temp = getInt("Enter scalar to multiply with: ");
-        printvec(scalarMult(vector[u], temp));
         saveVector((scalarMult(vector[u], temp)));
         break;
     }
     case 3:
-        printvec(addVector(vector[u], vector[v]));
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Result is %.2f\n", dotProduct(vector[u], vector[v]));
+        printf("Dot Product is %.2f\n", dotProduct(vector[u], vector[v]));
         break;
     case 5:
-        printvec(crossProduct(vector[u], vector[v]));
         saveVector(crossProduct(vector[u], vector[v]));
         break;
     case 6:
-        printvec(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
@@ -253,7 +262,7 @@ void inputVector(void)
     int slot;
     char *confirm;
     slot = getInt("Which slot you want? : ");
-    if (slot >= 0 && slot < vectorSlotCount)
+    if (slot >= 0 && slot < vectorArraySize)
     {
         if (vector[slot] != NULL)
         {
@@ -277,19 +286,25 @@ void inputVector(void)
     }
 }
 
-void printvec(float *u)
+const char *printvec(float *u)
 {
-    printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
+    int d = floatingPoint;
+    char *format = malloc(sizeof(char) * 30);
+    strcpy(format, "");
+    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
+    char *str = malloc(sizeof(char) * 100);
+    strcpy(str, "");
+    sprintf(str, format, u[i], u[j], u[k]);
+    return str;
 }
 
 void ShowAllVectors(void)
 {
-    for (int m = 0; m < vectorSlotCount; m++)
+    for (int m = 0; m < vectorArraySize; m++)
     {
         if (vector[m] != NULL)
         {
-            printf("Vector %d\n", m);
-            printvec(vector[m]);
+            printf("Vector #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -297,6 +312,7 @@ void ShowAllVectors(void)
 void saveVector(float *u)
 {
     int w;
+    printf("Result Vector is %s\n", printvec(u));
     char *choice;
     do
     {
@@ -328,7 +344,7 @@ bool isVector(int u)
 
 void deleteAllVectors(void)
 {
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
         {
@@ -345,7 +361,7 @@ void importVector(void)
 {
     bool started = false;
     char *choice;
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (isVector(c))
             started = true;
@@ -409,7 +425,7 @@ void exportVector(void)
         } while (choice[0] != 'Y');
     }
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < vectorSlotCount; c++)
+    for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
