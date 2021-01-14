@@ -30,6 +30,7 @@ float *vector[vectorSlotCount] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
+bool programCore(void);
 void vectorOperation(void);
 void printOperationMenu(void);
 void setColor(void); // ! Only supported on Windows
@@ -65,43 +66,16 @@ void memoryError(const void *);
 
 int main(void)
 {
-    int choice;
+    printf("Welcome to Vector Calculator Program!\n\n");
+    printf("Press any key to continue...");
+    getchar();
     while (true)
     {
         cls();
         ShowAllVectors();
         printMainMenu();
-        choice = getInt("Your Choice: ");
-        switch (choice)
-        {
-        case 0:
-            printf("Thanks for using this program! Press any to exit...");
-            getchar();
+        if(!programCore())
             return 0;
-        case 1:
-            inputVector();
-            break;
-        case 2:
-            vectorOperation();
-            break;
-        case 3:
-            setColor();
-            break;
-        case 4:
-            importVector();
-            break;
-        case 5:
-            exportVector();
-            break;
-        case 6:
-            deleteAllVectors();
-            break;
-        default:
-            printf("Invalid choice, please try again.\n");
-            printf("Press any to continue...");
-            getchar();
-            break;
-        }
     }
 }
 
@@ -116,6 +90,41 @@ void printMainMenu(void)
     printf("[5] Lab: Export Vector\n");
     printf("[6] Delete all Vectors\n");
     printf("[0] Exit\n");
+}
+
+bool programCore(void)
+{
+    int choice = getInt("Your Choice: ");
+    switch (choice)
+    {
+    case 0:
+        printf("Thanks for using this program! Press any to exit...");
+        getchar();
+        return false;
+    case 1:
+        inputVector();
+        break;
+    case 2:
+        vectorOperation();
+        break;
+    case 3:
+        setColor();
+        break;
+    case 4:
+        importVector();
+        break;
+    case 5:
+        exportVector();
+        break;
+    case 6:
+        deleteAllVectors();
+        break;
+    default:
+        printf("Invalid choice, please try again.\n");
+        printf("Press any to continue...");
+        getchar();
+        break;
+    }
 }
 
 void vectorOperation(void)
