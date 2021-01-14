@@ -14,10 +14,10 @@
 #include <float.h>
 #include <limits.h>
 #include <string.h>
-#include <stdbool.h>
 #define INITIAL_BUFFER 8
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -74,7 +74,7 @@ int main(void)
         cls();
         ShowAllVectors();
         printMainMenu();
-        if(!programCore())
+        if (!programCore())
             return 0;
     }
 }
@@ -82,7 +82,7 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nPress Select Function from below list.\n");
+    printf("\nPlease select Function from below list.\n");
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
     printf("[3] Set terminal (command prompt)'s color\n");
@@ -134,12 +134,12 @@ void vectorOperation(void)
     int u, v;
     cls();
     printOperationMenu();
-    choice = getInt("Enter choice: ");
+    choice = getInt("Selected Operation: ");
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        printf("Invalid choice, try again!\nPress any to continue...");
+        printf("Invalid choice, try again!\nPress any key to continue...");
         getchar();
         return;
     }
@@ -150,7 +150,7 @@ void vectorOperation(void)
         u = getInt("Select Vector: ");
         if (!isVector(u))
         {
-            printf("Vector not available, Please any to continue...");
+            printf("Vector not available, Press any key to continue...");
             getchar();
             return;
         }
@@ -161,7 +161,7 @@ void vectorOperation(void)
         v = getInt("Select Second Vector: ");
         if (!(isVector(u) && isVector(v)))
         {
-            printf("One or Both of vector not available, Please any to continue...");
+            printf("One or Both of vector not available, Press any key to continue...");
             getchar();
             return;
         }
@@ -170,7 +170,7 @@ void vectorOperation(void)
     {
     case 1:
     {
-        printf("Size of Vector is %.2f\n", vectorSize(vector[u]));
+        printf("Size of Vector #%d is %.2f\n", u, vectorSize(vector[u]));
         break;
     }
     case 2:
