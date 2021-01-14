@@ -4,7 +4,7 @@ Used to be Project for Triam Udom Suksa School
 
 Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wichai
 
-Now is being developed further.
+Now, developed further.
 
 ## Program's Abilities
 
@@ -16,7 +16,7 @@ Now is being developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.3
+  Current Release: v2.4
 
 ## Credits
 
@@ -33,6 +33,8 @@ Now is being developed further.
   Thanks to @Teproanyx for helping me 🙂
 
 ## Program Version History
+
+  2021-01-14 January 2021 Update (2.4): Overall Improvement
 
   2020-12-26 SPEED Update (2.3): Program moved to C, gained SPEED
 
