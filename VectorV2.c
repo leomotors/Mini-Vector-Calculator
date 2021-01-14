@@ -26,6 +26,7 @@
 #define k 2
 
 #define vectorArraySize 100
+#define floatingPoint 2
 float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
@@ -38,7 +39,7 @@ void cls(void);
 
 // * Vector management
 void inputVector(void);
-void printvec(float *);
+const char *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
@@ -176,23 +177,19 @@ void vectorOperation(void)
     case 2:
     {
         temp = getInt("Enter scalar to multiply with: ");
-        printvec(scalarMult(vector[u], temp));
         saveVector((scalarMult(vector[u], temp)));
         break;
     }
     case 3:
-        printvec(addVector(vector[u], vector[v]));
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Result is %.2f\n", dotProduct(vector[u], vector[v]));
+        printf("Dot Product is %.2f\n", dotProduct(vector[u], vector[v]));
         break;
     case 5:
-        printvec(crossProduct(vector[u], vector[v]));
         saveVector(crossProduct(vector[u], vector[v]));
         break;
     case 6:
-        printvec(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
@@ -288,9 +285,16 @@ void inputVector(void)
     }
 }
 
-void printvec(float *u)
+const char *printvec(float *u)
 {
-    printf("Result Vector: ( %.2f , %.2f , %.2f )\n", u[i], u[j], u[k]);
+    int d = floatingPoint;
+    char *format = malloc(sizeof(char) * 30);
+    strcpy(format, "");
+    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
+    char *str = malloc(sizeof(char) * 100);
+    strcpy(str, "");
+    sprintf(str, format, u[i], u[j], u[k]);
+    return str;
 }
 
 void ShowAllVectors(void)
@@ -299,8 +303,7 @@ void ShowAllVectors(void)
     {
         if (vector[m] != NULL)
         {
-            printf("Vector %d\n", m);
-            printvec(vector[m]);
+            printf("Vector %d : %s\n", m,printvec(vector[m]));
         }
     }
 }
@@ -308,6 +311,7 @@ void ShowAllVectors(void)
 void saveVector(float *u)
 {
     int w;
+    printf("Result Vector is %s\n", printvec(u));
     char *choice;
     do
     {
