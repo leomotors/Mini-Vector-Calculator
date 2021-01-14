@@ -12,6 +12,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <float.h>
+#include <limits.h>
 #include <string.h>
 #include <stdbool.h>
 #define INITIAL_BUFFER 8
