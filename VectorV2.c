@@ -82,7 +82,7 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nWhat do you want to do?\n");
+    printf("\nPress Select Function from below list.\n");
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
     printf("[3] Set terminal (command prompt)'s color\n");
