@@ -100,7 +100,7 @@ bool programCore(void)
     case 0:
         printf("Thanks for using this program! Press any to exit...");
         getchar();
-        return false;
+        return false; // * Tell next code in main to Exit program
     case 1:
         inputVector();
         break;
@@ -125,6 +125,7 @@ bool programCore(void)
         getchar();
         break;
     }
+    return true; // * User didn't wish to exit program
 }
 
 void vectorOperation(void)
