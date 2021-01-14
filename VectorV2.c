@@ -2,10 +2,9 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.3
- * * Released on: 2020-12-18
- * ? Program is now in .c
- * ? Gained more efficiency and SPPPEEEEDDDD
+ * * Version: 2.4
+ * * Released on: 2021-01-14
+ * ? Overall Improvement
  * TODO Maintanence program if needed
  */
 
@@ -67,7 +66,7 @@ void memoryError(const void *);
 
 int main(void)
 {
-    printf("Welcome to Vector Calculator Program!\n\n");
+    printf("\nWelcome to Vector Calculator Program!\n\n");
     printf("Press any key to continue...");
     getchar();
     while (true)
@@ -144,6 +143,7 @@ void vectorOperation(void)
         getchar();
         return;
     }
+    printf("\n");
     ShowAllVectors();
     printf("\n");
     if (choice == 1 || choice == 2)
@@ -303,7 +303,7 @@ void ShowAllVectors(void)
     {
         if (vector[m] != NULL)
         {
-            printf("Vector %d : %s\n", m,printvec(vector[m]));
+            printf("Vector #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
