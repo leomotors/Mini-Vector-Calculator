@@ -72,6 +72,7 @@ int main(void)
     while (true)
     {
         cls();
+        printf("=====|Vector Calculator V2.4|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
