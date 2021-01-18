@@ -99,7 +99,7 @@ bool programCore(void)
     switch (choice)
     {
     case 0:
-        printf("Thanks for using this program! Press any to exit...");
+        printf("Thanks for using this program! Press any key to exit...");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
