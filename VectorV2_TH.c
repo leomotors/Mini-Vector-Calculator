@@ -8,6 +8,8 @@
  * TODO Maintanence program if needed
  */
 
+#if defined(_WIN32)
+
 #include <ctype.h>
 #include <errno.h>
 #include <float.h>
@@ -20,11 +22,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#if defined(_WIN32)
 #include <fcntl.h>
 #include <io.h>
-#else
-#endif
+
 #define i 0
 #define j 1
 #define k 2
@@ -71,16 +71,14 @@ void memoryError(const void *);
 
 int main(void)
 {
-    setmode(_fileno(stdout),_O_U16TEXT);
-    int lang_mode;
-    wprintf("\nWelcome to Vector Calculator Program!\n\n");
-    wprintf(L"ภาษาไทย กด 1\n");
-    wprintf("For English, please press 2\n");
-    lang_mode=getInt(L"Select Language/เลือกภาษา:");
+    setmode(_fileno(stdout), _O_U16TEXT);
+    wprintf(L"\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n");
+    wprintf(L"กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n");
+    getchar();
     while (true)
     {
         cls();
-        wprintf("=====|Vector Calculator V2.4|=====\n\n");
+        wprintf("=====|Vector Calculator Thai Version V2.5|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -91,10 +89,10 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    wprintf("\nPlease select Function from below list.\n");
-    wprintf("[1] Input new vector!\n");
-    wprintf("[2] Do operations!\n");
-    wprintf("[3] Set terminal (command prompt)'s color\n");
+    wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
+    wprintf("[1] ป้อนเวกเตอร์ใหม่\n");
+    wprintf("[2] คำนวณเกี่ยวกับเวกเตอร์\n");
+    wprintf("[3] เปลี่ยนสีหน้าจอ\n");
     wprintf("[4] Lab: Import Vector\n");
     wprintf("[5] Lab: Export Vector\n");
     wprintf("[6] Delete all Vectors\n");
@@ -257,11 +255,7 @@ void setColor(void) // ! Only supported on Windows
 
 void cls(void) // * By @Teproanyx
 {
-#if defined(_WIN32)
     system("cls");
-#else
-    system("clear");
-#endif
 }
 
 // * Vector management
@@ -607,3 +601,11 @@ void memoryError(const void *pointer)
         exit(EXIT_FAILURE);
     }
 }
+
+#else
+#include <stdio.h>
+int main(void)
+{
+    printf("Thai version doesn't support in Linux!\n");
+}
+#endif
