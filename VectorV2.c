@@ -87,8 +87,8 @@ void printMainMenu(void)
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
     printf("[3] Set terminal (command prompt)'s color\n");
-    printf("[4] Lab: Import Vector\n");
-    printf("[5] Lab: Export Vector\n");
+    printf("[4] Lab: Import Vector from file\n");
+    printf("[5] Lab: Export Vector to file\n");
     printf("[6] Delete all Vectors\n");
     printf("[0] Exit\n");
 }
