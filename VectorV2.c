@@ -122,7 +122,7 @@ bool programCore(void)
         break;
     default:
         printf("Invalid choice, please try again.\n");
-        printf("Press any to continue...");
+        printf("Press any key to continue...");
         getchar();
         break;
     }
@@ -194,7 +194,7 @@ void vectorOperation(void)
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("Area is %.2f\n", vectorSize(crossProduct(vector[u], vector[v])));
+        printf("Area is %.2f Sq.Unit\n", vectorSize(crossProduct(vector[u], vector[v])));
         break;
     default:
         printf("Error 003: Default kicks in, function: vectorOperation\n");
@@ -386,7 +386,7 @@ void importVector(void)
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
         printf("Error upon opening files, File may not exist.\n");
-        printf("Press any to continue...");
+        printf("Press any key to continue...");
         getchar();
         return;
     }
