@@ -1,11 +1,9 @@
 /**
- * * Project 「Vector Calculator」
+ * * Project 「Vector Calculator」 Thai Version
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.4
- * * Released on: 2021-01-14
- * ? Overall Improvement
- * TODO Maintanence program if needed
+ * * Version: 2.5-pre1
+ * * Released on: 2021-01-22
  */
 
 #if defined(_WIN32)

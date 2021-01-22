@@ -2,10 +2,8 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.4
- * * Released on: 2021-01-14
- * ? Overall Improvement
- * TODO Maintanence program if needed
+ * * Version: 2.5-pre1
+ * * Released on: 2021-01-22
  */
 
 #include <ctype.h>
@@ -72,7 +70,7 @@ int main(void)
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V2.4|=====\n\n");
+        printf("=====|Vector Calculator V2.5|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
