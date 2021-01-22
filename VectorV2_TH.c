@@ -43,7 +43,7 @@ void cls(void);
 
 // * Vector management
 void inputVector(void);
-const char *printvec(float *);
+const wchar_t *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
@@ -150,15 +150,15 @@ void vectorOperation(void)
         getchar();
         return;
     }
-    wprintf("\n");
+    wprintf(L"\n");
     ShowAllVectors();
-    wprintf("\n");
+    wprintf(L"\n");
     if (choice == 1 || choice == 2)
     {
         u = getInt(L"เลือกเวกเตอร์: ");
         if (!isVector(u))
         {
-            wprintf("ไม่มีเวกเตอร์, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"ไม่มีเวกเตอร์, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
@@ -169,7 +169,7 @@ void vectorOperation(void)
         v = getInt(L"เลือกเวกเตอร์อันที่สอง: ");
         if (!(isVector(u) && isVector(v)))
         {
-            wprintf("หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
@@ -200,29 +200,29 @@ void vectorOperation(void)
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        wprintf("พื้นที่คือ %.2f ตารางหน่วย\n", vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L"พื้นที่คือ %.2f ตารางหน่วย\n", vectorSize(crossProduct(vector[u], vector[v])));
         break;
     default:
-        wprintf("Error 003: Default kicks in, function: vectorOperation\n");
+        wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
-    wprintf("การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+    wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     getchar();
 }
 
 void printOperationMenu(void)
 {
-    wprintf("==========================================\n");
-    wprintf("กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
-    wprintf("\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
-    wprintf("[1] หาขนาดของเวกเตอร์\n");
-    wprintf("[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
-    wprintf("\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
-    wprintf("[3] บวก 2 เวกเตอร์\n");
-    wprintf("[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
-    wprintf("[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
-    wprintf("[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
-    wprintf("[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
-    wprintf("[0] ออก\n");
+    wprintf(L"==========================================\n");
+    wprintf(L"กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
+    wprintf(L"[1] หาขนาดของเวกเตอร์\n");
+    wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
+    wprintf(L"[3] บวก 2 เวกเตอร์\n");
+    wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
+    wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
+    wprintf(L"[0] ออก\n");
 }
 
 void setColor(void) // ! Only supported on Windows
@@ -230,17 +230,17 @@ void setColor(void) // ! Only supported on Windows
     char *col;
     char syn[10];
     wprintf(
-        "\nColor attributes are specified by TWO hex digits -- the first "
-        "corresponds to the background; the second the foreground."
-        "\nEach digit can be any of the following values:\n\n"
-        "\t0 = Black       8 = Gray\n"
-        "\t1 = Blue        9 = Light Blue\n"
-        "\t2 = Green       A = Light Green\n"
-        "\t3 = Aqua        B = Light Aqua\n"
-        "\t4 = Red         C = Light Red\n"
-        "\t5 = Purple      D = Light Purple\n"
-        "\t6 = Yellow      E = Light Yellow\n"
-        "\t7 = White       F = Bright White\n");
+        L"\nColor attributes are specified by TWO hex digits -- the first "
+        L"corresponds to the background; the second the foreground."
+        L"\nEach digit can be any of the following values:\n\n"
+        L"\t0 = Black       8 = Gray\n"
+        L"\t1 = Blue        9 = Light Blue\n"
+        L"\t2 = Green       A = Light Green\n"
+        L"\t3 = Aqua        B = Light Aqua\n"
+        L"\t4 = Red         C = Light Red\n"
+        L"\t5 = Purple      D = Light Purple\n"
+        L"\t6 = Yellow      E = Light Yellow\n"
+        L"\t7 = White       F = Bright White\n");
     col = getString(L"เลือกสี: ");
     sprintf(syn, "color %s", col);
     system(syn);
@@ -282,7 +282,7 @@ void inputVector(void)
     }
 }
 
-const char *printvec(float *u)
+const wchar_t *printvec(float *u)
 {
     int d = floatingPoint;
     char *format = malloc(sizeof(char) * 30);
@@ -291,7 +291,12 @@ const char *printvec(float *u)
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    return str;
+    wchar_t *wstr = malloc(sizeof(wchar_t)*strlen(str));
+    for (int lc = 0; lc < strlen(str); lc++)
+    {
+        wstr[lc] = (wchar_t)(str[lc]);
+    }
+    return wstr;
 }
 
 void ShowAllVectors(void)
