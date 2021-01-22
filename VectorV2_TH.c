@@ -296,6 +296,7 @@ const wchar_t *printvec(float *u)
     {
         wstr[lc] = (wchar_t)(str[lc]);
     }
+    free(str);
     return wstr;
 }
 
