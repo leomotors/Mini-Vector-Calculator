@@ -1,4 +1,8 @@
-# TUProject501 : Vector Calculator
+# What's new in latest version
+
+  Added Thai Language
+  
+## TUProject501 : Vector Calculator
 
 Used to be Project for Triam Udom Suksa School
 
