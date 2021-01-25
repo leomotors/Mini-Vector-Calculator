@@ -2,8 +2,6 @@
  * * Project 「Vector Calculator」
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
- * * Version: 2.5-pre1
- * * Released on: 2021-01-22
  */
 
 #include <ctype.h>
