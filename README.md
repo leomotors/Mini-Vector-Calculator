@@ -1,7 +1,7 @@
 # What's new in latest version
 
   Added Thai Language
-  
+
 ## TUProject501 : Vector Calculator
 
 Used to be Project for Triam Udom Suksa School
@@ -37,6 +37,8 @@ Now, developed further.
   Thanks to @Teproanyx for helping me 🙂
 
 ## Program Version History
+
+  **2020-01-25** Snapshot 2.5-pre1: Add Thai Language
 
   **2021-01-14** January 2021 Update (2.4): Overall Improvement
 
