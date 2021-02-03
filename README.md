@@ -16,7 +16,7 @@ Now, developed further.
 
   Presented Version: v1.3.0
 
-  Current Release: v2.4
+  Current Release: v2.4.1
 
 ## Credits
 
@@ -34,6 +34,8 @@ Now, developed further.
 
 ## Program Version History
 
+  **2021-02-03** Release 2.4.1: Add License
+  
   **2021-01-14** January 2021 Update (2.4): Overall Improvement
 
   **2020-12-26** SPEED Update (2.3): Program moved to C, gained SPEED
