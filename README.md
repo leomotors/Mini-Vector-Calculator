@@ -1,4 +1,8 @@
-# TUProject501 : Vector Calculator
+# What's new in latest version
+
+  Added Thai Language
+
+## TUProject501 : Vector Calculator
 
 Used to be Project for Triam Udom Suksa School
 
@@ -35,7 +39,7 @@ Now, developed further.
 ## Program Version History
 
   **2021-02-03** Release 2.4.1: Add License
-  
+
   **2021-01-14** January 2021 Update (2.4): Overall Improvement
 
   **2020-12-26** SPEED Update (2.3): Program moved to C, gained SPEED
