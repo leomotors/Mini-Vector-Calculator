@@ -148,7 +148,7 @@ void vectorOperation(void)
         u = getInt("Select Vector: ");
         if (!isVector(u))
         {
-            printf("Vector not available, Press any key to continue...");
+            printf("This vector not available, Press any key to continue...");
             getchar();
             return;
         }
