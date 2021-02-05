@@ -74,7 +74,7 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator Thai Version V2.5|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.0 Thai Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
