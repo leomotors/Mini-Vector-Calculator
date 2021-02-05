@@ -91,7 +91,7 @@ void printMainMenu(void)
     wprintf(L"[3] 画面の色を変化する\n");
     wprintf(L"[4] Lab: ファイルからベクトルをインポートする\n");
     wprintf(L"[5] Lab: ファイルへベクトルをエクスポートする\n");
-    wprintf(L"[6] すべてのベクトルを抹消す\n");
+    wprintf(L"[6] すべてのベクトルを削除する\n");
     wprintf(L"[0] プログラムを終了する\n");
 }
 
@@ -188,7 +188,7 @@ void vectorOperation(void)
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        wprintf(L"ผลคูณเชิงสเกลาร์คือ %.2f\n", dotProduct(vector[u], vector[v]));
+        wprintf(L"ドット積 %.2f\n", dotProduct(vector[u], vector[v]));
         break;
     case 5:
         saveVector(crossProduct(vector[u], vector[v]));
@@ -197,12 +197,12 @@ void vectorOperation(void)
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        wprintf(L"พื้นที่คือ %.2f ตารางหน่วย\n", vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L"面積は %.2f 平方ユニット\n", vectorSize(crossProduct(vector[u], vector[v])));
         break;
     default:
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
-    wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+    wprintf(L"機能完了しました、 いずれかのボタンを押して続行します。。。");
     getchar();
 }
 
@@ -274,7 +274,7 @@ void inputVector(void)
     }
     else
     {
-        wprintf(L"ไม่มีช่องนั้นอยู่ กดปุ่มใดๆเพื่อดำเนินการต่อ");
+        wprintf(L"そのスロットはありません、いずれかのボタンを押して続行します。。。");
         getchar();
     }
 }
@@ -315,16 +315,16 @@ void saveVector(float *u)
     char *choice;
     do
     {
-        choice = getString(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: ");
+        choice = getString(L"ベクトルを保存しますか？ [Y/N]: ");
         if (choice[0] == 'N')
             return;
     } while (choice[0] != 'Y');
-    w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
+    w = getInt(L"どこで保存しますか? : ");
     if (vector[w] != NULL)
     {
         do
         {
-            choice = getString(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: ");
+            choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか? [Y/N]: ");
             if (choice[0] == 'N')
             {
                 saveVector(u);
@@ -351,7 +351,7 @@ void deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    wprintf(L"เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
+    wprintf(L"すべてのベクトルを削除しました、いずれかのボタンを押して続行します。。。");
     getchar();
 }
 
