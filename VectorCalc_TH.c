@@ -287,7 +287,7 @@ const wchar_t *printvec(float *u)
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    wchar_t *wstr = malloc(sizeof(wchar_t)*strlen(str));
+    wchar_t *wstr = calloc(strlen(str),sizeof(wchar_t));
     for (int lc = 0; lc < strlen(str); lc++)
     {
         wstr[lc] = (wchar_t)(str[lc]);
