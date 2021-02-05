@@ -1,5 +1,5 @@
 /**
- * * Project 「Vector Calculator」 Thai Version
+ * * Project 「Vector Calculator」 Japanese Version
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
  */
@@ -68,13 +68,13 @@ void memoryError(const void *);
 int main(void)
 {
     setmode(_fileno(stdout), _O_U16TEXT);
-    wprintf(L"\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n");
-    wprintf(L"กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n");
+    wprintf(L"\nベクトル計算機へいらっしゃいませ！\n\n");
+    wprintf(L"いずれかのボタンを押して続行します。。。\n");
     getchar();
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.0 Thai Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.0 Japanese Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -85,23 +85,23 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
-    wprintf(L"[1] ป้อนเวกเตอร์ใหม่\n");
-    wprintf(L"[2] คำนวณเกี่ยวกับเวกเตอร์\n");
-    wprintf(L"[3] เปลี่ยนสีหน้าจอ\n");
-    wprintf(L"[4] Lab: นำเข้าเวกเตอร์จากไฟล์\n");
-    wprintf(L"[5] Lab: ส่งออกเวกเตอร์ไปยังไฟล์\n");
-    wprintf(L"[6] ลบเวกเตอร์ทั้งหมด\n");
-    wprintf(L"[0] ออกจากโปรแกรม\n");
+    wprintf(L"\n下の機能を選んでください\n");
+    wprintf(L"[1] 新ベクトルを入力する\n");
+    wprintf(L"[2] ベクトルについて計算\n");
+    wprintf(L"[3] 画面の色を変化する\n");
+    wprintf(L"[4] Lab: ファイルからベクトルをインポートする\n");
+    wprintf(L"[5] Lab: ファイルへベクトルをエクスポートする\n");
+    wprintf(L"[6] すべてのベクトル\n");
+    wprintf(L"[0] プログラムを終了する\n");
 }
 
 bool programCore(void)
 {
-    int choice = getInt(L"ตัวเลือกที่เลือก: ");
+    int choice = getInt(L"選んでいる選択: ");
     switch (choice)
     {
     case 0:
-        wprintf(L"ขอบคุณสำหรับการใช้งานโปรแกรม กดปุ่มใดๆ เพื่อปิดโปรแกรม");
+        wprintf(L"プログラムを使ってありがとうございます กดปุ่มใดๆ เพื่อปิดโปรแกรม");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -208,17 +208,17 @@ void vectorOperation(void)
 void printOperationMenu(void)
 {
     wprintf(L"==========================================\n");
-    wprintf(L"กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
-    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
-    wprintf(L"[1] หาขนาดของเวกเตอร์\n");
+    wprintf(L"機能を選んでください\n");
+    wprintf(L"\t一つのベクトル演算\n");
+    wprintf(L"[1] ベクトルのサイズを計算する\n");
     wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
-    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
+    wprintf(L"\t二つのベクトル演算\n");
     wprintf(L"[3] บวก 2 เวกเตอร์\n");
     wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
     wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
     wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
     wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
-    wprintf(L"[0] ออก\n");
+    wprintf(L"[0] 出る\n");
 }
 
 void setColor(void) // ! Only supported on Windows
@@ -237,7 +237,7 @@ void setColor(void) // ! Only supported on Windows
         L"\t5 = Purple      D = Light Purple\n"
         L"\t6 = Yellow      E = Light Yellow\n"
         L"\t7 = White       F = Bright White\n");
-    col = getString(L"เลือกสี: ");
+    col = getString(L"選ぶ色: ");
     sprintf(syn, "color %s", col);
     system(syn);
     cls();
@@ -267,7 +267,7 @@ void inputVector(void)
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);
-        char *buffer = getString(L"กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
+        char *buffer = getString(L"(i , j , k)でベクトルを入力してください: ");
         sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
         vector[slot] = u;
     }
@@ -302,7 +302,7 @@ void ShowAllVectors(void)
     {
         if (vector[m] != NULL)
         {
-            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
+            wprintf(L"ベクトル #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
