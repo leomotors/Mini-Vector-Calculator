@@ -91,7 +91,7 @@ void printMainMenu(void)
     wprintf(L"[3] 画面の色を変化する\n");
     wprintf(L"[4] Lab: ファイルからベクトルをインポートする\n");
     wprintf(L"[5] Lab: ファイルへベクトルをエクスポートする\n");
-    wprintf(L"[6] すべてのベクトル\n");
+    wprintf(L"[6] すべてのベクトルを抹消す\n");
     wprintf(L"[0] プログラムを終了する\n");
 }
 
