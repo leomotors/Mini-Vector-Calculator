@@ -101,7 +101,7 @@ bool programCore(void)
     switch (choice)
     {
     case 0:
-        wprintf(L"プログラムを使ってありがとうございます กดปุ่มใดๆ เพื่อปิดโปรแกรม");
+        wprintf(L"プログラムを使ってありがとうございます いずれかのボタンを押して終了します");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -123,8 +123,8 @@ bool programCore(void)
         deleteAllVectors();
         break;
     default:
-        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
-        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"選択無効 もう一度やり直してください\n");
+        wprintf(L"いずれかのボタンを押して続行します。。。");
         getchar();
         break;
     }
@@ -137,12 +137,13 @@ void vectorOperation(void)
     int u, v;
     cls();
     printOperationMenu();
-    choice = getInt(L"ฟังก์ชันการดำเนินการที่เลือก: ");
+    choice = getInt(L"選んでいる機能: ");
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\nกดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"選択無効 もう一度やり直してください\n");
+        wprintf(L"いずれかのボタンを押して続行します。。。");
         getchar();
         return;
     }
@@ -151,18 +152,18 @@ void vectorOperation(void)
     wprintf(L"\n");
     if (choice == 1 || choice == 2)
     {
-        u = getInt(L"เลือกเวกเตอร์: ");
+        u = getInt(L"ベクトルを選ぶ: ");
         if (!isVector(u))
         {
-            wprintf(L"ไม่มีเวกเตอร์, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"このベクトルはありません、 いずれかのボタンを押して続行します。。。");
             getchar();
             return;
         }
     }
     else
     {
-        u = getInt(L"เลือกเวกเตอร์อันแรก: ");
-        v = getInt(L"เลือกเวกเตอร์อันที่สอง: ");
+        u = getInt(L"第1ベクトルを選ぶ: ");
+        v = getInt(L"第2ベクトルを選ぶ: ");
         if (!(isVector(u) && isVector(v)))
         {
             wprintf(L"หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
@@ -174,7 +175,7 @@ void vectorOperation(void)
     {
     case 1:
     {
-        wprintf(L"ขนาดของเวกเตอร์หมายเลข %d คือ %.2f\n", u, vectorSize(vector[u]));
+        wprintf(L"ベクトル #%d　のサイズは %.2f\n", u, vectorSize(vector[u]));
         break;
     }
     case 2:
@@ -214,8 +215,8 @@ void printOperationMenu(void)
     wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
     wprintf(L"\t二つのベクトル演算\n");
     wprintf(L"[3] บวก 2 เวกเตอร์\n");
-    wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
-    wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[4] 二つのベクトルのドット積\n");
+    wprintf(L"[5] 二つのベクトルの外積\n");
     wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
     wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
     wprintf(L"[0] 出る\n");
@@ -310,7 +311,7 @@ void ShowAllVectors(void)
 void saveVector(float *u)
 {
     int w;
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    wprintf(L"結果のベクトルは %s\n", printvec(u));
     char *choice;
     do
     {
@@ -379,12 +380,12 @@ void importVector(void)
     char *tmp;
     char filename[100];
     FILE *inputFile;
-    tmp = getString(L"โปรดใส่ชื่อไฟล์: ");
+    tmp = getString(L"ファイル名を入力してください : ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
-        wprintf(L"ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n");
-        wprintf(L"กดปุ่มใดๆเพื่อดำเนินการต่อ");
+        wprintf(L"このファイルを開けることができません ไฟล์นี้อาจไม่มีอยู่\n");
+        wprintf(L"いずれかのボタンを押して続行します。。。");
         getchar();
         return;
     }
@@ -409,7 +410,7 @@ void exportVector(void)
     char *tmp, *choice;
     char filename[100];
     FILE *outputFile;
-    tmp = getString(L"โปรดใส่ชื่อไฟล์ : ");
+    tmp = getString(L"ファイル名を入力してください : ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
@@ -593,7 +594,7 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        wprintf(L"RAM ไม่เพียงพอ กำลังปิดโปรแกรม...\n");
+        wprintf(L"RAMは十分ではありません プログラムを終了しています...\n");
         exit(EXIT_FAILURE);
     }
 }
