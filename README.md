@@ -1,40 +1,56 @@
-# What's new in latest version
+# Mini Vector Calculator
 
-  Added Thai Language
+  This program can do simple Vector Calculation
 
-## TUProject501 : Vector Calculator
+## History
 
-Used to be Project for Triam Udom Suksa School
+  Been a Project for Triam Udom Suksa School
 
-Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wichai
+  In Subject: การเขียนโปรแกรม 1 (ง30221), Presented to Teacher Wichai
 
-Now, developed further.
+  Presented Version : v1.3.0
 
-## Program's Abilities
+  Have been developed further, being Version 2.
+  
+  and now Version 3, ready to exclusively deliver to Teacher Wichai again.
 
-  This program can do Simple Vector Calculating including Add, Multiply with
-  scalar, Dot product, Cross product, Project a vector on another,
-  Find size, Find area of parrallelogram corresponding to two vectors.
+## Program's Features and Limitation
+
+Features
+
+* Add Vectors
+
+* Multiply Vector with scalar and vector
+
+* Dot Product, Cross Product
+
+* Project a vector on another
+
+* Find area of parrallelogram under two vectors.
+
+* Import and Export Vector Data
 
 ## Version
 
   Presented Version: v1.3.0
 
-  Current Release: v2.4.1
+  Current Release: v3.0-pre2
 
 ## Credits
 
-### Initial Developments : Project presenting to Wichai
+### Initial Developments : Project presenting to T. Wichai in semester 1 (till V1.3)
 
   総制作・Supervisor・Mentor : @Leomotors
 
-  Helper programmer : Kaimook , Oui
+  Sub-Programmer : Kaimook , Oui
 
   Speaker : Every person in the group except Mentor (@Leomotors)
 
-### Further Developments : V2
+### Further Developments : Version 2 & 3
 
-  Thanks to @Teproanyx for helping me 🙂
+  Thank you @Teproanyx for helping me 🙂
+
+  This program used Safe Input from @Teproanyx
 
 ## Program Version History
 
@@ -46,9 +62,7 @@ Now, developed further.
 
   **2020-12-18** December 2020 Update (2.2): Implemented Safe Input V3
 
-  **2020-10-21** 2.1.2.1: Edit description to state success on fixing against Memory Leaks
-
-  **2020-10-21** 2.1.2: Add some prevention to memory leaks
+  **2020-10-21** 2.1.2 & 2.1.2.1: Fix Memory Leaks
   
   **2020-10-21** 2.1.1: Misc Code Brushing and Readme Edit
   
@@ -56,16 +70,4 @@ Now, developed further.
 
   **2020-10-21** 2.0: Finally release for Vector Version 2!
 
-  **2020-10-21** 2.0-rc1: Import and Export Function Upgraded
-
-  **2020-10-20** 2.0-pre2: Fix input error and related.
-
-  **2020-10-20** 2.0-pre1: Fix some input Error and misc things.
-
-  **2020-10-19** 20w43c: Program ready to be developed in VSCode
-
-  **2020-10-19** 20w43b: Delete unrelated files
-
-  **2020-10-19** 20w43a: Program now fully functional
-  
-  **2020-10-16** 20w42a: lazy to write shit here.
+  **2020-10-16 to 2020-10-21**: Snapshot 2.0 Beta Development
