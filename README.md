@@ -1,42 +1,85 @@
-# What's new in latest version
+# Mini Vector Calculator
 
-  Added Thai Language
+  This program can do simple Vector Calculation
 
-## TUProject501 : Vector Calculator
+## Program's Features
 
-Used to be Project for Triam Udom Suksa School
+* Add Vectors
 
-Subject: การเขียนโปรแกรม 1 (ง30221), Teacher Wichai
+* Multiply Vector with scalar and vector
 
-Now, developed further.
+* Dot Product, Cross Product
 
-## Program's Abilities
+* Project a vector on another
 
-  This program can do Simple Vector Calculating including Add, Multiply with
-  scalar, Dot product, Cross product, Project a vector on another,
-  Find size, Find area of parrallelogram corresponding to two vectors.
+* Find area of parrallelogram under two vectors.
+
+* Import and Export Vector Data
+
+## Compatibility
+
+Support both Windows and UNIX
+
+Compiler : C99 or above
+
+Note : Thai and Japanese Version aren't supported in UNIX
+
+Note : -lm (Math Library) must be manually attached in UNIX
 
 ## Version
 
-  Presented Version: v1.3.0
+  Version used to present to Teacher (Semester 1) : v1.3.0
 
-  Current Release: v2.4.1
+  Current Release : v2.4.1
+
+  Current Snapshot : v3.0-pre3
 
 ## Credits
 
-### Initial Developments : Project presenting to Wichai
+### Initial Development : Version 1
 
-  総制作・Supervisor・Mentor : @Leomotors
+  Developed as a group of 5, presenting to T.Wichai as Mini-Project.
 
-  Helper programmer : Kaimook , Oui
+  Subject : 「การเขียนโปรแกรม 1 (ง30221)」 Triam Udom Suksa School (2020/1)
 
-  Speaker : Every person in the group except Mentor (@Leomotors)
+    * Supervisor・Mentor・Core Programming : @Leomotors
 
-### Further Developments : V2
+    * Support Programmer : Kaimook , Oui
 
-  Thanks to @Teproanyx for helping me 🙂
+    * Speaker : Every person in the group except Mentor (@Leomotors)
+
+  Presented on : 5 Oct 2020
+
+  The result of this project is really satisfying! 👍
+
+### Further Development : Version 2
+
+  Developing alone with help from
+  @Teproanyx, including his Safe Input Module. Big Thanks to him! 😊
+
+  Also thank you to stackoverflow.
+
+### Version 3 Development
+
+  Developed further more to submit to T.Wichai again as improvement project.
+
+  Note : Due to outgoing pandemic, there is no more work group. (For social distancing) So this work will done my me alone.
+
+  Subject : 「การเขียนโปรแกรม 2 (ง30222)」 Triam Udom Suksa School (2020/2)
+  
+    * 総制作 : @Leomotors
+
+    * Honor Helper : Stack Overflow
+
+    * Reviewer・Tester : @Teproanyx
 
 ## Program Version History
+
+### Version 3 (Latest Version)
+
+  **2021-01-18 to 2021-02-xx** Version 3 Development
+
+### Version 2
 
   **2021-02-03** Release 2.4.1: Add License
 
@@ -46,9 +89,7 @@ Now, developed further.
 
   **2020-12-18** December 2020 Update (2.2): Implemented Safe Input V3
 
-  **2020-10-21** 2.1.2.1: Edit description to state success on fixing against Memory Leaks
-
-  **2020-10-21** 2.1.2: Add some prevention to memory leaks
+  **2020-10-21** 2.1.2 & 2.1.2.1: Fix Memory Leaks
   
   **2020-10-21** 2.1.1: Misc Code Brushing and Readme Edit
   
@@ -56,16 +97,8 @@ Now, developed further.
 
   **2020-10-21** 2.0: Finally release for Vector Version 2!
 
-  **2020-10-21** 2.0-rc1: Import and Export Function Upgraded
+  **2020-10-16 to 2020-10-21**: Snapshot 2.0 Beta Development
 
-  **2020-10-20** 2.0-pre2: Fix input error and related.
+### Version 1
 
-  **2020-10-20** 2.0-pre1: Fix some input Error and misc things.
-
-  **2020-10-19** 20w43c: Program ready to be developed in VSCode
-
-  **2020-10-19** 20w43b: Delete unrelated files
-
-  **2020-10-19** 20w43a: Program now fully functional
-  
-  **2020-10-16** 20w42a: lazy to write shit here.
+Developed outside github
