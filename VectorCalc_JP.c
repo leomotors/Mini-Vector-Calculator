@@ -69,7 +69,7 @@ int main(void)
 {
     setmode(_fileno(stdout), _O_U16TEXT);
     wprintf(L"\nベクトル計算機へいらっしゃいませ！\n\n");
-    wprintf(L"いずれかのボタンを押して続行します。。。\n");
+    wprintf(L"続行するには任意のボタンを押してください。\n");
     getchar();
     while (true)
     {
@@ -101,7 +101,7 @@ bool programCore(void)
     switch (choice)
     {
     case 0:
-        wprintf(L"プログラムを使ってありがとうございます いずれかのボタンを押して終了します");
+        wprintf(L"プログラムを使ってありがとうございます 出るには任意のボタンを押してください。");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -124,7 +124,7 @@ bool programCore(void)
         break;
     default:
         wprintf(L"選択無効 もう一度やり直してください\n");
-        wprintf(L"いずれかのボタンを押して続行します。。。");
+        wprintf(L"続行するには任意のボタンを押してください。");
         getchar();
         break;
     }
@@ -143,7 +143,7 @@ void vectorOperation(void)
     if (choice < 0 || choice > 7)
     {
         wprintf(L"選択無効 もう一度やり直してください\n");
-        wprintf(L"いずれかのボタンを押して続行します。。。");
+        wprintf(L"続行するには任意のボタンを押してください。。。");
         getchar();
         return;
     }
@@ -155,7 +155,7 @@ void vectorOperation(void)
         u = getInt(L"ベクトルを選ぶ: ");
         if (!isVector(u))
         {
-            wprintf(L"このベクトルはありません、 いずれかのボタンを押して続行します。。。");
+            wprintf(L"このベクトルはありません、 続行するには任意のボタンを押してください。。。");
             getchar();
             return;
         }
@@ -166,7 +166,7 @@ void vectorOperation(void)
         v = getInt(L"第2ベクトルを選ぶ: ");
         if (!(isVector(u) && isVector(v)))
         {
-            wprintf(L"一方または両方のベクトルが存在しません、 いずれかのボタンを押して続行します。。。");
+            wprintf(L"一方または両方のベクトルが存在しません、 続行するには任意のボタンを押してください。。。");
             getchar();
             return;
         }
@@ -202,7 +202,7 @@ void vectorOperation(void)
     default:
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
-    wprintf(L"機能完了しました、 いずれかのボタンを押して続行します。。。");
+    wprintf(L"機能完了しました、 続行するには任意のボタンを押してください。。。");
     getchar();
 }
 
@@ -274,7 +274,7 @@ void inputVector(void)
     }
     else
     {
-        wprintf(L"そのスロットはありません、いずれかのボタンを押して続行します。。。");
+        wprintf(L"そのスロットはありません、続行するには任意のボタンを押してください。。。");
         getchar();
     }
 }
@@ -351,7 +351,7 @@ void deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    wprintf(L"すべてのベクトルを削除しました、いずれかのボタンを押して続行します。。。");
+    wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
 }
 
@@ -385,7 +385,7 @@ void importVector(void)
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
         wprintf(L"このファイルを開けることができないで、存在しない可能性があります。\n");
-        wprintf(L"いずれかのボタンを押して続行します。。。");
+        wprintf(L"続行するには任意のボタンを押してください。。。");
         getchar();
         return;
     }
