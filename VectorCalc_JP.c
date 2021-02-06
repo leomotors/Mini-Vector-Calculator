@@ -166,7 +166,7 @@ void vectorOperation(void)
         v = getInt(L"第2ベクトルを選ぶ: ");
         if (!(isVector(u) && isVector(v)))
         {
-            wprintf(L"หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"一方または両方のベクトルが存在しません、 いずれかのボタンを押して続行します。。。");
             getchar();
             return;
         }
@@ -384,7 +384,7 @@ void importVector(void)
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
-        wprintf(L"このファイルを開けることができません ไฟล์นี้อาจไม่มีอยู่\n");
+        wprintf(L"このファイルを開けることができないで、存在しない可能性があります。\n");
         wprintf(L"いずれかのボタンを押して続行します。。。");
         getchar();
         return;
