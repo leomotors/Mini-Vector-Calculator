@@ -154,7 +154,7 @@ void vectorOperation(void)
         u = getInt(L"เลือกเวกเตอร์: ");
         if (!isVector(u))
         {
-            wprintf(L"ไม่มีเวกเตอร์, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"ไม่มีเวกเตอร์นี้, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
