@@ -228,19 +228,19 @@ void settingsMenu(void)
     int choice;
     wprintf(L"\n=====|設定|=====\n\n");
     wprintf(L"[1] 画面の色を変化する\n");
-    wprintf(L"[2] Set Number Precision\n");
-    choice = getInt("Your option: ");
+    wprintf(L"[2] 数値精度を設定する\n");
+    choice = getInt(L"選ぶ： ");
     switch (choice)
     {
     case 1:
         setColor();
         break;
     case 2:
-        floatingPoint = getInt("Number of floating point: ");
+        floatingPoint = getInt(L"小数点以下の桁数 ： ");
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        wprintf(L"選択無効 もう一度やり直してください\n");
+        wprintf(L"続行するには任意のボタンを押してください。");
         getchar();
         break;
     }

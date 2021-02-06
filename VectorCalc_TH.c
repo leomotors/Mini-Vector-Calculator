@@ -226,20 +226,20 @@ void settingsMenu(void)
 {
     int choice;
     wprintf(L"\n=====|การตั้งค่า|=====\n\n");
-    wprintf(L"เปลี่ยนสีหน้าจอ\n");
-    printf("[2] Set Number Precision\n");
-    choice = getInt("Your option: ");
+    wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
+    wprintf(L"[2] เลือกความละเอียดของตัวเลข\n");
+    choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 1:
         setColor();
         break;
     case 2:
-        floatingPoint = getInt("Number of floating point: ");
+        floatingPoint = getInt(L"จำนวนตัวเลขหลังทศนิยม: ");
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }

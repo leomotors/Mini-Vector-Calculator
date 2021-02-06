@@ -229,7 +229,7 @@ void settingsMenu(void)
         setColor();
         break;
     case 2:
-        floatingPoint = getInt("Number of floating point: ");
+        floatingPoint = getInt("Number of digits after decimal: ");
         break;
     default:
         printf("Invalid choice, please try again.\n");
