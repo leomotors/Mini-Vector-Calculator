@@ -181,19 +181,20 @@ void vectorOperation(void)
             return;
         }
     }
+    
+    char *format = calloc(10,sizeof(char));
+    sprintf(format, "%%.%df", floatingPoint);
     switch (choice)
     {
     case 1:
-    {
-        printf("Size of Vector #%d is %.2f\n", u, vectorSize(vector[u]));
+        printf("Size of Vector #%d is ", u);
+        printf(format, vectorSize(vector[u]));
+        printf("\n");
         break;
-    }
     case 2:
-    {
         temp = getInt("Enter scalar to multiply with: ");
         saveVector((scalarMult(vector[u], temp)));
         break;
-    }
     case 3:
         saveVector(addVector(vector[u], vector[v]));
         break;

@@ -187,24 +187,27 @@ void vectorOperation(void)
             return;
         }
     }
+
+    wchar_t *format = calloc(10, sizeof(wchar_t));
+    swprintf(format, 10, L"%%.%df", floatingPoint);
     switch (choice)
-    {
+    { 
     case 1:
-    {
-        wprintf(L"ขนาดของเวกเตอร์หมายเลข %d คือ %.2f\n", u, vectorSize(vector[u]));
+        wprintf(L"ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
+        wprintf(format, vectorSize(vector[u]));
+        wprintf(L"\n");
         break;
-    }
     case 2:
-    {
         temp = getInt(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
         saveVector((scalarMult(vector[u], temp)));
         break;
-    }
     case 3:
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        wprintf(L"ผลคูณเชิงสเกลาร์คือ %.2f\n", dotProduct(vector[u], vector[v]));
+        wprintf(L"ผลคูณเชิงสเกลาร์คือ ");
+        wprintf(format, dotProduct(vector[u], vector[v]));
+        wprintf(L"\n");
         break;
     case 5:
         saveVector(crossProduct(vector[u], vector[v]));
@@ -213,7 +216,9 @@ void vectorOperation(void)
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        wprintf(L"พื้นที่คือ %.2f ตารางหน่วย\n", vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L"พื้นที่คือ \n");
+        wprintf(format, vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L" ตารางหน่วย\n");
         break;
     default:
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");

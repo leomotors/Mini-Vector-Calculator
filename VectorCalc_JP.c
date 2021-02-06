@@ -188,24 +188,27 @@ void vectorOperation(void)
             return;
         }
     }
+
+    wchar_t *format = calloc(10, sizeof(wchar_t));
+    swprintf(format, 10, L"%%.%df", floatingPoint);
     switch (choice)
     {
     case 1:
-    {
-        wprintf(L"ベクトル #%d　のサイズは %.2f\n", u, vectorSize(vector[u]));
+        wprintf(L"ベクトル #%d　のサイズは ", u);
+        wprintf(format, vectorSize(vector[u]));
+        wprintf(L"\n");
         break;
-    }
     case 2:
-    {
         temp = getInt(L"持って掛けるスカラー量を入力してください: ");
         saveVector((scalarMult(vector[u], temp)));
         break;
-    }
     case 3:
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        wprintf(L"ドット積は %.2f\n", dotProduct(vector[u], vector[v]));
+        wprintf(L"ドット積は ");
+        wprintf(format, dotProduct(vector[u], vector[v]));
+        wprintf(L"\n");
         break;
     case 5:
         saveVector(crossProduct(vector[u], vector[v]));
@@ -214,7 +217,9 @@ void vectorOperation(void)
         saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        wprintf(L"面積は %.2f 平方ユニット\n", vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L"面積は ", vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(format, vectorSize(crossProduct(vector[u], vector[v])));
+        wprintf(L" 平方ユニット\n");
         break;
     default:
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
