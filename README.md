@@ -32,7 +32,7 @@ Note : ```-lm``` (Math Library) must be manually attached in UNIX
 
   Current Release : v2.4.1
 
-  Current Snapshot : v3.0-pre3
+  Current Snapshot : v3.0-rc1
 
 ## Credits
 
