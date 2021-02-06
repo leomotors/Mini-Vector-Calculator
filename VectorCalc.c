@@ -27,8 +27,8 @@ float *vector[vectorArraySize] = {NULL};
 // * Menu's Stuff
 void printMainMenu(void);
 bool programCore(void);
-void vectorOperation(void);
 void printOperationMenu(void);
+void vectorOperation(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
 
@@ -125,6 +125,22 @@ bool programCore(void)
     return true; // * User didn't wish to exit program
 }
 
+void printOperationMenu(void)
+{
+    printf("==========================================\n");
+    printf("Please select functions!\n");
+    printf("\tOne Vector Operation\n");
+    printf("[1] Find size of a Vector\n");
+    printf("[2] Multiply Vector with scalar\n");
+    printf("\tTwo Vectors Operation\n");
+    printf("[3] Add 2 Vectors\n");
+    printf("[4] Dot Product of 2 Vectors\n");
+    printf("[5] Cross Product of 2 Vectors\n");
+    printf("[6] Project a vector on another vector\n");
+    printf("[7] Find area of parrallelogram from 2 vectors\n");
+    printf("[0] Exit\n");
+}
+
 void vectorOperation(void)
 {
     int choice, temp;
@@ -197,22 +213,6 @@ void vectorOperation(void)
     }
     printf("Operation done, Please any to continue...");
     getchar();
-}
-
-void printOperationMenu(void)
-{
-    printf("==========================================\n");
-    printf("Please select functions!\n");
-    printf("\tOne Vector Operation\n");
-    printf("[1] Find size of a Vector\n");
-    printf("[2] Multiply Vector with scalar\n");
-    printf("\tTwo Vectors Operation\n");
-    printf("[3] Add 2 Vectors\n");
-    printf("[4] Dot Product of 2 Vectors\n");
-    printf("[5] Cross Product of 2 Vectors\n");
-    printf("[6] Project a vector on another vector\n");
-    printf("[7] Find area of parrallelogram from 2 vectors\n");
-    printf("[0] Exit\n");
 }
 
 void setColor(void) // ! Only supported on Windows

@@ -32,8 +32,8 @@ float *vector[vectorArraySize] = {NULL};
 // * Menu's Stuff
 void printMainMenu(void);
 bool programCore(void);
-void vectorOperation(void);
 void printOperationMenu(void);
+void vectorOperation(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
 
@@ -131,6 +131,22 @@ bool programCore(void)
     return true; // * User didn't wish to exit program
 }
 
+void printOperationMenu(void)
+{
+    wprintf(L"==========================================\n");
+    wprintf(L"กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
+    wprintf(L"[1] หาขนาดของเวกเตอร์\n");
+    wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
+    wprintf(L"[3] บวก 2 เวกเตอร์\n");
+    wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
+    wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
+    wprintf(L"[0] ออก\n");
+}
+
 void vectorOperation(void)
 {
     int choice, temp;
@@ -203,22 +219,6 @@ void vectorOperation(void)
     }
     wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     getchar();
-}
-
-void printOperationMenu(void)
-{
-    wprintf(L"==========================================\n");
-    wprintf(L"กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
-    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
-    wprintf(L"[1] หาขนาดของเวกเตอร์\n");
-    wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
-    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
-    wprintf(L"[3] บวก 2 เวกเตอร์\n");
-    wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
-    wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
-    wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
-    wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
-    wprintf(L"[0] ออก\n");
 }
 
 void setColor(void) // ! Only supported on Windows

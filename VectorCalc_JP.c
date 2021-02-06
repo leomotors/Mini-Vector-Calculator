@@ -32,8 +32,8 @@ float *vector[vectorArraySize] = {NULL};
 // * Menu's Stuff
 void printMainMenu(void);
 bool programCore(void);
-void vectorOperation(void);
 void printOperationMenu(void);
+void vectorOperation(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
 
@@ -131,6 +131,22 @@ bool programCore(void)
     return true; // * User didn't wish to exit program
 }
 
+void printOperationMenu(void)
+{
+    wprintf(L"==========================================\n");
+    wprintf(L"機能を選んでください\n");
+    wprintf(L"\t一つのベクトル演算\n");
+    wprintf(L"[1] ベクトルのサイズを計算する\n");
+    wprintf(L"[2] ベクトルにスカラーを掛ける\n");
+    wprintf(L"\t二つのベクトル演算\n");
+    wprintf(L"[3] 二つのベクトルをプラスする\n");
+    wprintf(L"[4] 二つのベクトルのドット積\n");
+    wprintf(L"[5] 二つのベクトルの外積\n");
+    wprintf(L"[6] 別のベクトルにベクトルを射影する\n");
+    wprintf(L"[7] 二つのベクトルからの平行四辺形の面積を計算する\n");
+    wprintf(L"[0] 出る\n");
+}
+
 void vectorOperation(void)
 {
     int choice, temp;
@@ -204,22 +220,6 @@ void vectorOperation(void)
     }
     wprintf(L"機能完了しました、 続行するには任意のボタンを押してください。。。");
     getchar();
-}
-
-void printOperationMenu(void)
-{
-    wprintf(L"==========================================\n");
-    wprintf(L"機能を選んでください\n");
-    wprintf(L"\t一つのベクトル演算\n");
-    wprintf(L"[1] ベクトルのサイズを計算する\n");
-    wprintf(L"[2] ベクトルにスカラーを掛ける\n");
-    wprintf(L"\t二つのベクトル演算\n");
-    wprintf(L"[3] 二つのベクトルをプラスする\n");
-    wprintf(L"[4] 二つのベクトルのドット積\n");
-    wprintf(L"[5] 二つのベクトルの外積\n");
-    wprintf(L"[6] 別のベクトルにベクトルを射影する\n");
-    wprintf(L"[7] 二つのベクトルからの平行四辺形の面積を計算する\n");
-    wprintf(L"[0] 出る\n");
 }
 
 void setColor(void) // ! Only supported on Windows
