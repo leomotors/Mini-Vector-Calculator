@@ -24,7 +24,7 @@ Compiler : C99 or above
 
 Note : Thai and Japanese Version aren't supported in UNIX
 
-Note : -lm (Math Library) must be manually attached in UNIX
+Note : ```-lm``` (Math Library) must be manually attached in UNIX
 
 ## Version
 
@@ -63,7 +63,8 @@ Note : -lm (Math Library) must be manually attached in UNIX
 
   Developed further more to submit to T.Wichai again as improvement project.
 
-  Note : Due to outgoing pandemic, there is no more work group. (For social distancing) So this work will done my me alone.
+  Note : Due to outgoing pandemic, there is no more work group.
+   (For social distancing) So this work will done my me alone.
 
   Subject : 「การเขียนโปรแกรม 2 (ง30222)」 Triam Udom Suksa School (2020/2)
   
