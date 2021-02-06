@@ -12,9 +12,11 @@
 
 * Project a vector on another
 
-* Find area of parrallelogram under two vectors.
+* Find area of parrallelogram under two vectors
 
-* Import and Export Vector Data
+* Import Vector Data from and Export to Files
+
+* Support 3 Languages: English, Thai, Japanese
 
 ## Compatibility
 
