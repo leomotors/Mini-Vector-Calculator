@@ -256,7 +256,7 @@ void cls(void) // * By @Teproanyx
 void inputVector(void)
 {
     int slot;
-    char *confirm;
+    char *confirm = malloc(sizeof(char) * 100);
     slot = getInt("Which slot you want? : ");
     if (slot >= 0 && slot < vectorArraySize)
     {
@@ -280,6 +280,7 @@ void inputVector(void)
         printf("Invalid index!\nPress any to continue!");
         getchar();
     }
+    free(confirm);
 }
 
 const char *printvec(float *u)
@@ -309,7 +310,7 @@ void saveVector(float *u)
 {
     int w;
     printf("Result Vector is %s\n", printvec(u));
-    char *choice;
+    char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString("Do you want to save vector? [Y/N]: ");
@@ -331,6 +332,7 @@ void saveVector(float *u)
         free(vector[w]);
     }
     vector[w] = u;
+    free(choice);
 }
 
 bool isVector(int u)
@@ -340,6 +342,14 @@ bool isVector(int u)
 
 void deleteAllVectors(void)
 {
+    char *choice = malloc(sizeof(char) * 100);
+    do
+    {
+        choice = getString("Warning: This action will delete all vector. Continue? [Y/N]: ");
+        if (choice[0] == 'N')
+            return;
+    } while (choice[0] != 'Y');
+
     for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
@@ -348,6 +358,7 @@ void deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
+    free(choice);
     printf("All vectors have been deleted, press any to continue...");
     getchar();
 }
@@ -356,7 +367,7 @@ void deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    char *choice;
+    char *choice = malloc(sizeof(char) * 100);
     for (int c = 0; c < vectorArraySize; c++)
     {
         if (isVector(c))
@@ -372,6 +383,8 @@ void importVector(void)
         } while (choice[0] != 'Y');
         deleteAllVectors();
     }
+    free(choice);
+
     int slot = 0;
     float a1, a2, a3;
     char *tmp;
@@ -404,11 +417,13 @@ void importVector(void)
 
 void exportVector(void)
 {
-    char *tmp, *choice;
+    char *tmp = malloc(sizeof(char) * 100);
+    char *choice = malloc(sizeof(char) * 100);
     char filename[100];
     FILE *outputFile;
     tmp = getString("Enter file name: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
+    free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         do
@@ -416,10 +431,13 @@ void exportVector(void)
             choice = getString("File already exists, Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
+                free(choice);
                 return;
             }
         } while (choice[0] != 'Y');
     }
+    free(choice);
+
     outputFile = fopen(filename, "w");
     for (int c = 0; c < vectorArraySize; c++)
     {

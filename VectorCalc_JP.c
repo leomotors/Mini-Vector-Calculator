@@ -253,7 +253,7 @@ void cls(void) // * By @Teproanyx
 void inputVector(void)
 {
     int slot;
-    char *confirm;
+    char *confirm = malloc(sizeof(char) * 100);
     slot = getInt(L"どのスロットでベクトルを入れますか？ : ");
     if (slot >= 0 && slot < vectorArraySize)
     {
@@ -277,6 +277,7 @@ void inputVector(void)
         wprintf(L"そのスロットはありません、続行するには任意のボタンを押してください。。。");
         getchar();
     }
+    free(confirm);
 }
 
 const wchar_t *printvec(float *u)
@@ -288,7 +289,7 @@ const wchar_t *printvec(float *u)
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    wchar_t *wstr = calloc(strlen(str),sizeof(wchar_t));
+    wchar_t *wstr = calloc(strlen(str), sizeof(wchar_t));
     for (int lc = 0; lc < strlen(str); lc++)
     {
         wstr[lc] = (wchar_t)(str[lc]);
@@ -312,7 +313,7 @@ void saveVector(float *u)
 {
     int w;
     wprintf(L"結果のベクトルは %s\n", printvec(u));
-    char *choice;
+    char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString(L"ベクトルを保存しますか？ [Y/N]: ");
@@ -334,6 +335,7 @@ void saveVector(float *u)
         free(vector[w]);
     }
     vector[w] = u;
+    free(choice);
 }
 
 bool isVector(int u)
@@ -343,6 +345,14 @@ bool isVector(int u)
 
 void deleteAllVectors(void)
 {
+    char *choice = malloc(sizeof(char) * 100);
+    do
+    {
+        choice = getString("警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: ");
+        if (choice[0] == 'N')
+            return;
+    } while (choice[0] != 'Y');
+
     for (int c = 0; c < vectorArraySize; c++)
     {
         if (vector[c] != NULL)
@@ -351,6 +361,7 @@ void deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
+    free(choice);
     wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
 }
@@ -359,7 +370,7 @@ void deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    char *choice;
+    char *choice = malloc(sizeof(char) * 100);
     for (int c = 0; c < vectorArraySize; c++)
     {
         if (isVector(c))
@@ -375,6 +386,8 @@ void importVector(void)
         } while (choice[0] != 'Y');
         deleteAllVectors();
     }
+    free(choice);
+
     int slot = 0;
     float a1, a2, a3;
     char *tmp;
@@ -407,11 +420,13 @@ void importVector(void)
 
 void exportVector(void)
 {
-    char *tmp, *choice;
+    char *tmp = malloc(sizeof(char) * 100);
+    char *choice = malloc(sizeof(char) * 100);
     char filename[100];
     FILE *outputFile;
     tmp = getString(L"ファイル名を入力してください : ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
+    free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         do
@@ -419,10 +434,13 @@ void exportVector(void)
             choice = getString(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: ");
             if (choice[0] == 'N')
             {
+                free(choice);
                 return;
             }
         } while (choice[0] != 'Y');
     }
+    free(choice);
+
     outputFile = fopen(filename, "w");
     for (int c = 0; c < vectorArraySize; c++)
     {
