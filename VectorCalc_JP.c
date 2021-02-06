@@ -44,7 +44,7 @@ const wchar_t *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
-void deleteAllVectors(void);
+bool deleteAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -367,14 +367,14 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
-void deleteAllVectors(void)
+bool deleteAllVectors(void)
 {
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: ");
         if (choice[0] == 'N')
-            return;
+            return false;
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < vectorArraySize; c++)
@@ -388,29 +388,22 @@ void deleteAllVectors(void)
     free(choice);
     wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
+    return true;
 }
 
 // * Import and Export
 void importVector(void)
 {
     bool started = false;
-    char *choice = malloc(sizeof(char) * 100);
     for (int c = 0; c < vectorArraySize; c++)
     {
         if (isVector(c))
             started = true;
     }
-    if (started)
+    if (started && !deleteAllVectors())
     {
-        do
-        {
-            choice = getString(L"この機能を使ったら、すべてのベクトルを削除します。 継続しますか？ [Y/N]: ");
-            if (choice[0] == 'N')
-                return;
-        } while (choice[0] != 'Y');
-        deleteAllVectors();
+        return;
     }
-    free(choice);
 
     int slot = 0;
     float a1, a2, a3;

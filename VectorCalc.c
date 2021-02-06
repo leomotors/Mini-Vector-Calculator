@@ -39,7 +39,7 @@ const char *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
-void deleteAllVectors(void);
+bool deleteAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -364,14 +364,14 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
-void deleteAllVectors(void)
+bool deleteAllVectors(void)
 {
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString("Warning: This action will delete all vector. Continue? [Y/N]: ");
         if (choice[0] == 'N')
-            return;
+            return false;
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < vectorArraySize; c++)
@@ -385,6 +385,7 @@ void deleteAllVectors(void)
     free(choice);
     printf("All vectors have been deleted, press any to continue...");
     getchar();
+    return true;
 }
 
 // * Import and Export
@@ -397,15 +398,9 @@ void importVector(void)
         if (isVector(c))
             started = true;
     }
-    if (started)
+    if (started && !deleteAllVectors())
     {
-        do
-        {
-            choice = getString("Using this function will remove all existing vector, continue? [Y/N]: ");
-            if (choice[0] == 'N')
-                return;
-        } while (choice[0] != 'Y');
-        deleteAllVectors();
+        return;
     }
     free(choice);
 

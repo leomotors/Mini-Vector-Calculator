@@ -44,7 +44,7 @@ const wchar_t *printvec(float *);
 void ShowAllVectors(void);
 void saveVector(float *);
 bool isVector(int);
-void deleteAllVectors(void);
+bool deleteAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -366,14 +366,14 @@ bool isVector(int u)
     return vector[u] != NULL;
 }
 
-void deleteAllVectors(void)
+bool deleteAllVectors(void)
 {
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: ");
         if (choice[0] == 'N')
-            return;
+            return false;
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < vectorArraySize; c++)
@@ -387,6 +387,7 @@ void deleteAllVectors(void)
     free(choice);
     wprintf(L"เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
     getchar();
+    return true;
 }
 
 // * Import and Export
@@ -399,15 +400,9 @@ void importVector(void)
         if (isVector(c))
             started = true;
     }
-    if (started)
+    if (started && !deleteAllVectors())
     {
-        do
-        {
-            choice = getString(L"การใช้ฟังก์ชันนี้จะลบเวกเตอร์ที่มีอยู่ทั้งหมด ทำต่อ? [Y/N]: ");
-            if (choice[0] == 'N')
-                return;
-        } while (choice[0] != 'Y');
-        deleteAllVectors();
+        return;
     }
     free(choice);
 
