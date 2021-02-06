@@ -180,7 +180,7 @@ void vectorOperation(void)
     }
     case 2:
     {
-        temp = getInt(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
+        temp = getInt(L"持って掛けるスカラー量を入力してください: ");
         saveVector((scalarMult(vector[u], temp)));
         break;
     }
@@ -188,7 +188,7 @@ void vectorOperation(void)
         saveVector(addVector(vector[u], vector[v]));
         break;
     case 4:
-        wprintf(L"ドット積 %.2f\n", dotProduct(vector[u], vector[v]));
+        wprintf(L"ドット積は %.2f\n", dotProduct(vector[u], vector[v]));
         break;
     case 5:
         saveVector(crossProduct(vector[u], vector[v]));
@@ -212,13 +212,13 @@ void printOperationMenu(void)
     wprintf(L"機能を選んでください\n");
     wprintf(L"\t一つのベクトル演算\n");
     wprintf(L"[1] ベクトルのサイズを計算する\n");
-    wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
+    wprintf(L"[2] ベクトルにスカラーを掛ける\n");
     wprintf(L"\t二つのベクトル演算\n");
-    wprintf(L"[3] บวก 2 เวกเตอร์\n");
+    wprintf(L"[3] 二つのベクトルをプラスする\n");
     wprintf(L"[4] 二つのベクトルのドット積\n");
     wprintf(L"[5] 二つのベクトルの外積\n");
-    wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
-    wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
+    wprintf(L"[6] 別のベクトルにベクトルを射影する\n");
+    wprintf(L"[7] 二つのベクトルからの平行四辺形の面積を計算する\n");
     wprintf(L"[0] 出る\n");
 }
 
@@ -254,14 +254,14 @@ void inputVector(void)
 {
     int slot;
     char *confirm;
-    slot = getInt(L"ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
+    slot = getInt(L"どのスロットでベクトルを入れますか？ : ");
     if (slot >= 0 && slot < vectorArraySize)
     {
         if (vector[slot] != NULL)
         {
             do
             {
-                confirm = getString(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: ");
+                confirm = getString(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: ");
                 if (confirm[0] == 'N')
                     return;
             } while (confirm[0] != 'Y');
@@ -319,12 +319,12 @@ void saveVector(float *u)
         if (choice[0] == 'N')
             return;
     } while (choice[0] != 'Y');
-    w = getInt(L"どこで保存しますか? : ");
+    w = getInt(L"どこで保存しますか？ : ");
     if (vector[w] != NULL)
     {
         do
         {
-            choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか? [Y/N]: ");
+            choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: ");
             if (choice[0] == 'N')
             {
                 saveVector(u);
@@ -369,7 +369,7 @@ void importVector(void)
     {
         do
         {
-            choice = getString(L"การใช้ฟังก์ชันนี้จะลบเวกเตอร์ที่มีอยู่ทั้งหมด ทำต่อ? [Y/N]: ");
+            choice = getString(L"この機能を使ったら、すべてのベクトルを削除します。 継続しますか？ [Y/N]: ");
             if (choice[0] == 'N')
                 return;
         } while (choice[0] != 'Y');
@@ -416,7 +416,7 @@ void exportVector(void)
     {
         do
         {
-            choice = getString(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: ");
+            choice = getString(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: ");
             if (choice[0] == 'N')
             {
                 return;
@@ -482,7 +482,7 @@ long getLong(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -494,7 +494,7 @@ long getLong(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -508,7 +508,7 @@ int getInt(const wchar_t *prompt)
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getInt(prompt);
     }
     return (int)n;
@@ -519,7 +519,7 @@ float getFloat(const wchar_t *prompt)
     double temp = getDouble(prompt);
     if (temp > FLT_MAX || temp < FLT_MIN)
     {
-        wprintf(L"Error! Overflowed!\n");
+        wprintf(L"エラー : オーバーフロー。\n");
         return getFloat(prompt);
     }
     return (float)temp;
@@ -531,7 +531,7 @@ double getDouble(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -543,7 +543,7 @@ double getDouble(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getDouble(prompt);
     }
 
@@ -561,7 +561,7 @@ char *getString(const wchar_t *prompt)
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        wprintf(L"Error, try again!\n");
+        wprintf(L"エラー、もう一度やり直してください。\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
@@ -604,5 +604,6 @@ void memoryError(const void *pointer)
 int main(void)
 {
     printf("Thai version doesn't support in Linux!\n");
+    return 0;
 }
 #endif
