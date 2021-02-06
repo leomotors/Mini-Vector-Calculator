@@ -85,7 +85,7 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    wprintf(L"\n下の機能を選んでください\n");
+    wprintf(L"\n下の機能を選んでください。\n");
     wprintf(L"[1] 新ベクトルを入力する\n");
     wprintf(L"[2] ベクトルについて計算\n");
     wprintf(L"[3] 画面の色を変化する\n");
