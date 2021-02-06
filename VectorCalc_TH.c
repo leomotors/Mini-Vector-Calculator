@@ -347,7 +347,7 @@ void deleteAllVectors(void)
     char *choice = malloc(sizeof(char) * 100);
     do
     {
-        choice = getString("คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: ");
+        choice = getString(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: ");
         if (choice[0] == 'N')
             return;
     } while (choice[0] != 'Y');
