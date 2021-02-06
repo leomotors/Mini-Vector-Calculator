@@ -56,4 +56,6 @@ dkms.conf
 
 # Linux Executable
 
-VectorV2
+VectorCalc
+VectorCalc_TH
+VectorCalc_JP
