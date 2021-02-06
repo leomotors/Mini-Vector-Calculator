@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap":{
+    "c": "cd $dir && gcc $fileName -lm -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+    }
+}
