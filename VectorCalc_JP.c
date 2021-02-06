@@ -26,7 +26,7 @@
 #define k 2
 
 #define vectorArraySize 100
-#define floatingPoint 2
+int floatingPoint = 2;
 float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
@@ -34,7 +34,8 @@ void printMainMenu(void);
 bool programCore(void);
 void printOperationMenu(void);
 void vectorOperation(void);
-void setColor(void); // ! Only supported on Windows
+void settingsMenu(void);
+void setColor(void);
 void cls(void);
 
 // * Vector management
@@ -88,10 +89,10 @@ void printMainMenu(void)
     wprintf(L"\n下の機能を選んでください。\n");
     wprintf(L"[1] 新ベクトルを入力する\n");
     wprintf(L"[2] ベクトルについて計算\n");
-    wprintf(L"[3] 画面の色を変化する\n");
-    wprintf(L"[4] Lab: ファイルからベクトルをインポートする\n");
-    wprintf(L"[5] Lab: ファイルへベクトルをエクスポートする\n");
-    wprintf(L"[6] すべてのベクトルを削除する\n");
+    wprintf(L"[3] Lab: ファイルからベクトルをインポートする\n");
+    wprintf(L"[4] Lab: ファイルへベクトルをエクスポートする\n");
+    wprintf(L"[5] すべてのベクトルを削除する\n");
+    wprintf(L"[6] 設定\n");
     wprintf(L"[0] プログラムを終了する\n");
 }
 
@@ -111,16 +112,16 @@ bool programCore(void)
         vectorOperation();
         break;
     case 3:
-        setColor();
-        break;
-    case 4:
         importVector();
         break;
-    case 5:
+    case 4:
         exportVector();
         break;
-    case 6:
+    case 5:
         deleteAllVectors();
+        break;
+    case 6:
+        settingsMenu();
         break;
     default:
         wprintf(L"選択無効 もう一度やり直してください\n");
@@ -220,6 +221,29 @@ void vectorOperation(void)
     }
     wprintf(L"機能完了しました、 続行するには任意のボタンを押してください。。。");
     getchar();
+}
+
+void settingsMenu(void)
+{
+    int choice;
+    wprintf(L"\n=====|設定|=====\n\n");
+    wprintf(L"[1] 画面の色を変化する\n");
+    wprintf(L"[2] Set Number Precision\n");
+    choice = getInt("Your option: ");
+    switch (choice)
+    {
+    case 1:
+        setColor();
+        break;
+    case 2:
+        floatingPoint = getInt("Number of floating point: ");
+        break;
+    default:
+        printf("Invalid choice, please try again.\n");
+        printf("Press any key to continue...");
+        getchar();
+        break;
+    }
 }
 
 void setColor(void) // ! Only supported on Windows

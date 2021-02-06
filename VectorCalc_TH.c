@@ -26,7 +26,7 @@
 #define k 2
 
 #define vectorArraySize 100
-#define floatingPoint 2
+int floatingPoint = 2;
 float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
@@ -34,7 +34,8 @@ void printMainMenu(void);
 bool programCore(void);
 void printOperationMenu(void);
 void vectorOperation(void);
-void setColor(void); // ! Only supported on Windows
+void settingsMenu(void);
+void setColor(void);
 void cls(void);
 
 // * Vector management
@@ -88,10 +89,10 @@ void printMainMenu(void)
     wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
     wprintf(L"[1] ป้อนเวกเตอร์ใหม่\n");
     wprintf(L"[2] คำนวณเกี่ยวกับเวกเตอร์\n");
-    wprintf(L"[3] เปลี่ยนสีหน้าจอ\n");
-    wprintf(L"[4] Lab: นำเข้าเวกเตอร์จากไฟล์\n");
-    wprintf(L"[5] Lab: ส่งออกเวกเตอร์ไปยังไฟล์\n");
-    wprintf(L"[6] ลบเวกเตอร์ทั้งหมด\n");
+    wprintf(L"[3] Lab: นำเข้าเวกเตอร์จากไฟล์\n");
+    wprintf(L"[4] Lab: ส่งออกเวกเตอร์ไปยังไฟล์\n");
+    wprintf(L"[5] ลบเวกเตอร์ทั้งหมด\n");
+    wprintf(L"[6] การตั้งค่า\n");
     wprintf(L"[0] ออกจากโปรแกรม\n");
 }
 
@@ -111,16 +112,16 @@ bool programCore(void)
         vectorOperation();
         break;
     case 3:
-        setColor();
-        break;
-    case 4:
         importVector();
         break;
-    case 5:
+    case 4:
         exportVector();
         break;
-    case 6:
+    case 5:
         deleteAllVectors();
+        break;
+    case 6:
+        settingsMenu();
         break;
     default:
         wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
@@ -219,6 +220,29 @@ void vectorOperation(void)
     }
     wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     getchar();
+}
+
+void settingsMenu(void)
+{
+    int choice;
+    wprintf(L"\n=====|การตั้งค่า|=====\n\n");
+    wprintf(L"เปลี่ยนสีหน้าจอ\n");
+    printf("[2] Set Number Precision\n");
+    choice = getInt("Your option: ");
+    switch (choice)
+    {
+    case 1:
+        setColor();
+        break;
+    case 2:
+        floatingPoint = getInt("Number of floating point: ");
+        break;
+    default:
+        printf("Invalid choice, please try again.\n");
+        printf("Press any key to continue...");
+        getchar();
+        break;
+    }
 }
 
 void setColor(void) // ! Only supported on Windows
