@@ -603,7 +603,7 @@ void memoryError(const void *pointer)
 #include <stdio.h>
 int main(void)
 {
-    printf("Thai version doesn't support in Linux!\n");
+    printf("Japanese version doesn't support in Linux!\n");
     return 0;
 }
 #endif
