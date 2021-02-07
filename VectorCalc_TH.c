@@ -25,8 +25,9 @@
 #define j 1
 #define k 2
 
-#define vectorArraySize 100
 int floatingPoint = 2;
+
+#define vectorArraySize 100
 float *vector[vectorArraySize] = {NULL};
 
 // * Menu's Stuff
