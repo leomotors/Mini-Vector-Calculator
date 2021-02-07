@@ -2,6 +2,8 @@
  * * Project 「Vector Calculator」 Japanese Version
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
+ * ! Translation might not be 100% correct. Author is just at N5.
+ * ! 翻訳が全部正しくない可能性があります。 作者はただN5です。
  */
 
 #if defined(_WIN32)
