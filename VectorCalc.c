@@ -107,15 +107,12 @@ bool programCore(void)
         vectorOperation();
         break;
     case 3:
-        importVector();
+        fileMenu();
         break;
     case 4:
-        exportVector();
-        break;
-    case 5:
         deleteAllVectors();
         break;
-    case 6:
+    case 5:
         settingsMenu();
         break;
     default:
