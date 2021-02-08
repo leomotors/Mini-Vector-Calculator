@@ -244,10 +244,17 @@ void settingsMenu(void)
         setColor();
         break;
     case 2:
-        floatingPoint = getInt(L"小数点以下の桁数 ： ");
+        while (true)
+        {
+            floatingPoint = getInt(L"小数点以下の桁数 ： ");
+            if (floatingPoint >= 0 && floatingPoint <= 6)
+                break;
+            else
+                wprintf(L"桁数は0から6の間でなければなりません。もう一度やり直してください\n");
+        }
         break;
     default:
-        wprintf(L"選択無効 もう一度やり直してください\n");
+        wprintf(L"選択無効 \n");
         wprintf(L"続行するには任意のボタンを押してください。");
         getchar();
         break;

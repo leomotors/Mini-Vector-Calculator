@@ -182,8 +182,8 @@ void vectorOperation(void)
             return;
         }
     }
-    
-    char *format = calloc(10,sizeof(char));
+
+    char *format = calloc(10, sizeof(char));
     sprintf(format, "%%.%df", floatingPoint);
     switch (choice)
     {
@@ -231,7 +231,14 @@ void settingsMenu(void)
         setColor();
         break;
     case 2:
-        floatingPoint = getInt("Number of digits after decimal: ");
+        while (true)
+        {
+            floatingPoint = getInt("Number of digits after decimal: ");
+            if (floatingPoint >= 0 && floatingPoint <= 6)
+                break;
+            else
+                printf("Number of digits must be between 0 and 6!\n");
+        }
         break;
     default:
         printf("Invalid choice, please try again.\n");

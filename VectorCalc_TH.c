@@ -192,7 +192,7 @@ void vectorOperation(void)
     wchar_t *format = calloc(10, sizeof(wchar_t));
     swprintf(format, 10, L"%%.%df", floatingPoint);
     switch (choice)
-    { 
+    {
     case 1:
         wprintf(L"ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
         wprintf(format, vectorSize(vector[u]));
@@ -241,7 +241,14 @@ void settingsMenu(void)
         setColor();
         break;
     case 2:
-        floatingPoint = getInt(L"จำนวนตัวเลขหลังทศนิยม: ");
+        while (true)
+        {
+            floatingPoint = getInt(L"จำนวนหลักหลังทศนิยม: ");
+            if (floatingPoint >= 0 && floatingPoint <= 6)
+                break;
+            else
+                wprintf(L"จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
+        }
         break;
     default:
         wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
