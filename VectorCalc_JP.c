@@ -254,7 +254,7 @@ void settingsMenu(void)
         }
         break;
     default:
-        wprintf(L"選択無効 \n");
+        wprintf(L"選択無効 もう一度やり直してください\n");
         wprintf(L"続行するには任意のボタンを押してください。");
         getchar();
         break;
