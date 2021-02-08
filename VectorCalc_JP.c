@@ -45,7 +45,7 @@ void cls(void);
 void inputVector(void);
 const wchar_t *printvec(float *);
 void ShowAllVectors(void);
-void saveVector(float *);
+void saveVectorToSlot(float *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -203,10 +203,10 @@ void vectorOperation(void)
         break;
     case 2:
         temp = getInt(L"持って掛けるスカラー量を入力してください: ");
-        saveVector((scalarMult(vector[u], temp)));
+        saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
-        saveVector(addVector(vector[u], vector[v]));
+        saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
         wprintf(L"ドット積は ");
@@ -214,10 +214,10 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 5:
-        saveVector(crossProduct(vector[u], vector[v]));
+        saveVectorToSlot(crossProduct(vector[u], vector[v]));
         break;
     case 6:
-        saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
+        saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
         wprintf(L"面積は ", vectorSize(crossProduct(vector[u], vector[v])));
@@ -348,7 +348,7 @@ void ShowAllVectors(void)
     }
 }
 
-void saveVector(float *u)
+void saveVectorToSlot(float *u)
 {
     int w;
     wprintf(L"結果のベクトルは %s\n", printvec(u));
@@ -367,7 +367,7 @@ void saveVector(float *u)
             choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: ");
             if (choice[0] == 'N')
             {
-                saveVector(u);
+                saveVectorToSlot(u);
                 return;
             }
         } while (choice[0] != 'Y');

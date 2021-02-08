@@ -38,7 +38,7 @@ void cls(void);
 void inputVector(void);
 const char *printvec(float *);
 void ShowAllVectors(void);
-void saveVector(float *);
+void saveVectorToSlot(float *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -84,10 +84,9 @@ void printMainMenu(void)
     printf("\nPlease select Function from below list.\n");
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
-    printf("[3] Lab: Import Vector from file\n");
-    printf("[4] Lab: Export Vector to file\n");
-    printf("[5] Delete all Vectors\n");
-    printf("[6] Settings\n");
+    printf("[3] Save & Load Vector\n");
+    printf("[4] Delete all Vectors\n");
+    printf("[5] Settings\n");
     printf("[0] Exit\n");
 }
 
@@ -194,19 +193,19 @@ void vectorOperation(void)
         break;
     case 2:
         temp = getInt("Enter scalar to multiply with: ");
-        saveVector((scalarMult(vector[u], temp)));
+        saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
-        saveVector(addVector(vector[u], vector[v]));
+        saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
         printf("Dot Product is %.2f\n", dotProduct(vector[u], vector[v]));
         break;
     case 5:
-        saveVector(crossProduct(vector[u], vector[v]));
+        saveVectorToSlot(crossProduct(vector[u], vector[v]));
         break;
     case 6:
-        saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
+        saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
         printf("Area is %.2f Sq.Unit\n", vectorSize(crossProduct(vector[u], vector[v])));
@@ -339,7 +338,7 @@ void ShowAllVectors(void)
     }
 }
 
-void saveVector(float *u)
+void saveVectorToSlot(float *u)
 {
     int w;
     printf("Result Vector is %s\n", printvec(u));
@@ -358,7 +357,7 @@ void saveVector(float *u)
             choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
-                saveVector(u);
+                saveVectorToSlot(u);
                 return;
             }
         } while (choice[0] != 'Y');

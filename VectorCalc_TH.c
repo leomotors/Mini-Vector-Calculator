@@ -43,7 +43,7 @@ void cls(void);
 void inputVector(void);
 const wchar_t *printvec(float *);
 void ShowAllVectors(void);
-void saveVector(float *);
+void saveVectorToSlot(float *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -200,10 +200,10 @@ void vectorOperation(void)
         break;
     case 2:
         temp = getInt(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
-        saveVector((scalarMult(vector[u], temp)));
+        saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
-        saveVector(addVector(vector[u], vector[v]));
+        saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
         wprintf(L"ผลคูณเชิงสเกลาร์คือ ");
@@ -211,10 +211,10 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 5:
-        saveVector(crossProduct(vector[u], vector[v]));
+        saveVectorToSlot(crossProduct(vector[u], vector[v]));
         break;
     case 6:
-        saveVector(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
+        saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
         wprintf(L"พื้นที่คือ \n");
@@ -345,7 +345,7 @@ void ShowAllVectors(void)
     }
 }
 
-void saveVector(float *u)
+void saveVectorToSlot(float *u)
 {
     int w;
     wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
@@ -364,7 +364,7 @@ void saveVector(float *u)
             choice = getString(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: ");
             if (choice[0] == 'N')
             {
-                saveVector(u);
+                saveVectorToSlot(u);
                 return;
             }
         } while (choice[0] != 'Y');
