@@ -16,6 +16,8 @@
 
 * Import Vector Data from and Export to Files
 
+* Set Number Precision (Number of digits after decimal point)
+
 * Support 3 Languages: English, Thai, Japanese
 
 ## Compatibility
@@ -32,9 +34,7 @@ Note : ```-lm``` (Math Library) must be manually attached in UNIX
 
   Version used to present to Teacher (Semester 1) : v1.3.0
 
-  Current Release : v2.4.1
-
-  Current Snapshot : v3.0-rc1
+  Current Release : v3.0
 
 ## Credits
 
@@ -80,7 +80,9 @@ Note : ```-lm``` (Math Library) must be manually attached in UNIX
 
 ### Version 3 (Latest Version)
 
-  **2021-01-18 to 2021-02-xx** Version 3 Development
+  **2021-02-08** Multilingual Update (3.0): Add Thai and Japanese.
+  
+  **2021-01-18 to 2021-02-08** Version 3 Development
 
 ### Version 2
 
