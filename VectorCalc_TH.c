@@ -36,6 +36,7 @@ bool programCore(void);
 void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
+void fileMenu(void);
 void setColor(void);
 void cls(void);
 
@@ -90,10 +91,9 @@ void printMainMenu(void)
     wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
     wprintf(L"[1] ป้อนเวกเตอร์ใหม่\n");
     wprintf(L"[2] คำนวณเกี่ยวกับเวกเตอร์\n");
-    wprintf(L"[3] Lab: นำเข้าเวกเตอร์จากไฟล์\n");
-    wprintf(L"[4] Lab: ส่งออกเวกเตอร์ไปยังไฟล์\n");
-    wprintf(L"[5] ลบเวกเตอร์ทั้งหมด\n");
-    wprintf(L"[6] การตั้งค่า\n");
+    wprintf(L"[3] นำเข้าและส่งออกเวกเตอร์\n");
+    wprintf(L"[4] ลบเวกเตอร์ทั้งหมด\n");
+    wprintf(L"[5] การตั้งค่า\n");
     wprintf(L"[0] ออกจากโปรแกรม\n");
 }
 
@@ -234,6 +234,7 @@ void settingsMenu(void)
     wprintf(L"\n=====|การตั้งค่า|=====\n\n");
     wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
     wprintf(L"[2] เลือกความละเอียดของตัวเลข\n");
+    wprintf(L"กลับ\n");
     choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
@@ -250,6 +251,10 @@ void settingsMenu(void)
                 wprintf(L"จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
         }
         break;
+    case 0:
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        getchar();
+        break;
     default:
         wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
         wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
@@ -258,6 +263,33 @@ void settingsMenu(void)
     }
 }
 
+void fileMenu(void)
+{
+    int choice;
+    wprintf(L"\n=====|เมนูไฟล์|=====\n\n");
+    wprintf(L"[1] นำเข้าเวกเตอร์\n");
+    wprintf(L"[2] ส่งออกเวกเตอร์\n");
+    wprintf(L"กลับ\n");
+    choice = getInt(L"ตัวเลือกที่เลือก: ");
+    switch (choice)
+    {
+    case 1:
+        inputVector();
+        break;
+    case 2:
+        exportVector();
+        break;
+    case 0:
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        getchar();
+        break;
+    default:
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        getchar();
+        break;
+    }
+}
 void setColor(void) // ! Only supported on Windows
 {
     char *col;

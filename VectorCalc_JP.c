@@ -38,6 +38,7 @@ bool programCore(void);
 void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
+void fileMenu(void);
 void setColor(void);
 void cls(void);
 
@@ -92,10 +93,9 @@ void printMainMenu(void)
     wprintf(L"\n下の機能を選んでください。\n");
     wprintf(L"[1] 新ベクトルを入力する\n");
     wprintf(L"[2] ベクトルについて計算\n");
-    wprintf(L"[3] Lab: ファイルからベクトルをインポートする\n");
-    wprintf(L"[4] Lab: ファイルへベクトルをエクスポートする\n");
-    wprintf(L"[5] すべてのベクトルを削除する\n");
-    wprintf(L"[6] 設定\n");
+    wprintf(L"[3] インポート・エクスポートベクトル\n");
+    wprintf(L"[4] すべてのベクトルを削除する\n");
+    wprintf(L"[5] 設定\n");
     wprintf(L"[0] プログラムを終了する\n");
 }
 
@@ -237,6 +237,7 @@ void settingsMenu(void)
     wprintf(L"\n=====|設定|=====\n\n");
     wprintf(L"[1] 画面の色を変化する\n");
     wprintf(L"[2] 数値精度を設定する\n");
+    wprintf(L"[0] 戻る\n");
     choice = getInt(L"選ぶ： ");
     switch (choice)
     {
@@ -252,6 +253,38 @@ void settingsMenu(void)
             else
                 wprintf(L"桁数は0から6の間でなければなりません。もう一度やり直してください\n");
         }
+        break;
+    case 0:
+        wprintf(L"続行するには任意のボタンを押してください。");
+        getchar();
+        break;
+    default:
+        wprintf(L"選択無効 もう一度やり直してください\n");
+        wprintf(L"続行するには任意のボタンを押してください。");
+        getchar();
+        break;
+    }
+}
+
+void fileMenu(void)
+{
+    int choice;
+    wprintf(L"\n=====|ファイルメニュー|=====\n\n");
+    wprintf(L"[1] インポート・ベクトル\n");
+    wprintf(L"[2] エクスポート・ベクトル\n");
+    wprintf(L"[0] 戻る\n");
+    choice = getInt(L"選ぶ： ");
+    switch (choice)
+    {
+    case 1:
+        importVector();
+        break;
+    case 2:
+        exportVector();
+        break;
+    case 0:
+        wprintf(L"続行するには任意のボタンを押してください。");
+        getchar();
         break;
     default:
         wprintf(L"選択無効 もう一度やり直してください\n");

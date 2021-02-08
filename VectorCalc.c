@@ -31,6 +31,7 @@ bool programCore(void);
 void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
+void fileMenu(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
 
@@ -84,7 +85,7 @@ void printMainMenu(void)
     printf("\nPlease select Function from below list.\n");
     printf("[1] Input new vector!\n");
     printf("[2] Do operations!\n");
-    printf("[3] Save & Load Vector\n");
+    printf("[3] Import & Export Vectors\n");
     printf("[4] Delete all Vectors\n");
     printf("[5] Settings\n");
     printf("[0] Exit\n");
@@ -223,6 +224,7 @@ void settingsMenu(void)
     printf("\n=====|Settings|=====\n\n");
     printf("[1] Set terminal (command prompt)'s color\n");
     printf("[2] Set Number Precision\n");
+    printf("[0] Back\n");
     choice = getInt("Your option: ");
     switch (choice)
     {
@@ -238,6 +240,38 @@ void settingsMenu(void)
             else
                 printf("Number of digits must be between 0 and 6!\n");
         }
+        break;
+    case 0:
+        printf("Press any key to continue...");
+        getchar();
+        break;
+    default:
+        printf("Invalid choice, please try again.\n");
+        printf("Press any key to continue...");
+        getchar();
+        break;
+    }
+}
+
+void fileMenu(void)
+{
+    int choice;
+    printf("\n=====|File Menu|=====\n\n");
+    printf("[1] Import Vector\n");
+    printf("[2] Export Vector\n");
+    printf("[0] Back\n");
+    choice = getInt("Your option: ");
+    switch (choice)
+    {
+    case 1:
+        importVector();
+        break;
+    case 2:
+        exportVector();
+        break;
+    case 0:
+        printf("Press any key to continue...");
+        getchar();
         break;
     default:
         printf("Invalid choice, please try again.\n");
