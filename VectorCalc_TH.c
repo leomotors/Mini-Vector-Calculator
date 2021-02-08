@@ -231,7 +231,7 @@ void settingsMenu(void)
     wprintf(L"\n=====|การตั้งค่า|=====\n\n");
     wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
     wprintf(L"[2] เลือกความละเอียดของตัวเลข\n");
-    wprintf(L"กลับ\n");
+    wprintf(L"[0] กลับ\n");
     choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
@@ -266,7 +266,7 @@ void fileMenu(void)
     wprintf(L"\n=====|เมนูไฟล์|=====\n\n");
     wprintf(L"[1] นำเข้าเวกเตอร์\n");
     wprintf(L"[2] ส่งออกเวกเตอร์\n");
-    wprintf(L"กลับ\n");
+    wprintf(L"[0] กลับ\n");
     choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
