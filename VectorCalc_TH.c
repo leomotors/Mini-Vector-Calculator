@@ -27,8 +27,8 @@
 
 int floatingPoint = 2;
 
-#define vectorArraySize 100
-float *vector[vectorArraySize] = {NULL};
+#define VECTOR_ARRAY_SIZE 100
+float *vector[VECTOR_ARRAY_SIZE] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -320,7 +320,7 @@ void inputVector(void)
     int slot;
     char *confirm = malloc(sizeof(char) * 100);
     slot = getInt(L"ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
-    if (slot >= 0 && slot < vectorArraySize)
+    if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
@@ -365,7 +365,7 @@ const wchar_t *printvec(float *u)
 
 void ShowAllVectors(void)
 {
-    for (int m = 0; m < vectorArraySize; m++)
+    for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
@@ -418,7 +418,7 @@ bool deleteAllVectors(void)
             return false;
     } while (choice[0] != 'Y');
 
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
         {
@@ -437,7 +437,7 @@ void importVector(void)
 {
     bool started = false;
     char *choice = malloc(sizeof(char) * 100);
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (isVector(c))
             started = true;
@@ -502,7 +502,7 @@ void exportVector(void)
     free(choice);
 
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
