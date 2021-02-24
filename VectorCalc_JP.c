@@ -359,7 +359,8 @@ const wchar_t *printvec(float *u)
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
     wchar_t *wstr = calloc(strlen(str), sizeof(wchar_t));
-    for (int lc = 0; lc < strlen(str); lc++)
+    int tstrlen = (int)(strlen(str));
+    for (int lc = 0; lc < tstrlen; lc++)
     {
         wstr[lc] = (wchar_t)(str[lc]);
     }
