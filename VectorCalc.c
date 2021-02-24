@@ -396,6 +396,7 @@ void saveVectorToSlot(float *u)
     {
         return;
     }
+    
     w = getInt("Where you want to save vector? : ");
     if (vector[w] != NULL)
     {

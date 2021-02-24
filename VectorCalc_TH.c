@@ -405,6 +405,7 @@ void saveVectorToSlot(float *u)
     {
         return;
     }
+    
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (vector[w] != NULL)
     {
