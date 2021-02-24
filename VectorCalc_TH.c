@@ -44,7 +44,7 @@ bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
-const wchar_t *printvec(float *);
+wchar_t *printvec(float *);
 void ShowAllVectors(void);
 void saveVectorToSlot(float *);
 bool isVector(int);
@@ -363,7 +363,7 @@ void inputVector(void)
     }
 }
 
-const wchar_t *printvec(float *u)
+wchar_t *printvec(float *u)
 {
     int d = floatingPoint;
     char *format = calloc(100, sizeof(*format));
@@ -379,6 +379,7 @@ const wchar_t *printvec(float *u)
     }
     // * Forcing '\0' to stop string from printing
     wstr[tstrlen] = '\0';
+    free(format);
     free(str);
     return wstr;
 }
@@ -400,7 +401,9 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    wchar_t *tmp = printvec(u);
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
+    free(tmp);
     if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         return;

@@ -38,7 +38,7 @@ bool getConfirmation(const char *);
 
 // * Vector management
 void inputVector(void);
-const char *printvec(float *);
+char *printvec(float *);
 void ShowAllVectors(void);
 void saveVectorToSlot(float *);
 bool isVector(int);
@@ -361,7 +361,7 @@ void inputVector(void)
     }
 }
 
-const char *printvec(float *u)
+char *printvec(float *u)
 {
     int d = floatingPoint;
     char *format = malloc(sizeof(char) * 30);
@@ -376,12 +376,14 @@ const char *printvec(float *u)
 
 void ShowAllVectors(void)
 {
+    char *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            ;
-            printf("Vector #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            printf("Vector #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
@@ -389,7 +391,9 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    printf("Result Vector is %s\n", printvec(u));
+    char *tmp = printvec(u);
+    printf("Result Vector is %s\n", tmp);
+    free(tmp);
     if (!getConfirmation("Do you want to save vector? [Y/N]: "))
     {
         return;

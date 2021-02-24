@@ -383,6 +383,7 @@ const wchar_t *printvec(float *u)
     }
     // * Forcing '\0' to stop string from printing
     wstr[tstrlen] = '\0';
+    free(format);
     free(str);
     return wstr;
 }
@@ -404,7 +405,9 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wprintf(L"結果のベクトルは %s\n", printvec(u));
+    wchar_t *tmp = printvec(u);
+    wprintf(L"結果のベクトルは %s\n", tmp);
+    free(tmp);
     if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
         return;
