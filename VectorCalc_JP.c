@@ -46,7 +46,7 @@ bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
-const wchar_t *printvec(float *);
+wchar_t *printvec(float *);
 void ShowAllVectors(void);
 void saveVectorToSlot(float *);
 bool isVector(int);
@@ -367,7 +367,7 @@ void inputVector(void)
     }
 }
 
-const wchar_t *printvec(float *u)
+wchar_t *printvec(float *u)
 {
     int d = floatingPoint;
     char *format = calloc(100, sizeof(*format));
