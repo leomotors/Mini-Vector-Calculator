@@ -308,6 +308,7 @@ void setColor(void) // ! Only supported on Windows
     sprintf(syn, "color %s", col);
     system(syn);
     cls();
+    free(col);
 }
 
 void cls(void) // * By @Teproanyx
@@ -337,6 +338,7 @@ void inputVector(void)
         char *buffer = getString(L"กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
         sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
         vector[slot] = u;
+        free(buffer);
     }
     else
     {
@@ -478,6 +480,7 @@ void importVector(void)
         else
             break;
     }
+    free(tmp);
     fclose(inputFile);
 }
 
@@ -510,6 +513,7 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
+    free(tmp);
     fclose(outputFile);
 }
 

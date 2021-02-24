@@ -298,6 +298,7 @@ void setColor(void) // ! Only supported on Windows
     col = getString("Enter color: ");
     sprintf(syn, "color %s", col);
     system(syn);
+    free(col);
 #else
     printf("This is only supported on Windows!\n");
     printf("Press any to continue...");
@@ -337,6 +338,7 @@ void inputVector(void)
         char *buffer = getString("Please enter vector (i,j,k): ");
         sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
         vector[slot] = u;
+        free(buffer);
     }
     else
     {
@@ -470,6 +472,7 @@ void importVector(void)
         else
             break;
     }
+    free(tmp);
     fclose(inputFile);
 }
 
@@ -502,6 +505,7 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
+    free(tmp);
     fclose(outputFile);
 }
 
