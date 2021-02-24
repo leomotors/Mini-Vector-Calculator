@@ -344,7 +344,7 @@ void inputVector(void)
     {
         if (vector[slot] != NULL)
         {
-            if(!getConfirmation(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
+            if (!getConfirmation(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
             {
                 return;
             }
@@ -401,15 +401,21 @@ void saveVectorToSlot(float *u)
 {
     int w;
     wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
-    if(!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
+    if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         return;
     }
 
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
+    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    {
+        wprintf("ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
+        saveVectorToSlot(u);
+        return;
+    }
     if (vector[w] != NULL)
     {
-        if(!getConfirmation(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
+        if (!getConfirmation(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
         {
             saveVectorToSlot(u);
             return;
@@ -428,7 +434,7 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    if(!getConfirmation(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
+    if (!getConfirmation(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
     {
         return false;
     }
@@ -502,7 +508,7 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        if(!getConfirmation(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
+        if (!getConfirmation(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
         {
             fclose(outputFile);
             return;

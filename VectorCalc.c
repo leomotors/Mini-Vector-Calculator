@@ -339,8 +339,6 @@ bool getConfirmation(const char *prompt)
 void inputVector(void)
 {
     int slot;
-    char *confirm;
-    char tempc;
     slot = getInt("Which slot you want? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
@@ -396,8 +394,14 @@ void saveVectorToSlot(float *u)
     {
         return;
     }
-    
+
     w = getInt("Where you want to save vector? : ");
+    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    {
+        printf("Can't save here, Index out of range\n");
+        saveVectorToSlot(u);
+        return;
+    }
     if (vector[w] != NULL)
     {
         if (!getConfirmation("This slot already has vector in it. Overwrite? [Y/N]: "))

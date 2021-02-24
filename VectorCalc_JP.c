@@ -348,7 +348,7 @@ void inputVector(void)
     {
         if (vector[slot] != NULL)
         {
-            if(!getConfirmation(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: "))
+            if (!getConfirmation(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: "))
             {
                 return;
             }
@@ -405,15 +405,21 @@ void saveVectorToSlot(float *u)
 {
     int w;
     wprintf(L"結果のベクトルは %s\n", printvec(u));
-    if(!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
+    if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
         return;
     }
 
     w = getInt(L"どこで保存しますか？ : ");
+    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    {
+        wprintf(L"こので存在できないで、インデックスが範囲外です。\n");
+        saveVectorToSlot(u);
+        return;
+    }
     if (vector[w] != NULL)
     {
-        if(!getConfirmation(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: "))
+        if (!getConfirmation(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: "))
         {
             saveVectorToSlot(u);
             return;
@@ -432,7 +438,7 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    if(!getConfirmation(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: "))
+    if (!getConfirmation(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: "))
     {
         return false;
     }
@@ -506,7 +512,7 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        if(!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
+        if (!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
         {
             fclose(outputFile);
             return;
