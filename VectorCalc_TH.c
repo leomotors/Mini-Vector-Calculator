@@ -26,10 +26,10 @@
 #define j 1
 #define k 2
 
-int floatingPoint = 2;
+int numberPrecision = 2;
 
 #define VECTOR_ARRAY_SIZE 100
-float *vector[VECTOR_ARRAY_SIZE] = {NULL};
+double *vector[VECTOR_ARRAY_SIZE] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -44,9 +44,9 @@ bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
-wchar_t *printvec(float *);
+wchar_t *printvec(double *);
 void ShowAllVectors(void);
-void saveVectorToSlot(float *);
+void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -55,17 +55,16 @@ void importVector(void);
 void exportVector(void);
 
 // * Vector Operation Part
-float vectorSize(float *);
-float *scalarMult(float *, float);
-float *addVector(float *, float *);
-float dotProduct(float *, float *);
-float *crossProduct(float *, float *);
+double vectorSize(double *);
+double *scalarMult(double *, double);
+double *addVector(double *, double *);
+double dotProduct(double *, double *);
+double *crossProduct(double *, double *);
 
 // * Safe input by @Teproanyx
 // * Modified to fit this program by @Leomotors
 long long getlong(const wchar_t *);
 int getInt(const wchar_t *);
-float getFloat(const wchar_t *);
 double getDouble(const wchar_t *);
 char *getString(const wchar_t *);
 void memoryError(const void *);
@@ -189,7 +188,7 @@ void vectorOperation(void)
     }
 
     wchar_t *format = calloc(10, sizeof(wchar_t));
-    swprintf(format, 10, L"%%.%df", floatingPoint);
+    swprintf(format, 10, L"%%.%df", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -244,8 +243,8 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            floatingPoint = getInt(L"จำนวนหลักหลังทศนิยม: ");
-            if (floatingPoint >= 0 && floatingPoint <= 6)
+            numberPrecision = getInt(L"จำนวนหลักหลังทศนิยม: ");
+            if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
                 wprintf(L"จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
@@ -350,9 +349,9 @@ void inputVector(void)
             }
             free(vector[slot]);
         }
-        float *u = malloc(sizeof(*u) * 3);
+        double *u = malloc(sizeof(*u) * 3);
         char *buffer = getString(L"กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
-        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
         free(buffer);
     }
@@ -363,11 +362,11 @@ void inputVector(void)
     }
 }
 
-wchar_t *printvec(float *u)
+wchar_t *printvec(double *u)
 {
-    int d = floatingPoint;
-    char *format = calloc(100, sizeof(*format));
-    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
+    int d = numberPrecision;
+    char *format = calloc(40, sizeof(*format));
+    sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
     char *str = calloc(100, sizeof(*str));
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
@@ -392,13 +391,13 @@ void ShowAllVectors(void)
         if (vector[m] != NULL)
         {
             tmp = printvec(vector[m]);
-            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, tmp));
+            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, tmp);
             free(tmp);
         }
     }
 }
 
-void saveVectorToSlot(float *u)
+void saveVectorToSlot(double *u)
 {
     int w;
     wchar_t *tmp = printvec(u);
@@ -471,7 +470,7 @@ void importVector(void)
     }
 
     int slot = 0;
-    float a1, a2, a3;
+    double a1, a2, a3;
     char *tmp;
     char filename[100];
     FILE *inputFile;
@@ -487,7 +486,7 @@ void importVector(void)
     }
     while (true)
     {
-        fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
+        fscanf(inputFile, "%d %lf %lf %lf", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
             vector[slot] = malloc(sizeof(*vector) * 3);
@@ -523,48 +522,48 @@ void exportVector(void)
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
-            fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
+            fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
     free(tmp);
     fclose(outputFile);
 }
 
 // * Vector Operation Part
-float vectorSize(float *u)
+double vectorSize(double *u)
 {
-    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
+    double result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
     result = sqrt(result);
     return result;
 }
 
-float *scalarMult(float *u, float num)
+double *scalarMult(double *u, double num)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
     return w;
 }
 
-float *addVector(float *u, float *v)
+double *addVector(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
     return w;
 }
 
-float dotProduct(float *u, float *v)
+double dotProduct(double *u, double *v)
 {
-    float result;
+    double result;
     result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
     return result;
 }
 
-float *crossProduct(float *u, float *v)
+double *crossProduct(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -609,17 +608,6 @@ int getInt(const wchar_t *prompt)
         return getInt(prompt);
     }
     return (int)n;
-}
-
-float getFloat(const wchar_t *prompt)
-{
-    double temp = getDouble(prompt);
-    if (temp > FLT_MAX || temp < FLT_MIN)
-    {
-        wprintf(L"Error! Overflowed!\n");
-        return getFloat(prompt);
-    }
-    return (float)temp;
 }
 
 double getDouble(const wchar_t *prompt)

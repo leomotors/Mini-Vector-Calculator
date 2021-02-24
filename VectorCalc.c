@@ -20,7 +20,7 @@
 #define j 1
 #define k 2
 
-int floatingPoint = 2;
+int numberPrecision = 2;
 
 #define VECTOR_ARRAY_SIZE 100
 double *vector[VECTOR_ARRAY_SIZE] = {NULL};
@@ -181,7 +181,7 @@ void vectorOperation(void)
     }
 
     char *format = calloc(10, sizeof(char));
-    sprintf(format, "%%.%df", floatingPoint);
+    sprintf(format, "%%.%df", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -232,8 +232,8 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            floatingPoint = getInt("Number of digits after decimal: ");
-            if (floatingPoint >= 0 && floatingPoint <= 6)
+            numberPrecision = getInt("Number of digits after decimal: ");
+            if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
                 printf("Number of digits must be between 0 and 6!\n");
@@ -362,7 +362,7 @@ void inputVector(void)
 
 char *printvec(double *u)
 {
-    int d = floatingPoint;
+    int d = numberPrecision;
     char *format = malloc(sizeof(char) * 40);
     strcpy(format, "");
     sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
