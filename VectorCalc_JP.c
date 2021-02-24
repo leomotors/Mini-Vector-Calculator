@@ -343,24 +343,15 @@ bool getConfirmation(const wchar_t *prompt)
 void inputVector(void)
 {
     int slot;
-    char *confirm;
-    char tempc;
     slot = getInt(L"どのスロットでベクトルを入れますか？ : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            do
+            if(!getConfirmation(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: "))
             {
-                confirm = getString(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: ");
-                tempc = confirm[0];
-                free(confirm);
-                if (tempc == 'N')
-                {
-                    free(confirm);
-                    return;
-                }
-            } while (tempc != 'Y');
+                return;
+            }
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);
@@ -374,7 +365,6 @@ void inputVector(void)
         wprintf(L"そのスロットはありません、続行するには任意のボタンを押してください。。。");
         getchar();
     }
-    free(confirm);
 }
 
 const wchar_t *printvec(float *u)
@@ -414,36 +404,23 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"結果のベクトルは %s\n", tmp);
-    free(tmp);
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    wprintf(L"結果のベクトルは %s\n", printvec(u));
+    if(!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
-        choice = getString(L"ベクトルを保存しますか？ [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return;
-        }
-    } while (choice[0] != 'Y');
+        return;
+    }
+
     w = getInt(L"どこで保存しますか？ : ");
     if (vector[w] != NULL)
     {
-        do
+        if(!getConfirmation(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: "))
         {
-            choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                saveVectorToSlot(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            saveVectorToSlot(u);
+            return;
+        }
         free(vector[w]);
     }
     vector[w] = u;
-    free(choice);
 }
 
 bool isVector(int u)
@@ -455,16 +432,10 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if(!getConfirmation(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: "))
     {
-        choice = getString(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return false;
-        }
-    } while (choice[0] != 'Y');
+        return false;
+    }
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
@@ -474,7 +445,6 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    free(choice);
     wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
     return true;
@@ -528,8 +498,7 @@ void importVector(void)
 
 void exportVector(void)
 {
-    char *tmp = malloc(sizeof(char) * 100);
-    char *choice = malloc(sizeof(char) * 100);
+    char *tmp;
     char filename[100];
     FILE *outputFile;
     tmp = getString(L"ファイル名を入力してください : ");
@@ -537,17 +506,12 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        do
+        if(!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
         {
-            choice = getString(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            fclose(outputFile);
+            return;
+        }
     }
-    free(choice);
 
     outputFile = fopen(filename, "w");
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)

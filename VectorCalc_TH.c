@@ -405,7 +405,7 @@ void saveVectorToSlot(float *u)
     {
         return;
     }
-    
+
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (vector[w] != NULL)
     {
@@ -441,7 +441,6 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    free(choice);
     wprintf(L"เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
     getchar();
     return true;
