@@ -226,6 +226,7 @@ void vectorOperation(void)
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
     wprintf(L"機能完了しました、 続行するには任意のボタンを押してください。。。");
+    free(format);
     getchar();
 }
 

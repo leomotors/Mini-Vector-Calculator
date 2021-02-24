@@ -223,6 +223,7 @@ void vectorOperation(void)
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
     wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+    free(format);
     getchar();
 }
 

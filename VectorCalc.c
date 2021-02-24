@@ -212,6 +212,7 @@ void vectorOperation(void)
         printf("Error 003: Default kicks in, function: vectorOperation\n");
     }
     printf("Operation done, Please any to continue...");
+    free(format);
     getchar();
 }
 
