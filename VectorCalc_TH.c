@@ -271,7 +271,7 @@ void fileMenu(void)
     switch (choice)
     {
     case 1:
-        inputVector();
+        importVector();
         break;
     case 2:
         exportVector();
