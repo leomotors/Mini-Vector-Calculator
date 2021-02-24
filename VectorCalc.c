@@ -20,10 +20,10 @@
 #define j 1
 #define k 2
 
-int floatingPoint = 2;
+int numberPrecision = 2;
 
-#define vectorArraySize 100
-float *vector[vectorArraySize] = {NULL};
+#define VECTOR_ARRAY_SIZE 100
+double *vector[VECTOR_ARRAY_SIZE] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -34,12 +34,13 @@ void settingsMenu(void);
 void fileMenu(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
+bool getConfirmation(const char *);
 
 // * Vector management
 void inputVector(void);
-const char *printvec(float *);
+char *printvec(double *);
 void ShowAllVectors(void);
-void saveVectorToSlot(float *);
+void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -48,17 +49,16 @@ void importVector(void);
 void exportVector(void);
 
 // * Vector Operation Part
-float vectorSize(float *);
-float *scalarMult(float *, float);
-float *addVector(float *, float *);
-float dotProduct(float *, float *);
-float *crossProduct(float *, float *);
+double vectorSize(double *);
+double *scalarMult(double *, double);
+double *addVector(double *, double *);
+double dotProduct(double *, double *);
+double *crossProduct(double *, double *);
 
 // * Safe input by @Teproanyx
 // * Modified to fit this program by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
-float getFloat(const char *);
 double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
@@ -71,7 +71,7 @@ int main(void)
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V3.0|=====\n\n");
+        printf("=====|Vector Calculator V3.1|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -181,7 +181,7 @@ void vectorOperation(void)
     }
 
     char *format = calloc(10, sizeof(char));
-    sprintf(format, "%%.%df", floatingPoint);
+    sprintf(format, "%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -197,7 +197,9 @@ void vectorOperation(void)
         saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Dot Product is %.2f\n", dotProduct(vector[u], vector[v]));
+        printf("Dot Product is ");
+        printf(format, dotProduct(vector[u], vector[v]));
+        printf("\n");
         break;
     case 5:
         saveVectorToSlot(crossProduct(vector[u], vector[v]));
@@ -206,12 +208,15 @@ void vectorOperation(void)
         saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("Area is %.2f Sq.Unit\n", vectorSize(crossProduct(vector[u], vector[v])));
+        printf("Area is ");
+        printf(format, vectorSize(crossProduct(vector[u], vector[v])));
+        printf(" Sq.Unit\n");
         break;
     default:
         printf("Error 003: Default kicks in, function: vectorOperation\n");
     }
     printf("Operation done, Please any to continue...");
+    free(format);
     getchar();
 }
 
@@ -231,8 +236,8 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            floatingPoint = getInt("Number of digits after decimal: ");
-            if (floatingPoint >= 0 && floatingPoint <= 6)
+            numberPrecision = getInt("Number of digits after decimal: ");
+            if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
                 printf("Number of digits must be between 0 and 6!\n");
@@ -298,6 +303,7 @@ void setColor(void) // ! Only supported on Windows
     col = getString("Enter color: ");
     sprintf(syn, "color %s", col);
     system(syn);
+    free(col);
 #else
     printf("This is only supported on Windows!\n");
     printf("Press any to continue...");
@@ -315,105 +321,122 @@ void cls(void) // * By @Teproanyx
 #endif
 }
 
+bool getConfirmation(const char *prompt)
+{
+    char *confirm;
+    char tempc;
+    do
+    {
+        confirm = getString(prompt);
+        tempc = confirm[0];
+        free(confirm);
+        if (tempc == 'N')
+        {
+            return false;
+        }
+    } while (tempc != 'Y');
+    return true;
+}
+
 // * Vector management
 void inputVector(void)
 {
     int slot;
-    char *confirm = malloc(sizeof(char) * 100);
     slot = getInt("Which slot you want? : ");
-    if (slot >= 0 && slot < vectorArraySize)
+    if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            do
-            {
-                confirm = getString("Vector already exists, Overwrite? [Y/N]: ");
-                if (confirm[0] == 'N')
-                    return;
-            } while (confirm[0] != 'Y');
+            if (!getConfirmation("Vector already exists, Overwrite? [Y/N]: "))
+                return;
             free(vector[slot]);
         }
-        float *u = malloc(sizeof(*u) * 3);
+        double *u = malloc(sizeof(*u) * 3);
         char *buffer = getString("Please enter vector (i,j,k): ");
-        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
+        free(buffer);
     }
     else
     {
         printf("Invalid index!\nPress any to continue!");
         getchar();
     }
-    free(confirm);
 }
 
-const char *printvec(float *u)
+char *printvec(double *u)
 {
-    int d = floatingPoint;
-    char *format = malloc(sizeof(char) * 30);
+    int d = numberPrecision;
+    char *format = malloc(sizeof(char) * 40);
     strcpy(format, "");
-    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
+    sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
+    free(format);
     return str;
 }
 
 void ShowAllVectors(void)
 {
-    for (int m = 0; m < vectorArraySize; m++)
+    char *tmp;
+    for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            printf("Vector #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            printf("Vector #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
 
-void saveVectorToSlot(float *u)
+void saveVectorToSlot(double *u)
 {
     int w;
-    printf("Result Vector is %s\n", printvec(u));
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    char *tmp = printvec(u);
+    printf("Result Vector is %s\n", tmp);
+    free(tmp);
+    if (!getConfirmation("Do you want to save vector? [Y/N]: "))
     {
-        choice = getString("Do you want to save vector? [Y/N]: ");
-        if (choice[0] == 'N')
-            return;
-    } while (choice[0] != 'Y');
+        free(u);
+        return;
+    }
+
     w = getInt("Where you want to save vector? : ");
+    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    {
+        printf("Can't save here, Index out of range\n");
+        saveVectorToSlot(u);
+        return;
+    }
     if (vector[w] != NULL)
     {
-        do
+        if (!getConfirmation("This slot already has vector in it. Overwrite? [Y/N]: "))
         {
-            choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                saveVectorToSlot(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            saveVectorToSlot(u);
+            return;
+        }
         free(vector[w]);
     }
     vector[w] = u;
-    free(choice);
 }
 
 bool isVector(int u)
 {
+    if (u < 0 || u >= VECTOR_ARRAY_SIZE)
+        return false;
     return vector[u] != NULL;
 }
 
 bool deleteAllVectors(void)
 {
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if (!getConfirmation("Warning: This action will delete all vector. Continue? [Y/N]: "))
     {
-        choice = getString("Warning: This action will delete all vector. Continue? [Y/N]: ");
-        if (choice[0] == 'N')
-            return false;
-    } while (choice[0] != 'Y');
+        return false;
+    }
 
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
         {
@@ -421,7 +444,6 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    free(choice);
     printf("All vectors have been deleted, press any to continue...");
     getchar();
     return true;
@@ -431,8 +453,7 @@ bool deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    char *choice = malloc(sizeof(char) * 100);
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (isVector(c))
             started = true;
@@ -441,10 +462,9 @@ void importVector(void)
     {
         return;
     }
-    free(choice);
 
     int slot = 0;
-    float a1, a2, a3;
+    double a1, a2, a3;
     char *tmp;
     char filename[100];
     FILE *inputFile;
@@ -454,12 +474,13 @@ void importVector(void)
     {
         printf("Error upon opening files, File may not exist.\n");
         printf("Press any key to continue...");
+        free(tmp);
         getchar();
         return;
     }
     while (true)
     {
-        fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
+        fscanf(inputFile, "%d %lf %lf %lf", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
             vector[slot] = malloc(sizeof(*vector) * 3);
@@ -470,13 +491,13 @@ void importVector(void)
         else
             break;
     }
+    free(tmp);
     fclose(inputFile);
 }
 
 void exportVector(void)
 {
-    char *tmp = malloc(sizeof(char) * 100);
-    char *choice = malloc(sizeof(char) * 100);
+    char *tmp;
     char filename[100];
     FILE *outputFile;
     tmp = getString("Enter file name: ");
@@ -484,63 +505,59 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        do
+        if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
         {
-            choice = getString("File already exists, Overwrite? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            fclose(outputFile);
+            return;
+        }
     }
-    free(choice);
 
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
-            fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
+            fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
+    free(tmp);
     fclose(outputFile);
 }
 
 // * Vector Operation Part
-float vectorSize(float *u)
+double vectorSize(double *u)
 {
-    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
+    double result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
     result = sqrt(result);
     return result;
 }
 
-float *scalarMult(float *u, float num)
+double *scalarMult(double *u, double num)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
     return w;
 }
 
-float *addVector(float *u, float *v)
+double *addVector(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
     return w;
 }
 
-float dotProduct(float *u, float *v)
+double dotProduct(double *u, double *v)
 {
-    float result;
+    double result;
     result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
     return result;
 }
 
-float *crossProduct(float *u, float *v)
+double *crossProduct(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -585,17 +602,6 @@ int getInt(const char *prompt)
         return getInt(prompt);
     }
     return (int)n;
-}
-
-float getFloat(const char *prompt)
-{
-    double temp = getDouble(prompt);
-    if (temp > FLT_MAX || temp < FLT_MIN)
-    {
-        printf("Error! Overflowed!\n");
-        return getFloat(prompt);
-    }
-    return (float)temp;
 }
 
 double getDouble(const char *prompt)

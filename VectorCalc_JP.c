@@ -22,15 +22,16 @@
 
 #include <fcntl.h>
 #include <io.h>
+#include <wchar.h>
 
 #define i 0
 #define j 1
 #define k 2
 
-int floatingPoint = 2;
+int numberPrecision = 2;
 
-#define vectorArraySize 100
-float *vector[vectorArraySize] = {NULL};
+#define VECTOR_ARRAY_SIZE 100
+double *vector[VECTOR_ARRAY_SIZE] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -41,12 +42,13 @@ void settingsMenu(void);
 void fileMenu(void);
 void setColor(void);
 void cls(void);
+bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
-const wchar_t *printvec(float *);
+wchar_t *printvec(double *);
 void ShowAllVectors(void);
-void saveVectorToSlot(float *);
+void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -55,17 +57,16 @@ void importVector(void);
 void exportVector(void);
 
 // * Vector Operation Part
-float vectorSize(float *);
-float *scalarMult(float *, float);
-float *addVector(float *, float *);
-float dotProduct(float *, float *);
-float *crossProduct(float *, float *);
+double vectorSize(double *);
+double *scalarMult(double *, double);
+double *addVector(double *, double *);
+double dotProduct(double *, double *);
+double *crossProduct(double *, double *);
 
 // * Safe input by @Teproanyx
 // * Modified to fit this program by @Leomotors
 long long getlong(const wchar_t *);
 int getInt(const wchar_t *);
-float getFloat(const wchar_t *);
 double getDouble(const wchar_t *);
 char *getString(const wchar_t *);
 void memoryError(const void *);
@@ -79,7 +80,7 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.0 Japanese Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.1 Japanese Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -190,7 +191,7 @@ void vectorOperation(void)
     }
 
     wchar_t *format = calloc(10, sizeof(wchar_t));
-    swprintf(format, 10, L"%%.%df", floatingPoint);
+    swprintf(format, 10, L"%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -225,6 +226,7 @@ void vectorOperation(void)
         wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
     wprintf(L"機能完了しました、 続行するには任意のボタンを押してください。。。");
+    free(format);
     getchar();
 }
 
@@ -244,8 +246,8 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            floatingPoint = getInt(L"小数点以下の桁数 ： ");
-            if (floatingPoint >= 0 && floatingPoint <= 6)
+            numberPrecision = getInt(L"小数点以下の桁数 ： ");
+            if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
                 wprintf(L"桁数は0から6の間でなければなりません。もう一度やり直してください\n");
@@ -311,6 +313,7 @@ void setColor(void) // ! Only supported on Windows
     sprintf(syn, "color %s", col);
     system(syn);
     cls();
+    free(col);
 }
 
 void cls(void) // * By @Teproanyx
@@ -318,111 +321,132 @@ void cls(void) // * By @Teproanyx
     system("cls");
 }
 
+bool getConfirmation(const wchar_t *prompt)
+{
+    char *confirm;
+    char tempc;
+    do
+    {
+        confirm = getString(prompt);
+        tempc = confirm[0];
+        free(confirm);
+        if (tempc == 'N')
+        {
+            return false;
+        }
+    } while (tempc != 'Y');
+    return true;
+}
+
 // * Vector management
 void inputVector(void)
 {
     int slot;
-    char *confirm = malloc(sizeof(char) * 100);
     slot = getInt(L"どのスロットでベクトルを入れますか？ : ");
-    if (slot >= 0 && slot < vectorArraySize)
+    if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            do
+            if (!getConfirmation(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: "))
             {
-                confirm = getString(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: ");
-                if (confirm[0] == 'N')
-                    return;
-            } while (confirm[0] != 'Y');
+                return;
+            }
             free(vector[slot]);
         }
-        float *u = malloc(sizeof(*u) * 3);
+        double *u = malloc(sizeof(*u) * 3);
         char *buffer = getString(L"(i , j , k)でベクトルを入力してください: ");
-        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
+        free(buffer);
     }
     else
     {
         wprintf(L"そのスロットはありません、続行するには任意のボタンを押してください。。。");
         getchar();
     }
-    free(confirm);
 }
 
-const wchar_t *printvec(float *u)
+wchar_t *printvec(double *u)
 {
-    int d = floatingPoint;
-    char *format = malloc(sizeof(char) * 30);
-    strcpy(format, "");
-    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
-    char *str = malloc(sizeof(char) * 100);
+    int d = numberPrecision;
+    char *format = calloc(40, sizeof(*format));
+    sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
+    char *str = calloc(100, sizeof(*str));
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    wchar_t *wstr = calloc(strlen(str), sizeof(wchar_t));
-    for (int lc = 0; lc < strlen(str); lc++)
+    wchar_t *wstr = calloc(strlen(str), sizeof(*wstr));
+    int tstrlen = (int)(strlen(str));
+    for (int lc = 0; lc < tstrlen; lc++)
     {
         wstr[lc] = (wchar_t)(str[lc]);
     }
+    // * Forcing '\0' to stop string from printing
+    wstr[tstrlen] = '\0';
+    free(format);
     free(str);
     return wstr;
 }
 
 void ShowAllVectors(void)
 {
-    for (int m = 0; m < vectorArraySize; m++)
+    wchar_t *tmp;
+    for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            wprintf(L"ベクトル #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            wprintf(L"ベクトル #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
 
-void saveVectorToSlot(float *u)
+void saveVectorToSlot(double *u)
 {
     int w;
-    wprintf(L"結果のベクトルは %s\n", printvec(u));
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    wchar_t *tmp = printvec(u);
+    wprintf(L"結果のベクトルは %s\n", tmp);
+    free(tmp);
+    if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
-        choice = getString(L"ベクトルを保存しますか？ [Y/N]: ");
-        if (choice[0] == 'N')
-            return;
-    } while (choice[0] != 'Y');
+        free(u);
+        return;
+    }
+
     w = getInt(L"どこで保存しますか？ : ");
+    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    {
+        wprintf(L"こので存在できないで、インデックスが範囲外です。\n");
+        saveVectorToSlot(u);
+        return;
+    }
     if (vector[w] != NULL)
     {
-        do
+        if (!getConfirmation(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: "))
         {
-            choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                saveVectorToSlot(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            saveVectorToSlot(u);
+            return;
+        }
         free(vector[w]);
     }
     vector[w] = u;
-    free(choice);
 }
 
 bool isVector(int u)
 {
+    if (u < 0 || u >= VECTOR_ARRAY_SIZE)
+        return false;
     return vector[u] != NULL;
 }
 
 bool deleteAllVectors(void)
 {
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if (!getConfirmation(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: "))
     {
-        choice = getString(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: ");
-        if (choice[0] == 'N')
-            return false;
-    } while (choice[0] != 'Y');
+        return false;
+    }
 
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
         {
@@ -430,7 +454,6 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    free(choice);
     wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
     return true;
@@ -440,7 +463,7 @@ bool deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (isVector(c))
             started = true;
@@ -451,7 +474,7 @@ void importVector(void)
     }
 
     int slot = 0;
-    float a1, a2, a3;
+    double a1, a2, a3;
     char *tmp;
     char filename[100];
     FILE *inputFile;
@@ -461,12 +484,13 @@ void importVector(void)
     {
         wprintf(L"このファイルを開けることができないで、存在しない可能性があります。\n");
         wprintf(L"続行するには任意のボタンを押してください。。。");
+        free(tmp);
         getchar();
         return;
     }
     while (true)
     {
-        fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
+        fscanf(inputFile, "%d %lf %lf %lf", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
             vector[slot] = malloc(sizeof(*vector) * 3);
@@ -477,13 +501,13 @@ void importVector(void)
         else
             break;
     }
+    free(tmp);
     fclose(inputFile);
 }
 
 void exportVector(void)
 {
-    char *tmp = malloc(sizeof(char) * 100);
-    char *choice = malloc(sizeof(char) * 100);
+    char *tmp;
     char filename[100];
     FILE *outputFile;
     tmp = getString(L"ファイル名を入力してください : ");
@@ -491,63 +515,59 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        do
+        if (!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
         {
-            choice = getString(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            fclose(outputFile);
+            return;
+        }
     }
-    free(choice);
 
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < vectorArraySize; c++)
+    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
-            fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
+            fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
+    free(tmp);
     fclose(outputFile);
 }
 
 // * Vector Operation Part
-float vectorSize(float *u)
+double vectorSize(double *u)
 {
-    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
+    double result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
     result = sqrt(result);
     return result;
 }
 
-float *scalarMult(float *u, float num)
+double *scalarMult(double *u, double num)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
     return w;
 }
 
-float *addVector(float *u, float *v)
+double *addVector(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
     return w;
 }
 
-float dotProduct(float *u, float *v)
+double dotProduct(double *u, double *v)
 {
-    float result;
+    double result;
     result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
     return result;
 }
 
-float *crossProduct(float *u, float *v)
+double *crossProduct(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -592,17 +612,6 @@ int getInt(const wchar_t *prompt)
         return getInt(prompt);
     }
     return (int)n;
-}
-
-float getFloat(const wchar_t *prompt)
-{
-    double temp = getDouble(prompt);
-    if (temp > FLT_MAX || temp < FLT_MIN)
-    {
-        wprintf(L"エラー : オーバーフロー。\n");
-        return getFloat(prompt);
-    }
-    return (float)temp;
 }
 
 double getDouble(const wchar_t *prompt)
