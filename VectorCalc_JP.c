@@ -42,6 +42,7 @@ void settingsMenu(void);
 void fileMenu(void);
 void setColor(void);
 void cls(void);
+bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
@@ -319,6 +320,23 @@ void setColor(void) // ! Only supported on Windows
 void cls(void) // * By @Teproanyx
 {
     system("cls");
+}
+
+bool getConfirmation(const wchar_t *prompt)
+{
+    char *confirm;
+    char tempc;
+    do
+    {
+        confirm = getString(prompt);
+        tempc = confirm[0];
+        free(confirm);
+        if (tempc == 'N')
+        {
+            return false;
+        }
+    } while (tempc != 'Y');
+    return true;
 }
 
 // * Vector management
