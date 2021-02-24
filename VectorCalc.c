@@ -181,7 +181,7 @@ void vectorOperation(void)
     }
 
     char *format = calloc(10, sizeof(char));
-    sprintf(format, "%%.%df", numberPrecision);
+    sprintf(format, "%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -197,7 +197,9 @@ void vectorOperation(void)
         saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Dot Product is %.2f\n", dotProduct(vector[u], vector[v]));
+        printf("Dot Product is ");
+        printf(format, dotProduct(vector[u], vector[v]));
+        printf("\n");
         break;
     case 5:
         saveVectorToSlot(crossProduct(vector[u], vector[v]));
@@ -206,7 +208,9 @@ void vectorOperation(void)
         saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("Area is %.2f Sq.Unit\n", vectorSize(crossProduct(vector[u], vector[v])));
+        printf("Area is ");
+        printf(format, vectorSize(crossProduct(vector[u], vector[v])));
+        printf(" Sq.Unit\n");
         break;
     default:
         printf("Error 003: Default kicks in, function: vectorOperation\n");

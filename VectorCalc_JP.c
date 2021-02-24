@@ -191,7 +191,7 @@ void vectorOperation(void)
     }
 
     wchar_t *format = calloc(10, sizeof(wchar_t));
-    swprintf(format, 10, L"%%.%df", numberPrecision);
+    swprintf(format, 10, L"%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
