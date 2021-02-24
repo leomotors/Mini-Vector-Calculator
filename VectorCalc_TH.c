@@ -331,7 +331,10 @@ void inputVector(void)
             {
                 confirm = getString(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: ");
                 if (confirm[0] == 'N')
+                {
+                    free(confirm);
                     return;
+                }
             } while (confirm[0] != 'Y');
             free(vector[slot]);
         }
@@ -430,7 +433,10 @@ bool deleteAllVectors(void)
     {
         choice = getString(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return false;
+        }
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
@@ -451,7 +457,6 @@ bool deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    char *choice = malloc(sizeof(char) * 100);
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (isVector(c))
@@ -461,7 +466,6 @@ void importVector(void)
     {
         return;
     }
-    free(choice);
 
     int slot = 0;
     float a1, a2, a3;
@@ -474,6 +478,7 @@ void importVector(void)
     {
         wprintf(L"ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n");
         wprintf(L"กดปุ่มใดๆเพื่อดำเนินการต่อ");
+        free(tmp);
         getchar();
         return;
     }

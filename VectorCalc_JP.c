@@ -335,7 +335,10 @@ void inputVector(void)
             {
                 confirm = getString(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: ");
                 if (confirm[0] == 'N')
+                {
+                    free(confirm);
                     return;
+                }
             } while (confirm[0] != 'Y');
             free(vector[slot]);
         }
@@ -434,7 +437,10 @@ bool deleteAllVectors(void)
     {
         choice = getString(L"警告： このアクションはすべてのベクトルを削除します。 継続しますか? [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return false;
+        }
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
@@ -476,6 +482,7 @@ void importVector(void)
     {
         wprintf(L"このファイルを開けることができないで、存在しない可能性があります。\n");
         wprintf(L"続行するには任意のボタンを押してください。。。");
+        free(tmp);
         getchar();
         return;
     }

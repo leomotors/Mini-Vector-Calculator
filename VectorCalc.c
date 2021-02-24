@@ -331,7 +331,10 @@ void inputVector(void)
             {
                 confirm = getString("Vector already exists, Overwrite? [Y/N]: ");
                 if (confirm[0] == 'N')
+                {
+                    free(confirm);
                     return;
+                }
             } while (confirm[0] != 'Y');
             free(vector[slot]);
         }
@@ -358,19 +361,18 @@ const char *printvec(float *u)
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
+    free(format);
     return str;
 }
 
 void ShowAllVectors(void)
 {
-    char *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            tmp = printvec(vector[m]);
-            printf("Vector #%d : %s\n", m, tmp);
-            free(tmp);
+            ;
+            printf("Vector #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -378,9 +380,7 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    char *tmp = printvec(u);
-    printf("Result Vector is %s\n", tmp);
-    free(tmp);
+    printf("Result Vector is %s\n", printvec(u));
     char *choice = malloc(sizeof(char) * 100);
     do
     {
@@ -422,7 +422,10 @@ bool deleteAllVectors(void)
     {
         choice = getString("Warning: This action will delete all vector. Continue? [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return false;
+        }
     } while (choice[0] != 'Y');
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
@@ -443,7 +446,6 @@ bool deleteAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    char *choice = malloc(sizeof(char) * 100);
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (isVector(c))
@@ -453,7 +455,6 @@ void importVector(void)
     {
         return;
     }
-    free(choice);
 
     int slot = 0;
     float a1, a2, a3;
@@ -466,6 +467,7 @@ void importVector(void)
     {
         printf("Error upon opening files, File may not exist.\n");
         printf("Press any key to continue...");
+        free(tmp);
         getchar();
         return;
     }
