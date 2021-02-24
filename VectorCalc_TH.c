@@ -78,7 +78,7 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.0 Thai Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.1 Thai Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -412,7 +412,7 @@ void saveVectorToSlot(double *u)
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (w < 0 || w >= VECTOR_ARRAY_SIZE)
     {
-        wprintf("ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
+        wprintf(L"ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
         saveVectorToSlot(u);
         return;
     }
