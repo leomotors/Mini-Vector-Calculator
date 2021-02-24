@@ -23,7 +23,7 @@
 int floatingPoint = 2;
 
 #define VECTOR_ARRAY_SIZE 100
-float *vector[VECTOR_ARRAY_SIZE] = {NULL};
+double *vector[VECTOR_ARRAY_SIZE] = {NULL};
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -38,9 +38,9 @@ bool getConfirmation(const char *);
 
 // * Vector management
 void inputVector(void);
-char *printvec(float *);
+char *printvec(double *);
 void ShowAllVectors(void);
-void saveVectorToSlot(float *);
+void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
 
@@ -49,17 +49,16 @@ void importVector(void);
 void exportVector(void);
 
 // * Vector Operation Part
-float vectorSize(float *);
-float *scalarMult(float *, float);
-float *addVector(float *, float *);
-float dotProduct(float *, float *);
-float *crossProduct(float *, float *);
+double vectorSize(double *);
+double *scalarMult(double *, double);
+double *addVector(double *, double *);
+double dotProduct(double *, double *);
+double *crossProduct(double *, double *);
 
 // * Safe input by @Teproanyx
 // * Modified to fit this program by @Leomotors
 long long getlong(const char *);
 int getInt(const char *);
-float getFloat(const char *);
 double getDouble(const char *);
 char *getString(const char *);
 void memoryError(const void *);
@@ -348,9 +347,9 @@ void inputVector(void)
                 return;
             free(vector[slot]);
         }
-        float *u = malloc(sizeof(*u) * 3);
+        double *u = malloc(sizeof(*u) * 3);
         char *buffer = getString("Please enter vector (i,j,k): ");
-        sscanf(buffer, "%f %f %f", &u[i], &u[j], &u[k]);
+        sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
         free(buffer);
     }
@@ -361,12 +360,12 @@ void inputVector(void)
     }
 }
 
-char *printvec(float *u)
+char *printvec(double *u)
 {
     int d = floatingPoint;
-    char *format = malloc(sizeof(char) * 30);
+    char *format = malloc(sizeof(char) * 40);
     strcpy(format, "");
-    sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
+    sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
     char *str = malloc(sizeof(char) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
@@ -388,7 +387,7 @@ void ShowAllVectors(void)
     }
 }
 
-void saveVectorToSlot(float *u)
+void saveVectorToSlot(double *u)
 {
     int w;
     char *tmp = printvec(u);
@@ -460,7 +459,7 @@ void importVector(void)
     }
 
     int slot = 0;
-    float a1, a2, a3;
+    double a1, a2, a3;
     char *tmp;
     char filename[100];
     FILE *inputFile;
@@ -476,7 +475,7 @@ void importVector(void)
     }
     while (true)
     {
-        fscanf(inputFile, "%d %f %f %f", &slot, &a1, &a2, &a3);
+        fscanf(inputFile, "%d %lf %lf %lf", &slot, &a1, &a2, &a3);
         if (vector[slot] == NULL)
         {
             vector[slot] = malloc(sizeof(*vector) * 3);
@@ -512,48 +511,48 @@ void exportVector(void)
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
         if (vector[c] != NULL)
-            fprintf(outputFile, "%d %f %f %f\n", c, vector[c][i], vector[c][j], vector[c][k]);
+            fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
     free(tmp);
     fclose(outputFile);
 }
 
 // * Vector Operation Part
-float vectorSize(float *u)
+double vectorSize(double *u)
 {
-    float result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
+    double result = u[i] * u[i] + u[j] * u[j] + u[k] * u[k];
     result = sqrt(result);
     return result;
 }
 
-float *scalarMult(float *u, float num)
+double *scalarMult(double *u, double num)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = num * u[i];
     w[j] = num * u[j];
     w[k] = num * u[k];
     return w;
 }
 
-float *addVector(float *u, float *v)
+double *addVector(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[i] + v[i];
     w[j] = u[j] + v[j];
     w[k] = u[k] + v[k];
     return w;
 }
 
-float dotProduct(float *u, float *v)
+double dotProduct(double *u, double *v)
 {
-    float result;
+    double result;
     result = u[i] * v[i] + u[j] * v[j] + u[k] * v[k];
     return result;
 }
 
-float *crossProduct(float *u, float *v)
+double *crossProduct(double *u, double *v)
 {
-    float *w = malloc(sizeof(*w) * 3);
+    double *w = malloc(sizeof(*w) * 3);
     w[i] = u[j] * v[k] - u[k] * v[j];
     w[j] = u[k] * v[i] - v[k] * u[i];
     w[k] = u[i] * v[j] - v[i] * u[j];
@@ -598,17 +597,6 @@ int getInt(const char *prompt)
         return getInt(prompt);
     }
     return (int)n;
-}
-
-float getFloat(const char *prompt)
-{
-    double temp = getDouble(prompt);
-    if (temp > FLT_MAX || temp < FLT_MIN)
-    {
-        printf("Error! Overflowed!\n");
-        return getFloat(prompt);
-    }
-    return (float)temp;
 }
 
 double getDouble(const char *prompt)
