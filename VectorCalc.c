@@ -395,6 +395,7 @@ void saveVectorToSlot(double *u)
     free(tmp);
     if (!getConfirmation("Do you want to save vector? [Y/N]: "))
     {
+        free(u);
         return;
     }
 

@@ -406,6 +406,7 @@ void saveVectorToSlot(float *u)
     free(tmp);
     if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
+        free(u);
         return;
     }
 

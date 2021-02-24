@@ -410,6 +410,7 @@ void saveVectorToSlot(float *u)
     free(tmp);
     if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
+        free(u);
         return;
     }
 
