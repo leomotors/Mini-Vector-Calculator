@@ -22,6 +22,7 @@
 
 #include <fcntl.h>
 #include <io.h>
+#include <wchar.h>
 
 #define i 0
 #define j 1
@@ -352,18 +353,19 @@ void inputVector(void)
 const wchar_t *printvec(float *u)
 {
     int d = floatingPoint;
-    char *format = malloc(sizeof(char) * 30);
-    strcpy(format, "");
+    char *format = calloc(100, sizeof(*format));
     sprintf(format, "( %%.%df , %%.%df , %%.%df )", d, d, d);
-    char *str = malloc(sizeof(char) * 100);
+    char *str = calloc(100, sizeof(*str));
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    wchar_t *wstr = calloc(strlen(str), sizeof(wchar_t));
+    wchar_t *wstr = calloc(strlen(str), sizeof(*wstr));
     int tstrlen = (int)(strlen(str));
     for (int lc = 0; lc < tstrlen; lc++)
     {
         wstr[lc] = (wchar_t)(str[lc]);
     }
+    // * Forcing '\0' to stop string from printing
+    wstr[tstrlen] = '\0';
     free(str);
     return wstr;
 }
