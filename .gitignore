@@ -55,7 +55,9 @@ Mkfile.old
 dkms.conf
 
 # Linux Executable
-
 VectorCalc
 VectorCalc_TH
 VectorCalc_JP
+
+# Extension Temp File
+tempCodeRunnerFile.c
