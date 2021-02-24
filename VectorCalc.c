@@ -363,11 +363,14 @@ const char *printvec(float *u)
 
 void ShowAllVectors(void)
 {
+    char *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            printf("Vector #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            printf("Vector #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
@@ -375,13 +378,18 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    printf("Result Vector is %s\n", printvec(u));
+    char *tmp = printvec(u);
+    printf("Result Vector is %s\n", tmp);
+    free(tmp);
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString("Do you want to save vector? [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return;
+        }
     } while (choice[0] != 'Y');
     w = getInt("Where you want to save vector? : ");
     if (vector[w] != NULL)
@@ -391,6 +399,7 @@ void saveVectorToSlot(float *u)
             choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
             if (choice[0] == 'N')
             {
+                free(choice);
                 saveVectorToSlot(u);
                 return;
             }

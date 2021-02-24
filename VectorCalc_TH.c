@@ -371,11 +371,14 @@ const wchar_t *printvec(float *u)
 
 void ShowAllVectors(void)
 {
+    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, tmp));
+            free(tmp);
         }
     }
 }
@@ -383,13 +386,18 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    wchar_t *tmp = printvec(u);
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
+    free(tmp);
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return;
+        }
     } while (choice[0] != 'Y');
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (vector[w] != NULL)
@@ -399,6 +407,7 @@ void saveVectorToSlot(float *u)
             choice = getString(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: ");
             if (choice[0] == 'N')
             {
+                free(choice);
                 saveVectorToSlot(u);
                 return;
             }

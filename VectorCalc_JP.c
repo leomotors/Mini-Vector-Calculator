@@ -375,11 +375,14 @@ const wchar_t *printvec(float *u)
 
 void ShowAllVectors(void)
 {
+    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            wprintf(L"ベクトル #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            wprintf(L"ベクトル #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
@@ -387,13 +390,18 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wprintf(L"結果のベクトルは %s\n", printvec(u));
+    wchar_t *tmp = printvec(u);
+    wprintf(L"結果のベクトルは %s\n", tmp);
+    free(tmp);
     char *choice = malloc(sizeof(char) * 100);
     do
     {
         choice = getString(L"ベクトルを保存しますか？ [Y/N]: ");
         if (choice[0] == 'N')
+        {
+            free(choice);
             return;
+        }
     } while (choice[0] != 'Y');
     w = getInt(L"どこで保存しますか？ : ");
     if (vector[w] != NULL)
@@ -403,6 +411,7 @@ void saveVectorToSlot(float *u)
             choice = getString(L"このスロットはすでにベクトルがあります 上書きしますか？ [Y/N]: ");
             if (choice[0] == 'N')
             {
+                free(choice);
                 saveVectorToSlot(u);
                 return;
             }
