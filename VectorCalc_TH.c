@@ -339,23 +339,15 @@ bool getConfirmation(const wchar_t *prompt)
 void inputVector(void)
 {
     int slot;
-    char *confirm;
-    char tempc;
     slot = getInt(L"ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            do
+            if(!getConfirmation(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
             {
-                confirm = getString(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: ");
-                tempc = confirm[0];
-                free(confirm);
-                if (tempc == 'N')
-                {
-                    return;
-                }
-            } while (tempc != 'Y');
+                return;
+            }
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);
@@ -408,36 +400,22 @@ void ShowAllVectors(void)
 void saveVectorToSlot(float *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
-    free(tmp);
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    if(!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
-        choice = getString(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return;
-        }
-    } while (choice[0] != 'Y');
+        return;
+    }
     w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (vector[w] != NULL)
     {
-        do
+        if(!getConfirmation(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
         {
-            choice = getString(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                saveVectorToSlot(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            saveVectorToSlot(u);
+            return;
+        }
         free(vector[w]);
     }
     vector[w] = u;
-    free(choice);
 }
 
 bool isVector(int u)
@@ -449,16 +427,10 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if(!getConfirmation(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
     {
-        choice = getString(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return false;
-        }
-    } while (choice[0] != 'Y');
+        return false;
+    }
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
@@ -522,8 +494,7 @@ void importVector(void)
 
 void exportVector(void)
 {
-    char *tmp = malloc(sizeof(char) * 100);
-    char *choice = malloc(sizeof(char) * 100);
+    char *tmp;
     char filename[100];
     FILE *outputFile;
     tmp = getString(L"โปรดใส่ชื่อไฟล์ : ");
@@ -531,17 +502,12 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        do
+        if(!getConfirmation(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
         {
-            choice = getString(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            fclose(outputFile);
+            return;
+        }
     }
-    free(choice);
 
     outputFile = fopen(filename, "w");
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
