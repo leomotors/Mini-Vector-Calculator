@@ -34,6 +34,7 @@ void settingsMenu(void);
 void fileMenu(void);
 void setColor(void); // ! Only supported on Windows
 void cls(void);
+bool getConfirmation(const char *);
 
 // * Vector management
 void inputVector(void);
@@ -317,25 +318,36 @@ void cls(void) // * By @Teproanyx
 #endif
 }
 
+bool getConfirmation(const char *prompt)
+{
+    char *confirm;
+    char tempc;
+    do
+    {
+        confirm = getString(prompt);
+        tempc = confirm[0];
+        free(confirm);
+        if (tempc == 'N')
+        {
+            return false;
+        }
+    } while (tempc != 'Y');
+    return true;
+}
+
 // * Vector management
 void inputVector(void)
 {
     int slot;
-    char *confirm = malloc(sizeof(char) * 100);
+    char *confirm;
+    char tempc;
     slot = getInt("Which slot you want? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            do
-            {
-                confirm = getString("Vector already exists, Overwrite? [Y/N]: ");
-                if (confirm[0] == 'N')
-                {
-                    free(confirm);
-                    return;
-                }
-            } while (confirm[0] != 'Y');
+            if (!getConfirmation("Vector already exists, Overwrite? [Y/N]: "))
+                return;
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);
@@ -349,7 +361,6 @@ void inputVector(void)
         printf("Invalid index!\nPress any to continue!");
         getchar();
     }
-    free(confirm);
 }
 
 const char *printvec(float *u)
@@ -381,33 +392,21 @@ void saveVectorToSlot(float *u)
 {
     int w;
     printf("Result Vector is %s\n", printvec(u));
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if (!getConfirmation("Do you want to save vector? [Y/N]: "))
     {
-        choice = getString("Do you want to save vector? [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return;
-        }
-    } while (choice[0] != 'Y');
+        return;
+    }
     w = getInt("Where you want to save vector? : ");
     if (vector[w] != NULL)
     {
-        do
+        if (!getConfirmation("This slot already has vector in it. Overwrite? [Y/N]: "))
         {
-            choice = getString("This slot already has vector in it. Overwrite? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                saveVectorToSlot(u);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            saveVectorToSlot(u);
+            return;
+        }
         free(vector[w]);
     }
     vector[w] = u;
-    free(choice);
 }
 
 bool isVector(int u)
@@ -419,16 +418,10 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    char *choice = malloc(sizeof(char) * 100);
-    do
+    if (!getConfirmation("Warning: This action will delete all vector. Continue? [Y/N]: "))
     {
-        choice = getString("Warning: This action will delete all vector. Continue? [Y/N]: ");
-        if (choice[0] == 'N')
-        {
-            free(choice);
-            return false;
-        }
-    } while (choice[0] != 'Y');
+        return false;
+    }
 
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
     {
@@ -438,7 +431,6 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    free(choice);
     printf("All vectors have been deleted, press any to continue...");
     getchar();
     return true;
@@ -492,8 +484,7 @@ void importVector(void)
 
 void exportVector(void)
 {
-    char *tmp = malloc(sizeof(char) * 100);
-    char *choice = malloc(sizeof(char) * 100);
+    char *tmp;
     char filename[100];
     FILE *outputFile;
     tmp = getString("Enter file name: ");
@@ -501,17 +492,12 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
-        do
+        if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
         {
-            choice = getString("File already exists, Overwrite? [Y/N]: ");
-            if (choice[0] == 'N')
-            {
-                free(choice);
-                return;
-            }
-        } while (choice[0] != 'Y');
+            fclose(outputFile);
+            return;
+        }
     }
-    free(choice);
 
     outputFile = fopen(filename, "w");
     for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
