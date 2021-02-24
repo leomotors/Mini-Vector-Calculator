@@ -325,7 +325,8 @@ void cls(void) // * By @Teproanyx
 void inputVector(void)
 {
     int slot;
-    char *confirm = malloc(sizeof(char) * 100);
+    char *confirm;
+    char tempc;
     slot = getInt(L"どのスロットでベクトルを入れますか？ : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
@@ -334,12 +335,14 @@ void inputVector(void)
             do
             {
                 confirm = getString(L"このスロットはすでにベクトルがあります。 上書きしますか？ [Y/N]: ");
-                if (confirm[0] == 'N')
+                tempc = confirm[0];
+                free(confirm);
+                if (tempc == 'N')
                 {
                     free(confirm);
                     return;
                 }
-            } while (confirm[0] != 'Y');
+            } while (tempc != 'Y');
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);

@@ -321,7 +321,8 @@ void cls(void) // * By @Teproanyx
 void inputVector(void)
 {
     int slot;
-    char *confirm = malloc(sizeof(char) * 100);
+    char *confirm;
+    char tempc;
     slot = getInt(L"ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
@@ -330,12 +331,13 @@ void inputVector(void)
             do
             {
                 confirm = getString(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: ");
-                if (confirm[0] == 'N')
+                tempc = confirm[0];
+                free(confirm);
+                if (tempc == 'N')
                 {
-                    free(confirm);
                     return;
                 }
-            } while (confirm[0] != 'Y');
+            } while (tempc != 'Y');
             free(vector[slot]);
         }
         float *u = malloc(sizeof(*u) * 3);
@@ -349,7 +351,6 @@ void inputVector(void)
         wprintf(L"ไม่มีช่องนั้นอยู่ กดปุ่มใดๆเพื่อดำเนินการต่อ");
         getchar();
     }
-    free(confirm);
 }
 
 const wchar_t *printvec(float *u)
