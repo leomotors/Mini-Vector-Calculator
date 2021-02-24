@@ -1,6 +1,6 @@
 # Mini Vector Calculator
 
-  This program can do simple Vector Calculation
+  This program can do simple Vector Calculation.
 
 ## Program's Features
 
@@ -20,15 +20,21 @@
 
 * Support 3 Languages: English, Thai, Japanese
 
+## How to Run Program
+
+  Compile the source code and done!
+
+  To use import/export function, VectorSave Folder should be in the same directory.
+
 ## Compatibility
 
-Support both Windows and UNIX
+Support both Windows and UNIX.
 
 Compiler : C99 or above
 
-Note : Thai and Japanese Version aren't supported in UNIX
+Note : Thai and Japanese Version aren't supported in UNIX.
 
-Note : ```-lm``` (Math Library) must be manually attached in UNIX
+Note : ```-lm``` (Math Library) must be manually attached in UNIX.
 
 ## Version
 
@@ -80,9 +86,9 @@ Note : ```-lm``` (Math Library) must be manually attached in UNIX
 
 ### Version 3 (Latest Version)
 
-  **2021-02-24** February Improvement Update (3.0.1): Fix bugs and code improve.
+  **2021-02-24** February Improvement Update (3.0.1): Fix bugs and code improve
 
-  **2021-02-08** Multilingual Update (3.0): Add Thai and Japanese.
+  **2021-02-08** Multilingual Update (3.0): Add Thai and Japanese
   
   **2021-01-18 to 2021-02-08** Version 3 Development
 
