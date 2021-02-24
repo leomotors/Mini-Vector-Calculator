@@ -427,6 +427,8 @@ void saveVectorToSlot(float *u)
 
 bool isVector(int u)
 {
+    if (u < 0 || u >= VECTOR_ARRAY_SIZE)
+        return false;
     return vector[u] != NULL;
 }
 
