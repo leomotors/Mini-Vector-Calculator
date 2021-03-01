@@ -15,7 +15,7 @@
 #include <io.h>
 #include <wchar.h>
 
-#include "SafeInput-wchar.h"
+#include "SafeInput/SafeInput_TH.h"
 
 #define i 0
 #define j 1

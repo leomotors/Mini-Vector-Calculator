@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "SafeInput.h"
+#include "SafeInput/SafeInput.h"
 
 #define i 0
 #define j 1

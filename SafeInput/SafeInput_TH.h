@@ -30,7 +30,7 @@ long getLong(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -42,7 +42,7 @@ long getLong(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -56,7 +56,7 @@ int getInt(const wchar_t *prompt)
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getInt(prompt);
     }
     return (int)n;
@@ -68,7 +68,7 @@ double getDouble(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -80,7 +80,7 @@ double getDouble(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getDouble(prompt);
     }
 
@@ -98,7 +98,7 @@ char *getString(const wchar_t *prompt)
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        printf("Error, try again!\n");
+        wprintf(L"Error, try again!\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
@@ -110,7 +110,7 @@ char *getString(const wchar_t *prompt)
         {
             free(buffer);
             free(subBuffer);
-            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            wprintf(L"Read Error(WTF HOW), try again MTFKER!\n");
             return getString(prompt);
         }
 
@@ -131,7 +131,7 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        printf("Not enough RAM. Terminating program...\n");
+        wprintf(L"RAM ไม่เพียงพอ กำลังปิดโปรแกรม...\n");
         exit(EXIT_FAILURE);
     }
 }
