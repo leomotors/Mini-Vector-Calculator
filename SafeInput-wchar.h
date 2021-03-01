@@ -11,19 +11,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wchar.h>
 #define INITIAL_BUFFER 8
 
 // * Function Prototype (Declaration) * //
 
-long long getlong(const char *);
-int getInt(const char *);
-double getDouble(const char *);
-char *getString(const char *);
+long long getlong(const wchar_t *);
+int getInt(const wchar_t *);
+double getDouble(const wchar_t *);
+char *getString(const wchar_t *);
 void memoryError(const void *);
 
 // * Function Definition * //
 
-long getLong(const char *prompt)
+long getLong(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
@@ -50,7 +51,7 @@ long getLong(const char *prompt)
     return n;
 }
 
-int getInt(const char *prompt)
+int getInt(const wchar_t *prompt)
 {
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
@@ -61,7 +62,7 @@ int getInt(const char *prompt)
     return (int)n;
 }
 
-double getDouble(const char *prompt)
+double getDouble(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
@@ -88,7 +89,7 @@ double getDouble(const char *prompt)
     return n;
 }
 
-char *getString(const char *prompt)
+char *getString(const wchar_t *prompt)
 {
     size_t size = INITIAL_BUFFER;
     printf("%s", prompt);
