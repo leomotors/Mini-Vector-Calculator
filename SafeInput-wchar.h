@@ -92,7 +92,7 @@ double getDouble(const wchar_t *prompt)
 char *getString(const wchar_t *prompt)
 {
     size_t size = INITIAL_BUFFER;
-    printf("%s", prompt);
+    wprintf(L"%s", prompt);
     char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
