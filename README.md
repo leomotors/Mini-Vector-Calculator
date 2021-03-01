@@ -76,11 +76,11 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
   Subject : 「การเขียนโปรแกรม 2 (ง30222)」 Triam Udom Suksa School (2020/2)
   
-    * 総制作 : @Leomotors
+    * 制作監督 : @Leomotors
 
-    * Honor Helper : Stack Overflow
-
-    * Reviewer・Tester : @Teproanyx
+    * Helper・Reviewer : @Teproanyx
+    
+    * Honorable Mention : Stack Overflow
 
 ## Program Version History
 
