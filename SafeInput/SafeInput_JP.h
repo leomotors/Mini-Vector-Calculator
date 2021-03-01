@@ -1,5 +1,5 @@
 /**
- * * Safe Input Module wchar_t as prompt version
+ * * Safe Input Module Japanese Version
  * * Original Work: @Teproanyx
  * * Customed for this Vector Calculator: @Leomotors
  */
