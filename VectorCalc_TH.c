@@ -352,9 +352,10 @@ void inputVector(void)
 wchar_t *printvec(double *u)
 {
     int d = numberPrecision;
-    char *format = calloc(40, sizeof(*format));
+    char *format = malloc(sizeof(*format) * 40);
+    strcpy(format, "");
     sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
-    char *str = calloc(100, sizeof(*str));
+    char *str = malloc(sizeof(*str) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
     wchar_t *wstr = calloc(strlen(str), sizeof(*wstr));
