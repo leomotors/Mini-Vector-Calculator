@@ -516,7 +516,6 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
-    free(tmp);
     fclose(outputFile);
 }
 
