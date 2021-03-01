@@ -503,9 +503,9 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
+        fclose(outputFile);
         if (!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
         {
-            fclose(outputFile);
             return;
         }
     }

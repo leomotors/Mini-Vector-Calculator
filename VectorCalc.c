@@ -495,9 +495,9 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
+        fclose(outputFile);
         if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
         {
-            fclose(outputFile);
             return;
         }
     }
