@@ -1,7 +1,7 @@
 /**
  * * Safe Input Module
  * * Original Work: @Teproanyx
- * * Customed for this program: @Leomotors
+ * * Customed for this Vector Calculator: @Leomotors
  */
 
 #include <ctype.h>
