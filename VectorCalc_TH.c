@@ -370,21 +370,16 @@ wchar_t *printvec(double *u)
     }
     // * Forcing '\0' to stop string from printing
     wstr[tstrlen] = '\0';
-    free(format);
-    free(str);
     return wstr;
 }
 
 void ShowAllVectors(void)
 {
-    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            tmp = printvec(vector[m]);
-            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, tmp);
-            free(tmp);
+            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -392,9 +387,7 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
-    free(tmp);
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
     if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);

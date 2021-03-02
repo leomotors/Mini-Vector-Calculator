@@ -381,14 +381,11 @@ wchar_t *printvec(double *u)
 
 void ShowAllVectors(void)
 {
-    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            tmp = printvec(vector[m]);
-            wprintf(L"ベクトル #%d : %s\n", m, tmp);
-            free(tmp);
+            wprintf(L"ベクトル #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -396,9 +393,7 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"結果のベクトルは %s\n", tmp);
-    free(tmp);
+    wprintf(L"結果のベクトルは %s\n", printvec(u));
     if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
         free(u);
