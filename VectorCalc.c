@@ -38,6 +38,7 @@ void ShowAllVectors(void);
 void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
+void freeAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -65,7 +66,10 @@ int main(void)
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
+        {
+            freeAllVectors();
             return 0;
+        }
     }
 }
 
@@ -437,6 +441,15 @@ bool deleteAllVectors(void)
     printf("All vectors have been deleted, press any to continue...");
     getchar();
     return true;
+}
+
+void freeAllVectors(void)
+{
+    for (int lc = 0; lc < VECTOR_ARRAY_SIZE; lc++)
+    {
+        if (vector[lc] != NULL)
+            free(vector[lc]);
+    }
 }
 
 // * Import and Export
