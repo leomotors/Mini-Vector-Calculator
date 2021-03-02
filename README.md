@@ -4,6 +4,8 @@
 
 ## Program's Features
 
+### Vector Calculation
+
 * Add Vectors
 
 * Multiply Vector with scalar and vector
@@ -14,11 +16,25 @@
 
 * Find area of parrallelogram under two vectors
 
-* Import Vector Data from and Export to Files (Unstable in TH,JP Version)
+### Extra Feature that help visualizing
 
-* Set Number Precision (Number of digits after decimal point) (Unstable in TH,JP Version)
+* Import Vector Data from and Export to Files
 
-* Support 3 Languages: English, Thai, Japanese
+* Set Number Precision (Number of digits after decimal point)
+
+### Very Good Memory Management
+
+  There is no memory leak in this program from testing so far.
+
+* Tested using valgrind
+
+* Only applies on English Version
+
+### Multilingual
+
+* Support 3 Languages: English, Thai and Japanese
+
+ __Note__: In Thai and Japanese Version, Import/Export Vector and setting Number Precision is unstable. Please avoid using them
 
 ## How to Run Program
 
