@@ -188,7 +188,7 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 2:
-        temp = getInt(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
+        temp = getDouble(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:

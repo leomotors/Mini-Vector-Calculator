@@ -184,7 +184,7 @@ void vectorOperation(void)
         printf("\n");
         break;
     case 2:
-        temp = getInt("Enter scalar to multiply with: ");
+        temp = getDouble("Enter scalar to multiply with: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:

@@ -191,7 +191,7 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 2:
-        temp = getInt(L"持って掛けるスカラー量を入力してください: ");
+        temp = getDouble(L"持って掛けるスカラー量を入力してください: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
