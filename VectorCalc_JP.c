@@ -226,7 +226,7 @@ void settingsMenu(void)
     int choice;
     wprintf(L"\n=====|設定|=====\n\n");
     wprintf(L"[1] 画面の色を変化する\n");
-    wprintf(L"[2] 数値精度を設定する\n");
+    wprintf(L"[2] Lab: 数値精度を設定する\n");
     wprintf(L"[0] 戻る\n");
     choice = getInt(L"選ぶ： ");
     switch (choice)
@@ -237,6 +237,10 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
+            if(!getConfirmation(L"警告: この機能は不安定で、エラー可能性があります。継続しますか? [Y/N]: "))
+            {
+                return;
+            }
             numberPrecision = getInt(L"小数点以下の桁数 ： ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;

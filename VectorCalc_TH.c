@@ -223,7 +223,7 @@ void settingsMenu(void)
     int choice;
     wprintf(L"\n=====|การตั้งค่า|=====\n\n");
     wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
-    wprintf(L"[2] เลือกความละเอียดของตัวเลข\n");
+    wprintf(L"[2] Lab: เลือกความละเอียดของตัวเลข\n");
     wprintf(L"[0] กลับ\n");
     choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
@@ -234,6 +234,10 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
+            if(!getConfirmation(L"คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้ ดำเนินการต่อ? [Y/N]: "))
+            {
+                return;
+            }
             numberPrecision = getInt(L"จำนวนหลักหลังทศนิยม: ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
