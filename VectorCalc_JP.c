@@ -68,7 +68,7 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.2 Japanese Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.3 Japanese Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
