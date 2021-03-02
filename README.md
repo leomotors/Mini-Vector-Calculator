@@ -14,9 +14,9 @@
 
 * Find area of parrallelogram under two vectors
 
-* Import Vector Data from and Export to Files
+* Import Vector Data from and Export to Files (Unstable in TH,JP Version)
 
-* Set Number Precision (Number of digits after decimal point)
+* Set Number Precision (Number of digits after decimal point) (Unstable in TH,JP Version)
 
 * Support 3 Languages: English, Thai, Japanese
 
@@ -25,6 +25,14 @@
   Compile the source code and done!
 
   To use import/export function, VectorSave Folder must be in the same directory.
+
+## Sample Vector Data
+
+  I've already put some sample vector data you can play with!
+
+  These are generated using ```numpy```.
+
+  Note: Use Import Vector Function to import them, but please avoid using them in TH,JP Version as it is unstable.
 
 ## Compatibility
 
@@ -86,7 +94,7 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
 ### Version 3 (Latest Version)
 
-  **2021-03-02** Release 3.3: Fixed many bugs. Program should be stable now
+  **2021-03-02** Present Ready Update (3.3): Fixed many bugs. Program should be stable now
 
   **2021-03-01** Release 3.2: Seperate File (SafeInput.h) and Fatal Bug Fixes
 
