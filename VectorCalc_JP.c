@@ -85,7 +85,7 @@ void printMainMenu(void)
     wprintf(L"\n下の機能を選んでください。\n");
     wprintf(L"[1] 新ベクトルを入力する\n");
     wprintf(L"[2] ベクトルについて計算\n");
-    wprintf(L"[3] インポート・エクスポートベクトル\n");
+    wprintf(L"[3] Lab: インポート・エクスポートベクトル\n");
     wprintf(L"[4] すべてのベクトルを削除する\n");
     wprintf(L"[5] 設定\n");
     wprintf(L"[0] プログラムを終了する\n");
@@ -237,7 +237,7 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            if(!getConfirmation(L"警告: この機能は不安定で、エラー可能性があります。継続しますか? [Y/N]: "))
+            if (!getConfirmation(L"警告: この機能は不安定で、エラー可能性があります。継続しますか? [Y/N]: "))
             {
                 return;
             }
@@ -264,6 +264,7 @@ void fileMenu(void)
 {
     int choice;
     wprintf(L"\n=====|ファイルメニュー|=====\n\n");
+    wprintf(L"警告: この機能は不安定で、エラー可能性があります。\n");
     wprintf(L"[1] インポート・ベクトル\n");
     wprintf(L"[2] エクスポート・ベクトル\n");
     wprintf(L"[0] 戻る\n");
