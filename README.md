@@ -34,7 +34,7 @@
 
 * Support 3 Languages: English, Thai and Japanese
 
- __Note__: In Thai and Japanese Version, Import/Export Vector and setting Number Precision is unstable. Please avoid using them
+ __Note__: In Thai and Japanese Version, Import/Export Vector and setting Number Precision is unstable. Please avoid using them.
 
 ## How to Run Program
 
@@ -42,7 +42,7 @@
 
   To use import/export function, VectorSave Folder must be in the same directory.
 
-## Sample Vector Data
+## Sample Vector Data to start with
 
   I've already put some sample vector data you can play with!
 
