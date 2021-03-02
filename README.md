@@ -24,9 +24,9 @@
 
 ### Very Good Memory Management
 
-  There is no memory leak in this program from testing so far.
+  There is almost no memory leak in this program from testing so far.
 
-* Tested using valgrind
+* Tested using valgrind, however, some very small leaks are possible in rare case.
 
 * Only applies on English Version
 
