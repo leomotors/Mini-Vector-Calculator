@@ -1,5 +1,11 @@
 {
-    "code-runner.executorMap":{
-    "c": "cd $dir && gcc $fileName -Wall -Wextra -lm -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+    "code-runner.executorMap": {
+        "c": "cd $dir && gcc $fileName -Wall -Wextra -Wsign-conversion -Werror -Wfloat-equal -Wundef -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wwrite-strings -Wcast-qual -Wunreachable-code -lm -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+    },
+    "code-runner.ignoreSelection": true,
+    "files.associations": {
+        "safeinput.h": "c",
+        "safeinput_th.h": "c",
+        "safeinput_jp.h": "c"
     }
 }

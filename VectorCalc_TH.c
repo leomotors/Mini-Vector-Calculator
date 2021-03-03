@@ -15,7 +15,7 @@
 #include <io.h>
 #include <wchar.h>
 
-#include "SafeInput-wchar.h"
+#include "SafeInput/SafeInput_TH.h"
 
 #define i 0
 #define j 1
@@ -44,6 +44,7 @@ void ShowAllVectors(void);
 void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
+void freeAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -65,11 +66,14 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.2 Thai Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.3 Thai Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
+        {
+            freeAllVectors();
             return 0;
+        }
     }
 }
 
@@ -79,7 +83,7 @@ void printMainMenu(void)
     wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
     wprintf(L"[1] ป้อนเวกเตอร์ใหม่\n");
     wprintf(L"[2] คำนวณเกี่ยวกับเวกเตอร์\n");
-    wprintf(L"[3] นำเข้าและส่งออกเวกเตอร์\n");
+    wprintf(L"[3] Lab: นำเข้าและส่งออกเวกเตอร์\n");
     wprintf(L"[4] ลบเวกเตอร์ทั้งหมด\n");
     wprintf(L"[5] การตั้งค่า\n");
     wprintf(L"[0] ออกจากโปรแกรม\n");
@@ -184,7 +188,7 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 2:
-        temp = getInt(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
+        temp = getDouble(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
@@ -219,7 +223,7 @@ void settingsMenu(void)
     int choice;
     wprintf(L"\n=====|การตั้งค่า|=====\n\n");
     wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
-    wprintf(L"[2] เลือกความละเอียดของตัวเลข\n");
+    wprintf(L"[2] Lab: เลือกความละเอียดของตัวเลข\n");
     wprintf(L"[0] กลับ\n");
     choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
@@ -230,6 +234,10 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
+            if(!getConfirmation(L"คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้ ดำเนินการต่อ? [Y/N]: "))
+            {
+                return;
+            }
             numberPrecision = getInt(L"จำนวนหลักหลังทศนิยม: ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
@@ -253,6 +261,7 @@ void fileMenu(void)
 {
     int choice;
     wprintf(L"\n=====|เมนูไฟล์|=====\n\n");
+    wprintf(L"คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้\n");
     wprintf(L"[1] นำเข้าเวกเตอร์\n");
     wprintf(L"[2] ส่งออกเวกเตอร์\n");
     wprintf(L"[0] กลับ\n");
@@ -366,21 +375,16 @@ wchar_t *printvec(double *u)
     }
     // * Forcing '\0' to stop string from printing
     wstr[tstrlen] = '\0';
-    free(format);
-    free(str);
     return wstr;
 }
 
 void ShowAllVectors(void)
 {
-    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            tmp = printvec(vector[m]);
-            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, tmp);
-            free(tmp);
+            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -388,9 +392,7 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
-    free(tmp);
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
     if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);
@@ -441,6 +443,15 @@ bool deleteAllVectors(void)
     wprintf(L"เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
     getchar();
     return true;
+}
+
+void freeAllVectors(void)
+{
+    for (int lc = 0; lc < VECTOR_ARRAY_SIZE; lc++)
+    {
+        if (vector[lc] != NULL)
+            free(vector[lc]);
+    }
 }
 
 // * Import and Export
@@ -499,9 +510,9 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
+        fclose(outputFile);
         if (!getConfirmation(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
         {
-            fclose(outputFile);
             return;
         }
     }
@@ -512,7 +523,6 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
-    free(tmp);
     fclose(outputFile);
 }
 

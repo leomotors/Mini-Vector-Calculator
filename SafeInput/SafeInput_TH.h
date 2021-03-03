@@ -1,8 +1,11 @@
 /**
- * * Safe Input Module
+ * * Safe Input Module Thai Version
  * * Original Work: @Teproanyx
  * * Customed for this Vector Calculator: @Leomotors
  */
+
+#ifndef TEPROANYX_SAFE_INPUT
+#define TEPROANYX_SAFE_INPUT
 
 #include <ctype.h>
 #include <errno.h>
@@ -11,25 +14,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wchar.h>
 #define INITIAL_BUFFER 8
 
 // * Function Prototype (Declaration) * //
 
-long long getlong(const char *);
-int getInt(const char *);
-double getDouble(const char *);
-char *getString(const char *);
+long long getlong(const wchar_t *);
+int getInt(const wchar_t *);
+double getDouble(const wchar_t *);
+char *getString(const wchar_t *);
 void memoryError(const void *);
 
 // * Function Definition * //
 
-long getLong(const char *prompt)
+long getLong(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -41,7 +45,7 @@ long getLong(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -50,24 +54,24 @@ long getLong(const char *prompt)
     return n;
 }
 
-int getInt(const char *prompt)
+int getInt(const wchar_t *prompt)
 {
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getInt(prompt);
     }
     return (int)n;
 }
 
-double getDouble(const char *prompt)
+double getDouble(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -79,7 +83,7 @@ double getDouble(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getDouble(prompt);
     }
 
@@ -88,40 +92,40 @@ double getDouble(const char *prompt)
     return n;
 }
 
-char *getString(const char *prompt)
+char *getString(const wchar_t *prompt)
 {
     size_t size = INITIAL_BUFFER;
-    printf("%s", prompt);
-    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    wprintf(L"%s", prompt);
+    char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        printf("Error, try again!\n");
+        wprintf(L"Error, try again!\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
-        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        char *subBuffer = malloc((size + 1) * sizeof(*subBuffer));
         memoryError(subBuffer);
 
         if (fgets(subBuffer, size + 1, stdin) == NULL)
         {
             free(buffer);
             free(subBuffer);
-            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            wprintf(L"Read Error(WTF HOW), try again MTFKER!\n");
             return getString(prompt);
         }
 
         size *= 2;
-        buffer = (char *)realloc(buffer, size + 1);
+        buffer = realloc(buffer, size + 1);
         memoryError(buffer);
 
         strncat(buffer, subBuffer, size / 2);
         free(subBuffer);
     }
     buffer[strlen(buffer) - 1] = '\0';
-    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    buffer = realloc(buffer, strlen(buffer) + 1);
     memoryError(buffer);
     return buffer;
 }
@@ -130,7 +134,9 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        printf("Not enough RAM. Terminating program...\n");
+        wprintf(L"RAM ไม่เพียงพอ กำลังปิดโปรแกรม...\n");
         exit(EXIT_FAILURE);
     }
 }
+
+#endif

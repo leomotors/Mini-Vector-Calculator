@@ -1,8 +1,13 @@
 /**
- * * Safe Input Module wchar_t as prompt version
+ * * Safe Input Module Japanese Version
+ * ! Translation might not be 100% correct. Author is just at N5.
+ * ! 翻訳が全部正しくない可能性があります。 作者はただN5です。
  * * Original Work: @Teproanyx
  * * Customed for this Vector Calculator: @Leomotors
  */
+
+#ifndef TEPROANYX_SAFE_INPUT
+#define TEPROANYX_SAFE_INPUT
 
 #include <ctype.h>
 #include <errno.h>
@@ -30,7 +35,7 @@ long getLong(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -42,7 +47,7 @@ long getLong(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -56,7 +61,7 @@ int getInt(const wchar_t *prompt)
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        printf("Input error, please try again!\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getInt(prompt);
     }
     return (int)n;
@@ -68,7 +73,7 @@ double getDouble(const wchar_t *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -80,7 +85,7 @@ double getDouble(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getDouble(prompt);
     }
 
@@ -93,36 +98,36 @@ char *getString(const wchar_t *prompt)
 {
     size_t size = INITIAL_BUFFER;
     wprintf(L"%s", prompt);
-    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        printf("Error, try again!\n");
+        wprintf(L"エラー、もう一度やり直してください。\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
-        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        char *subBuffer = malloc((size + 1) * sizeof(*subBuffer));
         memoryError(subBuffer);
 
         if (fgets(subBuffer, size + 1, stdin) == NULL)
         {
             free(buffer);
             free(subBuffer);
-            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            wprintf(L"Read Error(WTF HOW), try again MTFKER!\n");
             return getString(prompt);
         }
 
         size *= 2;
-        buffer = (char *)realloc(buffer, size + 1);
+        buffer = realloc(buffer, size + 1);
         memoryError(buffer);
 
         strncat(buffer, subBuffer, size / 2);
         free(subBuffer);
     }
     buffer[strlen(buffer) - 1] = '\0';
-    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    buffer = realloc(buffer, strlen(buffer) + 1);
     memoryError(buffer);
     return buffer;
 }
@@ -131,7 +136,9 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        printf("Not enough RAM. Terminating program...\n");
+        wprintf(L"RAMは十分ではありません プログラムを終了しています...\n");
         exit(EXIT_FAILURE);
     }
 }
+
+#endif

@@ -4,6 +4,8 @@
 
 ## Program's Features
 
+### Vector Calculation
+
 * Add Vectors
 
 * Multiply Vector with scalar and vector
@@ -14,17 +16,39 @@
 
 * Find area of parrallelogram under two vectors
 
+### Extra Feature that help visualizing
+
 * Import Vector Data from and Export to Files
 
 * Set Number Precision (Number of digits after decimal point)
 
-* Support 3 Languages: English, Thai, Japanese
+### Very Good Memory Management
+
+  There is almost no memory leak in this program from testing so far.
+
+* Tested using valgrind, however, some very small leaks are possible in rare case.
+
+* Only applies on English Version
+
+### Multilingual
+
+* Support 3 Languages: English, Thai and Japanese
+
+ __Note__: In Thai and Japanese Version, Import/Export Vector and setting Number Precision is unstable. Please avoid using them.
 
 ## How to Run Program
 
   Compile the source code and done!
 
   To use import/export function, VectorSave Folder must be in the same directory.
+
+## Sample Vector Data to start with
+
+  I've already put some sample vector data you can play with!
+
+  These are generated using ```numpy```.
+
+  Note: Use Import Vector Function to import them, but please avoid using them in TH,JP Version as it is unstable.
 
 ## Compatibility
 
@@ -40,7 +64,7 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
   Version used to present to Teacher (Semester 1) : v1.3.0
 
-  Current Release : v3.2
+  Current Release : v3.3
 
 ## Credits
 
@@ -76,15 +100,21 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
   Subject : 「การเขียนโปรแกรม 2 (ง30222)」 Triam Udom Suksa School (2020/2)
   
-    * 総制作 : @Leomotors
+    * 制作監督 : @Leomotors
 
-    * Honor Helper : Stack Overflow
+    * Helper・Reviewer : @Teproanyx
+    
+    * Honorable Mention : Stack Overflow
 
-    * Reviewer・Tester : @Teproanyx
+### Special Thanks
+
+  This Project uses Safe Input Module by @Teproanyx
 
 ## Program Version History
 
 ### Version 3 (Latest Version)
+
+  **2021-03-03** Present Ready Update (3.3): Fixed many bugs. Program should be stable now
 
   **2021-03-01** Release 3.2: Seperate File (SafeInput.h) and Fatal Bug Fixes
 

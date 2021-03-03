@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "SafeInput.h"
+#include "SafeInput/SafeInput.h"
 
 #define i 0
 #define j 1
@@ -38,6 +38,7 @@ void ShowAllVectors(void);
 void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
+void freeAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -61,11 +62,14 @@ int main(void)
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V3.2|=====\n\n");
+        printf("=====|Vector Calculator V3.3|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
+        {
+            freeAllVectors();
             return 0;
+        }
     }
 }
 
@@ -180,7 +184,7 @@ void vectorOperation(void)
         printf("\n");
         break;
     case 2:
-        temp = getInt("Enter scalar to multiply with: ");
+        temp = getDouble("Enter scalar to multiply with: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
@@ -439,6 +443,15 @@ bool deleteAllVectors(void)
     return true;
 }
 
+void freeAllVectors(void)
+{
+    for (int lc = 0; lc < VECTOR_ARRAY_SIZE; lc++)
+    {
+        if (vector[lc] != NULL)
+            free(vector[lc]);
+    }
+}
+
 // * Import and Export
 void importVector(void)
 {
@@ -495,9 +508,9 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
+        fclose(outputFile);
         if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
         {
-            fclose(outputFile);
             return;
         }
     }
@@ -508,7 +521,6 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
-    free(tmp);
     fclose(outputFile);
 }
 

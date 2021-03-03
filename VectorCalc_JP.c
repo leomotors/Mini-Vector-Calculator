@@ -17,7 +17,7 @@
 #include <io.h>
 #include <wchar.h>
 
-#include "SafeInput-wchar.h"
+#include "SafeInput/SafeInput_JP.h"
 
 #define i 0
 #define j 1
@@ -46,6 +46,7 @@ void ShowAllVectors(void);
 void saveVectorToSlot(double *);
 bool isVector(int);
 bool deleteAllVectors(void);
+void freeAllVectors(void);
 
 // * Import and Export
 void importVector(void);
@@ -67,11 +68,14 @@ int main(void)
     while (true)
     {
         cls();
-        wprintf(L"=====|Vector Calculator V3.2 Japanese Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.3 Japanese Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
+        {
+            freeAllVectors();
             return 0;
+        }
     }
 }
 
@@ -81,7 +85,7 @@ void printMainMenu(void)
     wprintf(L"\n下の機能を選んでください。\n");
     wprintf(L"[1] 新ベクトルを入力する\n");
     wprintf(L"[2] ベクトルについて計算\n");
-    wprintf(L"[3] インポート・エクスポートベクトル\n");
+    wprintf(L"[3] Lab: インポート・エクスポートベクトル\n");
     wprintf(L"[4] すべてのベクトルを削除する\n");
     wprintf(L"[5] 設定\n");
     wprintf(L"[0] プログラムを終了する\n");
@@ -187,7 +191,7 @@ void vectorOperation(void)
         wprintf(L"\n");
         break;
     case 2:
-        temp = getInt(L"持って掛けるスカラー量を入力してください: ");
+        temp = getDouble(L"持って掛けるスカラー量を入力してください: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
@@ -222,7 +226,7 @@ void settingsMenu(void)
     int choice;
     wprintf(L"\n=====|設定|=====\n\n");
     wprintf(L"[1] 画面の色を変化する\n");
-    wprintf(L"[2] 数値精度を設定する\n");
+    wprintf(L"[2] Lab: 数値精度を設定する\n");
     wprintf(L"[0] 戻る\n");
     choice = getInt(L"選ぶ： ");
     switch (choice)
@@ -233,6 +237,10 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
+            if (!getConfirmation(L"警告: この機能は不安定で、エラー可能性があります。継続しますか? [Y/N]: "))
+            {
+                return;
+            }
             numberPrecision = getInt(L"小数点以下の桁数 ： ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
@@ -256,6 +264,7 @@ void fileMenu(void)
 {
     int choice;
     wprintf(L"\n=====|ファイルメニュー|=====\n\n");
+    wprintf(L"警告: この機能は不安定で、エラー可能性があります。\n");
     wprintf(L"[1] インポート・ベクトル\n");
     wprintf(L"[2] エクスポート・ベクトル\n");
     wprintf(L"[0] 戻る\n");
@@ -377,14 +386,11 @@ wchar_t *printvec(double *u)
 
 void ShowAllVectors(void)
 {
-    wchar_t *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            tmp = printvec(vector[m]);
-            wprintf(L"ベクトル #%d : %s\n", m, tmp);
-            free(tmp);
+            wprintf(L"ベクトル #%d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -392,9 +398,7 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    wchar_t *tmp = printvec(u);
-    wprintf(L"結果のベクトルは %s\n", tmp);
-    free(tmp);
+    wprintf(L"結果のベクトルは %s\n", printvec(u));
     if (!getConfirmation(L"ベクトルを保存しますか？ [Y/N]: "))
     {
         free(u);
@@ -445,6 +449,15 @@ bool deleteAllVectors(void)
     wprintf(L"すべてのベクトルを削除しました、続行するには任意のボタンを押してください。。。");
     getchar();
     return true;
+}
+
+void freeAllVectors(void)
+{
+    for (int lc = 0; lc < VECTOR_ARRAY_SIZE; lc++)
+    {
+        if (vector[lc] != NULL)
+            free(vector[lc]);
+    }
 }
 
 // * Import and Export
@@ -503,9 +516,9 @@ void exportVector(void)
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
+        fclose(outputFile);
         if (!getConfirmation(L"このファイルはすでに存在します。 上書きしますか？ [Y/N]: "))
         {
-            fclose(outputFile);
             return;
         }
     }
@@ -516,7 +529,6 @@ void exportVector(void)
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
     }
-    free(tmp);
     fclose(outputFile);
 }
 
