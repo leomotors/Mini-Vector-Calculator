@@ -4,6 +4,9 @@
  * * Customed for this Vector Calculator: @Leomotors
  */
 
+#ifndef TEPROANYX_SAFE_INPUT
+#define TEPROANYX_SAFE_INPUT
+
 #include <ctype.h>
 #include <errno.h>
 #include <float.h>
@@ -135,3 +138,5 @@ void memoryError(const void *pointer)
         exit(EXIT_FAILURE);
     }
 }
+
+#endif
