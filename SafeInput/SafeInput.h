@@ -95,7 +95,7 @@ char *getString(const char *prompt)
 {
     size_t size = INITIAL_BUFFER;
     printf("%s", prompt);
-    char *buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
@@ -105,7 +105,7 @@ char *getString(const char *prompt)
     }
     while (buffer[strlen(buffer) - 1] != '\n')
     {
-        char *subBuffer = (char *)malloc((size + 1) * sizeof(*subBuffer));
+        char *subBuffer = malloc((size + 1) * sizeof(*subBuffer));
         memoryError(subBuffer);
 
         if (fgets(subBuffer, size + 1, stdin) == NULL)
@@ -117,14 +117,14 @@ char *getString(const char *prompt)
         }
 
         size *= 2;
-        buffer = (char *)realloc(buffer, size + 1);
+        buffer = realloc(buffer, size + 1);
         memoryError(buffer);
 
         strncat(buffer, subBuffer, size / 2);
         free(subBuffer);
     }
     buffer[strlen(buffer) - 1] = '\0';
-    buffer = (char *)realloc(buffer, strlen(buffer) + 1);
+    buffer = realloc(buffer, strlen(buffer) + 1);
     memoryError(buffer);
     return buffer;
 }
