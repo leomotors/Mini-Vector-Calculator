@@ -110,7 +110,7 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
 ### Version 3 (Latest Version)
 
-  **2021-03-02** Present Ready Update (3.3): Fixed many bugs. Program should be stable now
+  **2021-03-03** Present Ready Update (3.3): Fixed many bugs. Program should be stable now
 
   **2021-03-01** Release 3.2: Seperate File (SafeInput.h) and Fatal Bug Fixes
 
