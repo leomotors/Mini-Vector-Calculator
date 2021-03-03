@@ -1,5 +1,10 @@
 {
     "code-runner.executorMap":{
     "c": "cd $dir && gcc $fileName -Wall -Wextra -lm -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+    },
+    "files.associations": {
+        "safeinput.h": "c",
+        "safeinput_th.h": "c",
+        "safeinput_jp.h": "c"
     }
 }
