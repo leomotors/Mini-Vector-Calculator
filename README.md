@@ -108,7 +108,7 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
   Presented on : 3 March 2021
   
-  Gained a lot of this!
+  Gained a lot from this!
   
 ### Special Thanks
 
