@@ -2,7 +2,7 @@
 
   This program can do simple Vector Calculation.
 
-## Other's Related Project
+## Related Project
 
 <a href="https://github.com/Leomotors/Website-Vector-Calculator">Website Vector Calculator</a> (Developed from this repo.)
 
