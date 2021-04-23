@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "SafeInput/SafeInput_JP.h"
+#include "SafeInput/SafeInput_JP_Linux.h"
 
 #define i 0
 #define j 1
