@@ -6,6 +6,7 @@
     "files.associations": {
         "safeinput.h": "c",
         "safeinput_th.h": "c",
-        "safeinput_jp.h": "c"
+        "safeinput_jp.h": "c",
+        "safeinput_jp_linux.h" : "c"
     }
 }
