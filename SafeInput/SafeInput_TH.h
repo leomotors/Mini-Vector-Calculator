@@ -19,21 +19,21 @@
 
 // * Function Prototype (Declaration) * //
 
-long long getlong(const wchar_t *);
-int getInt(const wchar_t *);
-double getDouble(const wchar_t *);
-char *getString(const wchar_t *);
+long long getlong(const char *);
+int getInt(const char *);
+double getDouble(const char *);
+char *getString(const char *);
 void memoryError(const void *);
 
 // * Function Definition * //
 
-long getLong(const wchar_t *prompt)
+long getLong(const char *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        printf("การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -45,7 +45,7 @@ long getLong(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        printf("การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -54,24 +54,24 @@ long getLong(const wchar_t *prompt)
     return n;
 }
 
-int getInt(const wchar_t *prompt)
+int getInt(const char *prompt)
 {
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        printf("การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getInt(prompt);
     }
     return (int)n;
 }
 
-double getDouble(const wchar_t *prompt)
+double getDouble(const char *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        printf("การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getLong(prompt);
     }
 
@@ -83,7 +83,7 @@ double getDouble(const wchar_t *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        wprintf(L"การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
+        printf("การป้อนข้อมูลผิดพลาด โปรดลองใหม่อีกครั้ง\n");
         return getDouble(prompt);
     }
 
@@ -92,16 +92,16 @@ double getDouble(const wchar_t *prompt)
     return n;
 }
 
-char *getString(const wchar_t *prompt)
+char *getString(const char *prompt)
 {
     size_t size = INITIAL_BUFFER;
-    wprintf(L"%s", prompt);
+    printf("%s", prompt);
     char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        wprintf(L"Error, try again!\n");
+        printf("Error, try again!\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
@@ -113,7 +113,7 @@ char *getString(const wchar_t *prompt)
         {
             free(buffer);
             free(subBuffer);
-            wprintf(L"Read Error(WTF HOW), try again MTFKER!\n");
+            printf("Read Error(WTF HOW), try again MTFKER!\n");
             return getString(prompt);
         }
 
@@ -134,7 +134,7 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        wprintf(L"RAM ไม่เพียงพอ กำลังปิดโปรแกรม...\n");
+        printf("RAM ไม่เพียงพอ กำลังปิดโปรแกรม...\n");
         exit(EXIT_FAILURE);
     }
 }

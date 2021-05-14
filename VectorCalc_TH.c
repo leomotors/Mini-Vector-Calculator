@@ -172,16 +172,16 @@ void vectorOperation(void)
     }
 
     char *format = calloc(10, sizeof(char));
-    swprintf(format, 10, L"%%.%dlf", numberPrecision);
+    sprintf(format, 10, "%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
         printf("ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
-        wprintf(format, vectorSize(vector[u]));
+        printf(format, vectorSize(vector[u]));
         printf("\n");
         break;
     case 2:
-        temp = getDouble(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
+        temp = getDouble("ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
@@ -189,7 +189,7 @@ void vectorOperation(void)
         break;
     case 4:
         printf("ผลคูณเชิงสเกลาร์คือ ");
-        wprintf(format, dotProduct(vector[u], vector[v]));
+        printf(format, dotProduct(vector[u], vector[v]));
         printf("\n");
         break;
     case 5:
@@ -200,7 +200,7 @@ void vectorOperation(void)
         break;
     case 7:
         printf("พื้นที่คือ \n");
-        wprintf(format, vectorSize(crossProduct(vector[u], vector[v])));
+        printf(format, vectorSize(crossProduct(vector[u], vector[v])));
         printf(" ตารางหน่วย\n");
         break;
     default:
@@ -227,7 +227,7 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            if(!getConfirmation(L"คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้ ดำเนินการต่อ? [Y/N]: "))
+            if (!getConfirmation("คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้ ดำเนินการต่อ? [Y/N]: "))
             {
                 return;
             }
@@ -280,30 +280,12 @@ void fileMenu(void)
 }
 void setColor(void) // ! Only supported on Windows
 {
-    char *col;
-    char syn[10];
-    wprintf(
-        L"\nColor attributes are specified by TWO hex digits -- the first "
-        L"corresponds to the background; the second the foreground."
-        L"\nEach digit can be any of the following values:\n\n"
-        L"\t0 = Black       8 = Gray\n"
-        L"\t1 = Blue        9 = Light Blue\n"
-        L"\t2 = Green       A = Light Green\n"
-        L"\t3 = Aqua        B = Light Aqua\n"
-        L"\t4 = Red         C = Light Red\n"
-        L"\t5 = Purple      D = Light Purple\n"
-        L"\t6 = Yellow      E = Light Yellow\n"
-        L"\t7 = White       F = Bright White\n");
-    col = getString(L"เลือกสี: ");
-    sprintf(syn, "color %s", col);
-    system(syn);
-    cls();
-    free(col);
+    printf("ไม่รองรับใน Linux\n");
 }
 
 void cls(void) // * By @Teproanyx
 {
-    system("cls");
+    system("clear");
 }
 
 bool getConfirmation(const char *prompt)
@@ -332,14 +314,14 @@ void inputVector(void)
     {
         if (vector[slot] != NULL)
         {
-            if (!getConfirmation(L"เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
+            if (!getConfirmation("เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
             {
                 return;
             }
             free(vector[slot]);
         }
         double *u = malloc(sizeof(*u) * 3);
-        char *buffer = getString(L"กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
+        char *buffer = getString("กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
         sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
         free(buffer);
@@ -386,7 +368,7 @@ void saveVectorToSlot(double *u)
 {
     int w;
     printf("เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
-    if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
+    if (!getConfirmation("ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);
         return;
@@ -401,7 +383,7 @@ void saveVectorToSlot(double *u)
     }
     if (vector[w] != NULL)
     {
-        if (!getConfirmation(L"ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
+        if (!getConfirmation("ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
         {
             saveVectorToSlot(u);
             return;
@@ -420,7 +402,7 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    if (!getConfirmation(L"คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
+    if (!getConfirmation("คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
     {
         return false;
     }
@@ -466,7 +448,7 @@ void importVector(void)
     char *tmp;
     char filename[100];
     FILE *inputFile;
-    tmp = getString(L"โปรดใส่ชื่อไฟล์: ");
+    tmp = getString("โปรดใส่ชื่อไฟล์: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
@@ -498,13 +480,13 @@ void exportVector(void)
     char *tmp;
     char filename[100];
     FILE *outputFile;
-    tmp = getString(L"โปรดใส่ชื่อไฟล์ : ");
+    tmp = getString("โปรดใส่ชื่อไฟล์ : ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         fclose(outputFile);
-        if (!getConfirmation(L"ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
+        if (!getConfirmation("ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
         {
             return;
         }
