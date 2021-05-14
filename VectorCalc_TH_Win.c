@@ -4,10 +4,16 @@
  * * Honor contributor @Teproanyx
  */
 
+#if defined(_WIN32)
+
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <fcntl.h>
+#include <io.h>
+#include <wchar.h>
 
 #include "SafeInput/SafeInput_TH.h"
 
@@ -29,11 +35,11 @@ void settingsMenu(void);
 void fileMenu(void);
 void setColor(void);
 void cls(void);
-bool getConfirmation(const char *);
+bool getConfirmation(const wchar_t *);
 
 // * Vector management
 void inputVector(void);
-char *printvec(double *);
+wchar_t *printvec(double *);
 void ShowAllVectors(void);
 void saveVectorToSlot(double *);
 bool isVector(int);
@@ -53,13 +59,14 @@ double *crossProduct(double *, double *);
 
 int main(void)
 {
-    printf("\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n");
-    printf("กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n");
+    setmode(_fileno(stdout), _O_U16TEXT);
+    wprintf(L"\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n");
+    wprintf(L"กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n");
     getchar();
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V3.3 Thai Version|=====\n\n");
+        wprintf(L"=====|Vector Calculator V3.3 Thai Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -73,22 +80,22 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
-    printf("[1] ป้อนเวกเตอร์ใหม่\n");
-    printf("[2] คำนวณเกี่ยวกับเวกเตอร์\n");
-    printf("[3] Lab: นำเข้าและส่งออกเวกเตอร์\n");
-    printf("[4] ลบเวกเตอร์ทั้งหมด\n");
-    printf("[5] การตั้งค่า\n");
-    printf("[0] ออกจากโปรแกรม\n");
+    wprintf(L"\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
+    wprintf(L"[1] ป้อนเวกเตอร์ใหม่\n");
+    wprintf(L"[2] คำนวณเกี่ยวกับเวกเตอร์\n");
+    wprintf(L"[3] Lab: นำเข้าและส่งออกเวกเตอร์\n");
+    wprintf(L"[4] ลบเวกเตอร์ทั้งหมด\n");
+    wprintf(L"[5] การตั้งค่า\n");
+    wprintf(L"[0] ออกจากโปรแกรม\n");
 }
 
 bool programCore(void)
 {
-    int choice = getInt("ตัวเลือกที่เลือก: ");
+    int choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 0:
-        printf("ขอบคุณสำหรับการใช้งานโปรแกรม กดปุ่มใดๆ เพื่อปิดโปรแกรม");
+        wprintf(L"ขอบคุณสำหรับการใช้งานโปรแกรม กดปุ่มใดๆ เพื่อปิดโปรแกรม");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -107,8 +114,8 @@ bool programCore(void)
         settingsMenu();
         break;
     default:
-        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
-        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
@@ -117,18 +124,18 @@ bool programCore(void)
 
 void printOperationMenu(void)
 {
-    printf("==========================================\n");
-    printf("กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
-    printf("\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
-    printf("[1] หาขนาดของเวกเตอร์\n");
-    printf("[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
-    printf("\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
-    printf("[3] บวก 2 เวกเตอร์\n");
-    printf("[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
-    printf("[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
-    printf("[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
-    printf("[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
-    printf("[0] ออก\n");
+    wprintf(L"==========================================\n");
+    wprintf(L"กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
+    wprintf(L"[1] หาขนาดของเวกเตอร์\n");
+    wprintf(L"[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
+    wprintf(L"\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
+    wprintf(L"[3] บวก 2 เวกเตอร์\n");
+    wprintf(L"[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
+    wprintf(L"[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
+    wprintf(L"[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
+    wprintf(L"[0] ออก\n");
 }
 
 void vectorOperation(void)
@@ -137,48 +144,48 @@ void vectorOperation(void)
     int u, v;
     cls();
     printOperationMenu();
-    choice = getInt("ฟังก์ชันการดำเนินการที่เลือก: ");
+    choice = getInt(L"ฟังก์ชันการดำเนินการที่เลือก: ");
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\nกดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\nกดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         return;
     }
-    printf("\n");
+    wprintf(L"\n");
     ShowAllVectors();
-    printf("\n");
+    wprintf(L"\n");
     if (choice == 1 || choice == 2)
     {
-        u = getInt("เลือกเวกเตอร์: ");
+        u = getInt(L"เลือกเวกเตอร์: ");
         if (!isVector(u))
         {
-            printf("ไม่มีเวกเตอร์นี้, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"ไม่มีเวกเตอร์นี้, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
     }
     else
     {
-        u = getInt("เลือกเวกเตอร์อันแรก: ");
-        v = getInt("เลือกเวกเตอร์อันที่สอง: ");
+        u = getInt(L"เลือกเวกเตอร์อันแรก: ");
+        v = getInt(L"เลือกเวกเตอร์อันที่สอง: ");
         if (!(isVector(u) && isVector(v)))
         {
-            printf("หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+            wprintf(L"หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
     }
 
-    char *format = calloc(10, sizeof(char));
+    wchar_t *format = calloc(10, sizeof(wchar_t));
     swprintf(format, 10, L"%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
-        printf("ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
+        wprintf(L"ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
         wprintf(format, vectorSize(vector[u]));
-        printf("\n");
+        wprintf(L"\n");
         break;
     case 2:
         temp = getDouble(L"ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
@@ -188,9 +195,9 @@ void vectorOperation(void)
         saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("ผลคูณเชิงสเกลาร์คือ ");
+        wprintf(L"ผลคูณเชิงสเกลาร์คือ ");
         wprintf(format, dotProduct(vector[u], vector[v]));
-        printf("\n");
+        wprintf(L"\n");
         break;
     case 5:
         saveVectorToSlot(crossProduct(vector[u], vector[v]));
@@ -199,14 +206,14 @@ void vectorOperation(void)
         saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("พื้นที่คือ \n");
+        wprintf(L"พื้นที่คือ \n");
         wprintf(format, vectorSize(crossProduct(vector[u], vector[v])));
-        printf(" ตารางหน่วย\n");
+        wprintf(L" ตารางหน่วย\n");
         break;
     default:
-        printf("Error 003: Default kicks in, function: vectorOperation\n");
+        wprintf(L"Error 003: Default kicks in, function: vectorOperation\n");
     }
-    printf("การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+    wprintf(L"การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     free(format);
     getchar();
 }
@@ -214,11 +221,11 @@ void vectorOperation(void)
 void settingsMenu(void)
 {
     int choice;
-    printf("\n=====|การตั้งค่า|=====\n\n");
-    printf("[1] เปลี่ยนสีหน้าจอ\n");
-    printf("[2] Lab: เลือกความละเอียดของตัวเลข\n");
-    printf("[0] กลับ\n");
-    choice = getInt("ตัวเลือกที่เลือก: ");
+    wprintf(L"\n=====|การตั้งค่า|=====\n\n");
+    wprintf(L"[1] เปลี่ยนสีหน้าจอ\n");
+    wprintf(L"[2] Lab: เลือกความละเอียดของตัวเลข\n");
+    wprintf(L"[0] กลับ\n");
+    choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 1:
@@ -231,20 +238,20 @@ void settingsMenu(void)
             {
                 return;
             }
-            numberPrecision = getInt("จำนวนหลักหลังทศนิยม: ");
+            numberPrecision = getInt(L"จำนวนหลักหลังทศนิยม: ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
-                printf("จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
+                wprintf(L"จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
         }
         break;
     case 0:
-        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     default:
-        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
-        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
@@ -253,12 +260,12 @@ void settingsMenu(void)
 void fileMenu(void)
 {
     int choice;
-    printf("\n=====|เมนูไฟล์|=====\n\n");
-    printf("คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้\n");
-    printf("[1] นำเข้าเวกเตอร์\n");
-    printf("[2] ส่งออกเวกเตอร์\n");
-    printf("[0] กลับ\n");
-    choice = getInt("ตัวเลือกที่เลือก: ");
+    wprintf(L"\n=====|เมนูไฟล์|=====\n\n");
+    wprintf(L"คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้\n");
+    wprintf(L"[1] นำเข้าเวกเตอร์\n");
+    wprintf(L"[2] ส่งออกเวกเตอร์\n");
+    wprintf(L"[0] กลับ\n");
+    choice = getInt(L"ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 1:
@@ -268,12 +275,12 @@ void fileMenu(void)
         exportVector();
         break;
     case 0:
-        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     default:
-        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
-        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+        wprintf(L"ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        wprintf(L"กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
@@ -306,7 +313,7 @@ void cls(void) // * By @Teproanyx
     system("cls");
 }
 
-bool getConfirmation(const char *prompt)
+bool getConfirmation(const wchar_t *prompt)
 {
     char *confirm;
     char tempc;
@@ -327,7 +334,7 @@ bool getConfirmation(const char *prompt)
 void inputVector(void)
 {
     int slot;
-    slot = getInt("ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
+    slot = getInt(L"ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
@@ -346,12 +353,12 @@ void inputVector(void)
     }
     else
     {
-        printf("ไม่มีช่องนั้นอยู่ กดปุ่มใดๆเพื่อดำเนินการต่อ");
+        wprintf(L"ไม่มีช่องนั้นอยู่ กดปุ่มใดๆเพื่อดำเนินการต่อ");
         getchar();
     }
 }
 
-char *printvec(double *u)
+wchar_t *printvec(double *u)
 {
     int d = numberPrecision;
     char *format = malloc(sizeof(*format) * 40);
@@ -360,11 +367,11 @@ char *printvec(double *u)
     char *str = malloc(sizeof(*str) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    char *wstr = calloc(strlen(str), sizeof(*wstr));
+    wchar_t *wstr = calloc(strlen(str), sizeof(*wstr));
     int tstrlen = (int)(strlen(str));
     for (int lc = 0; lc < tstrlen; lc++)
     {
-        wstr[lc] = (char)(str[lc]);
+        wstr[lc] = (wchar_t)(str[lc]);
     }
     // * Forcing '\0' to stop string from printing
     wstr[tstrlen] = '\0';
@@ -377,7 +384,7 @@ void ShowAllVectors(void)
     {
         if (vector[m] != NULL)
         {
-            printf("เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
+            wprintf(L"เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
         }
     }
 }
@@ -385,17 +392,17 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    printf("เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    wprintf(L"เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
     if (!getConfirmation(L"ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);
         return;
     }
 
-    w = getInt("ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
+    w = getInt(L"ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (w < 0 || w >= VECTOR_ARRAY_SIZE)
     {
-        printf("ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
+        wprintf(L"ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
         saveVectorToSlot(u);
         return;
     }
@@ -433,7 +440,7 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    printf("เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
+    wprintf(L"เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
     getchar();
     return true;
 }
@@ -470,8 +477,8 @@ void importVector(void)
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
-        printf("ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n");
-        printf("กดปุ่มใดๆเพื่อดำเนินการต่อ");
+        wprintf(L"ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n");
+        wprintf(L"กดปุ่มใดๆเพื่อดำเนินการต่อ");
         free(tmp);
         getchar();
         return;
@@ -560,3 +567,11 @@ double *crossProduct(double *u, double *v)
     w[k] = u[i] * v[j] - v[i] * u[j];
     return w;
 }
+
+#else
+#include <stdio.h>
+int main(void)
+{
+    printf("Thai version doesn't support in Linux!\n");
+}
+#endif
