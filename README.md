@@ -1,12 +1,12 @@
 # Mini Vector Calculator
 
-  This program can do simple Vector Calculation.
+  This program can do simple Vector Calculation!
 
-## Related Project
+## 📍 Related Project
 
 <a href="https://github.com/Leomotors/Website-Vector-Calculator">Website Vector Calculator</a> (Developed from this repo.)
 
-## Program's Features
+## ✨ Program's Features
 
 ### Vector Calculation
 
@@ -41,7 +41,7 @@
  __Note__: In Thai and Japanese Version on Windows is unstable, some feature might
  cause bugs. In Linux, it's working fine.
 
-## How to Run Program
+## 🏃‍♂️ How to Run Program
 
   Compile the source code with gcc and done!
 
@@ -50,7 +50,7 @@
   Which file to compile?
    <a href="https://github.com/Leomotors/Mini-Vector-Calculator/blob/main/docs/compilemanual.md">Here is info!</a>
 
-## Sample Vector Data to start with
+## 🔢 Sample Vector Data to start with
 
   I've already put some sample vector data you can play with!
 
@@ -58,7 +58,7 @@
 
   Note: Use Import Vector Function to import them, but please avoid using them in TH,JP Version as it is unstable.
 
-## Compatibility
+## 🖥️ Compatibility
 
 Support both Windows and UNIX OS.
 
@@ -66,13 +66,7 @@ Compiler : C99 or above
 
 Note : Compile with `-lm` if you are on Linux!
 
-## Version
-
-  Version used to present to Teacher (Semester 1) : v1.3.0
-
-  Current Release : v3.3
-
-## Credits
+## ⏳ Credits
 
 ### Initial Development : Version 1
 
@@ -112,11 +106,11 @@ Note : Compile with `-lm` if you are on Linux!
     
     * Honorable Mention : Stack Overflow
 
-  Presented on : 3 March 2021
+  Presented on : 3 March 2021 (Version 3.3)
   
   Gained a lot from this!
   
-### Special Thanks
+### 🙏 Special Thanks
 
   This Project uses Safe Input Module by @Teproanyx
 

@@ -1,10 +1,12 @@
 # Program Version History
 
-## Version 4 (Under Development)
+## 🍙 Version 4 (Under Development)
 
   Under Development
 
-## Version 3 (Latest Version)
+## 🧑‍💼 Version 3 (Latest Version)
+
+  **2021-03-29** March Refresh Update (3.3.1)
 
   **2021-03-03** Present Ready Update (3.3): Fixed many bugs. Program should be stable now
 
@@ -16,7 +18,7 @@
   
   **2021-01-18 to 2021-02-08** Version 3 Development
 
-## Version 2
+## 🧑‍💻 Version 2
 
   **2021-02-03** Release 2.4.1: Add License
 
@@ -36,6 +38,6 @@
 
   **2020-10-16 to 2020-10-21**: Snapshot 2.0 Beta Development
 
-## Version 1
+## 💡 Version 1
 
 Developed outside github
