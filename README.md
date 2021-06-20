@@ -32,19 +32,23 @@
 
 * Tested using valgrind, however, some very small leaks are possible in rare case.
 
-* Only applies on English Version
+* Exclude Thai and Japanese Version on Windows
 
 ### Multilingual
 
 * Support 3 Languages: English, Thai and Japanese
 
- __Note__: In Thai and Japanese Version, Import/Export Vector and setting Number Precision is unstable. Please avoid using them.
+ __Note__: In Thai and Japanese Version on Windows is unstable, some feature might
+ cause bugs. In Linux, it's working fine.
 
 ## How to Run Program
 
-  Compile the source code and done!
+  Compile the source code with gcc and done!
 
-  To use import/export function, VectorSave Folder must be in the same directory.
+  Note: To use import/export function, VectorSave Folder must be in the same directory.
+
+  Which file to compile?
+   <a href="https://github.com/Leomotors/Mini-Vector-Calculator/blob/main/docs/compilemanual.md">Here is info!</a>
 
 ## Sample Vector Data to start with
 
@@ -60,9 +64,7 @@ Support both Windows and UNIX OS.
 
 Compiler : C99 or above
 
-Note : Thai and Japanese Version aren't supported in UNIX OS.
-
-Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX OS.
+Note : Compile with `-lm` if you are on Linux!
 
 ## Version
 
@@ -120,4 +122,5 @@ Note : ```-lm``` (Math Library) must be manually attached when compiling in UNIX
 
 ## Program Version History
 
-Changelog here (pending hyperlink)
+Changelog
+ <a href="https://github.com/Leomotors/Mini-Vector-Calculator/blob/main/docs/changelog.md">here</a>
