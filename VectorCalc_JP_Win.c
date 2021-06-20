@@ -578,7 +578,7 @@ double *crossProduct(double *u, double *v)
 #include <stdio.h>
 int main(void)
 {
-    printf("Japanese version doesn't support in Linux!\n");
+    printf("This is for Windows Version. Please run Linux Version!\n");
     return 0;
 }
 #endif

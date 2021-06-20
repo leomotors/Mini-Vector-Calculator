@@ -572,6 +572,6 @@ double *crossProduct(double *u, double *v)
 #include <stdio.h>
 int main(void)
 {
-    printf("Thai version doesn't support in Linux!\n");
+    printf("This is for Windows Version. Please run Linux Version!\n");
 }
 #endif
