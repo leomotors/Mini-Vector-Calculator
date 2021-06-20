@@ -2,6 +2,8 @@
 
   This program can do simple Vector Calculation!
 
+  Also My First Coding Project! Start as group and further develop on my own!
+
 ## 📍 Related Project
 
 <a href="https://github.com/Leomotors/Website-Vector-Calculator">Website Vector Calculator</a> (Developed from this repo.)
@@ -109,12 +111,17 @@ Note : Compile with `-lm` if you are on Linux!
   Presented on : 3 March 2021 (Version 3.3)
   
   Gained a lot from this!
-  
+
+### Version 4 Development
+
+  Developed on my own to make my program fully function!
+
 ### 🙏 Special Thanks
 
-  This Project uses Safe Input Module by @Teproanyx
+  This Project uses Safe Input Module by
+   <a href="https://github.com/Teproanyx">Teproanyx</a>
 
-## Program Version History
+## 🛣️ Program Version History
 
-Changelog
+Changelog of long journey
  <a href="https://github.com/Leomotors/Mini-Vector-Calculator/blob/main/docs/changelog.md">here</a>
