@@ -172,7 +172,7 @@ void vectorOperation(void)
     }
 
     char *format = calloc(10, sizeof(char));
-    sprintf(format, 10, "%%.%dlf", numberPrecision);
+    sprintf(format, "%%.%dlf", numberPrecision);
     switch (choice)
     {
     case 1:
@@ -342,15 +342,8 @@ char *printvec(double *u)
     char *str = malloc(sizeof(*str) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    char *wstr = calloc(strlen(str), sizeof(*wstr));
-    int tstrlen = (int)(strlen(str));
-    for (int lc = 0; lc < tstrlen; lc++)
-    {
-        wstr[lc] = (char)(str[lc]);
-    }
-    // * Forcing '\0' to stop string from printing
-    wstr[tstrlen] = '\0';
-    return wstr;
+    free(format);
+    return str;
 }
 
 void ShowAllVectors(void)
