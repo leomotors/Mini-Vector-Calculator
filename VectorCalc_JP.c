@@ -78,7 +78,7 @@ void printMainMenu(void)
     printf("\n下の機能を選んでください。\n");
     printf("[1] 新ベクトルを入力する\n");
     printf("[2] ベクトルについて計算\n");
-    printf("[3] Lab: インポート・エクスポートベクトル\n");
+    printf("[3] インポート・エクスポートベクトル\n");
     printf("[4] すべてのベクトルを削除する\n");
     printf("[5] 設定\n");
     printf("[0] プログラムを終了する\n");
@@ -219,7 +219,7 @@ void settingsMenu(void)
     int choice;
     printf("\n=====|設定|=====\n\n");
     printf("[1] 画面の色を変化する [Windows だけできる！]\n");
-    printf("[2] Lab: 数値精度を設定する\n");
+    printf("[2] 数値精度を設定する\n");
     printf("[0] 戻る\n");
     choice = getInt("選ぶ： ");
     switch (choice)
