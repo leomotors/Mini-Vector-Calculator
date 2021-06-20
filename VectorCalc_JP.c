@@ -29,7 +29,7 @@ void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
 void fileMenu(void);
-void setColor(void);
+void setColor(void); // ! To be removed
 void cls(void);
 bool getConfirmation(const char *);
 
@@ -230,10 +230,6 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            if (!getConfirmation("警告: この機能は不安定で、エラー可能性があります。継続しますか? [Y/N]: "))
-            {
-                return;
-            }
             numberPrecision = getInt("小数点以下の桁数 ： ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
@@ -257,7 +253,7 @@ void fileMenu(void)
 {
     int choice;
     printf("\n=====|ファイルメニュー|=====\n\n");
-    printf("警告: この機能は不安定で、エラー可能性があります。\n");
+    printf("警告: この機能は不安定で、エラー可能性があります。\n"); // ! remove warning
     printf("[1] インポート・ベクトル\n");
     printf("[2] エクスポート・ベクトル\n");
     printf("[0] 戻る\n");
@@ -346,17 +342,8 @@ char *printvec(double *u)
     char *str = malloc(sizeof(*str) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
-    char *wstr = calloc(strlen(str), sizeof(*wstr));
-    int tstrlen = (int)(strlen(str));
-    for (int lc = 0; lc < tstrlen; lc++)
-    {
-        wstr[lc] = (char)(str[lc]);
-    }
-    // * Forcing '\0' to stop string from printing
-    wstr[tstrlen] = '\0';
     free(format);
-    free(str);
-    return wstr;
+    return str;
 }
 
 void ShowAllVectors(void)

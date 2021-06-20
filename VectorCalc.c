@@ -51,9 +51,6 @@ double *addVector(double *, double *);
 double dotProduct(double *, double *);
 double *crossProduct(double *, double *);
 
-// * Safe input by @Teproanyx
-// * Modified to fit this program by @Leomotors
-
 int main(void)
 {
     printf("\nWelcome to Vector Calculator Program!\n\n");
