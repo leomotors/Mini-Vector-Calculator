@@ -16,26 +16,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <wchar.h>
 #define INITIAL_BUFFER 8
 
 // * Function Prototype (Declaration) * //
 
-long long getlong(const char *);
-int getInt(const char *);
-double getDouble(const char *);
-char *getString(const char *);
+long long getlong(const wchar_t *);
+int getInt(const wchar_t *);
+double getDouble(const wchar_t *);
+char *getString(const wchar_t *);
 void memoryError(const void *);
 
 // * Function Definition * //
 
-long getLong(const char *prompt)
+long getLong(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("入力エラー もう一度やり直してください。\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -47,7 +47,7 @@ long getLong(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("入力エラー もう一度やり直してください。\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -56,24 +56,24 @@ long getLong(const char *prompt)
     return n;
 }
 
-int getInt(const char *prompt)
+int getInt(const wchar_t *prompt)
 {
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        printf("入力エラー もう一度やり直してください。\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getInt(prompt);
     }
     return (int)n;
 }
 
-double getDouble(const char *prompt)
+double getDouble(const wchar_t *prompt)
 {
     char *buffer = getString(prompt);
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("入力エラー もう一度やり直してください。\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getLong(prompt);
     }
 
@@ -85,7 +85,7 @@ double getDouble(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("入力エラー もう一度やり直してください。\n");
+        wprintf(L"入力エラー もう一度やり直してください。\n");
         return getDouble(prompt);
     }
 
@@ -94,16 +94,16 @@ double getDouble(const char *prompt)
     return n;
 }
 
-char *getString(const char *prompt)
+char *getString(const wchar_t *prompt)
 {
     size_t size = INITIAL_BUFFER;
-    printf("%s", prompt);
+    wprintf(L"%s", prompt);
     char *buffer = malloc((size + 1) * sizeof(*buffer));
     memoryError(buffer);
     if (fgets(buffer, size + 1, stdin) == NULL)
     {
         free(buffer);
-        printf("エラー、もう一度やり直してください。\n");
+        wprintf(L"エラー、もう一度やり直してください。\n");
         return getString(prompt);
     }
     while (buffer[strlen(buffer) - 1] != '\n')
@@ -115,7 +115,7 @@ char *getString(const char *prompt)
         {
             free(buffer);
             free(subBuffer);
-            printf("Read Error(WTF HOW), try again MTFKER!\n");
+            wprintf(L"Read Error(WTF HOW), try again MTFKER!\n");
             return getString(prompt);
         }
 
@@ -136,7 +136,7 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        printf("RAMは十分ではありません プログラムを終了しています...\n");
+        wprintf(L"RAMは十分ではありません プログラムを終了しています...\n");
         exit(EXIT_FAILURE);
     }
 }
