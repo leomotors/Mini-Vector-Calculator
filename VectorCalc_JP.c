@@ -253,7 +253,6 @@ void fileMenu(void)
 {
     int choice;
     printf("\n=====|ファイルメニュー|=====\n\n");
-    printf("警告: この機能は不安定で、エラー可能性があります。\n"); // ! remove warning
     printf("[1] インポート・ベクトル\n");
     printf("[2] エクスポート・ベクトル\n");
     printf("[0] 戻る\n");
@@ -280,7 +279,8 @@ void fileMenu(void)
 
 void setColor(void) // ! Only supported on Windows
 {
-    printf("Not supported!\n");
+    printf("この機能はWindowsでのみサポートされています。\n");
+    printf("続行するには任意のボタンを押してください。");
 }
 
 void cls(void) // * By @Teproanyx
@@ -348,11 +348,14 @@ char *printvec(double *u)
 
 void ShowAllVectors(void)
 {
+    char *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            printf("ベクトル #%d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            printf("ベクトル #%d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
@@ -360,7 +363,9 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    printf("結果のベクトルは %s\n", printvec(u));
+    char *tmp = printvec(u);
+    printf("結果のベクトルは %s\n", tmp);
+    free(tmp);
     if (!getConfirmation("ベクトルを保存しますか？ [Y/N]: "))
     {
         free(u);

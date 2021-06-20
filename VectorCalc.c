@@ -339,7 +339,9 @@ void inputVector(void)
         if (vector[slot] != NULL)
         {
             if (!getConfirmation("Vector already exists, Overwrite? [Y/N]: "))
+            {
                 return;
+            }
             free(vector[slot]);
         }
         double *u = malloc(sizeof(*u) * 3);
@@ -358,10 +360,10 @@ void inputVector(void)
 char *printvec(double *u)
 {
     int d = numberPrecision;
-    char *format = malloc(sizeof(char) * 40);
+    char *format = malloc(sizeof(*format) * 40);
     strcpy(format, "");
     sprintf(format, "( %%.%dlf , %%.%dlf , %%.%dlf )", d, d, d);
-    char *str = malloc(sizeof(char) * 100);
+    char *str = malloc(sizeof(*str) * 100);
     strcpy(str, "");
     sprintf(str, format, u[i], u[j], u[k]);
     free(format);
