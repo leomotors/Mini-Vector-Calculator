@@ -29,7 +29,7 @@ void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
 void fileMenu(void);
-void setColor(void); // ! To be removed
+void setColor(void);
 void cls(void);
 bool getConfirmation(const char *);
 
@@ -281,6 +281,7 @@ void setColor(void) // ! Only supported on Windows
 {
     printf("この機能はWindowsでのみサポートされています。\n");
     printf("続行するには任意のボタンを押してください。");
+    getchar();
 }
 
 void cls(void) // * By @Teproanyx

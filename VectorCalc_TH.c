@@ -227,10 +227,6 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            if (!getConfirmation("คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้ ดำเนินการต่อ? [Y/N]: "))
-            {
-                return;
-            }
             numberPrecision = getInt("จำนวนหลักหลังทศนิยม: ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
@@ -254,7 +250,6 @@ void fileMenu(void)
 {
     int choice;
     printf("\n=====|เมนูไฟล์|=====\n\n");
-    printf("คำเตือน: ฟังก์ชันนี้ไม่เสถียรและอาจทำให้โปรแกรมค้างได้\n");
     printf("[1] นำเข้าเวกเตอร์\n");
     printf("[2] ส่งออกเวกเตอร์\n");
     printf("[0] กลับ\n");
@@ -280,7 +275,9 @@ void fileMenu(void)
 }
 void setColor(void) // ! Only supported on Windows
 {
-    printf("ไม่รองรับใน Linux\n");
+    printf("ฟังก์ชันนี้รองรับเฉพาะใน Windows เท่านั้น\n");
+    printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
+    getchar();
 }
 
 void cls(void) // * By @Teproanyx
@@ -348,11 +345,14 @@ char *printvec(double *u)
 
 void ShowAllVectors(void)
 {
+    char *tmp;
     for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
     {
         if (vector[m] != NULL)
         {
-            printf("เวกเตอร์ หมายเลข %d : %s\n", m, printvec(vector[m]));
+            tmp = printvec(vector[m]);
+            printf("เวกเตอร์ หมายเลข %d : %s\n", m, tmp);
+            free(tmp);
         }
     }
 }
@@ -360,7 +360,9 @@ void ShowAllVectors(void)
 void saveVectorToSlot(double *u)
 {
     int w;
-    printf("เวกเตอร์ผลลัพธ์คือ %s\n", printvec(u));
+    char *tmp = printvec(u);
+    printf("เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
+    free(tmp);
     if (!getConfirmation("ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);
