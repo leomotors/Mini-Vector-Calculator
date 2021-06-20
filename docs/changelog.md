@@ -2,7 +2,7 @@
 
 ## 🍙 Version 4 (Under Development)
 
-  Under Development
+  **2021-06-20** Multilingual Update 2 (4.0): Now works on Linux!
 
 ## 🧑‍💼 Version 3 (Latest Version)
 
