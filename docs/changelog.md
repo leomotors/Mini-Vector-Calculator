@@ -1,10 +1,12 @@
 # Program Version History
 
-## 🍙 Version 4 (Under Development)
+## 🍙 Version 4 (Latest Version)
 
+  Would like to say this is final version but since I ever tell myself that version 3 is final so this sentence can't be trusted.
+  
   **2021-06-20** Multilingual Update 2 (4.0): Now works on Linux!
 
-## 🧑‍💼 Version 3 (Latest Version)
+## 🧑‍💼 Version 3 (Second Presentation aka Second Checkpoint)
 
   **2021-03-29** March Refresh Update (3.3.1)
 
@@ -38,6 +40,6 @@
 
   **2020-10-16 to 2020-10-21**: Snapshot 2.0 Beta Development
 
-## 💡 Version 1
+## 💡 Version 1 (First Presentation aka First Checkpoint)
 
 Developed outside github
