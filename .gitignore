@@ -58,6 +58,5 @@ dkms.conf
 VectorCalc
 VectorCalc_TH
 VectorCalc_JP
-
-# Extension Temp File
-tempCodeRunnerFile.c
+VectorCalc_TH_Win
+VectorCalc_JP_Win

@@ -1,0 +1,11 @@
+*
+
+!.gitignore
+
+# Sample Data
+
+!Data0.txt
+!Data1.txt
+!Data2.txt
+!Data3.txt
+!Data4.txt
