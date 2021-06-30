@@ -23,11 +23,13 @@ const char *FILE_NAME = "Vector_Calculator";
 
 #if defined(_WIN32)
 const bool WINDOWS = 1;
+const char SLASH = '\\';
 const char *SRC_FILES[] = {
     "VectorCalc", "VectorCalc_TH_Win", "VectorCalc_JP_Win"};
 
 #else
 const bool WINDOWS = 0;
+const char SLASH = '/';
 const char *SRC_FILES[] = {
     "VectorCalc", "VectorCalc_TH", "VectorCalc_JP"};
 
@@ -53,7 +55,7 @@ int main(void)
 
     printf("\nDone! Starting program...\n");
 
-    sprintf(toexec, "./%s", FILE_NAME);
+    sprintf(toexec, ".%c%s", SLASH, FILE_NAME);
     system(toexec);
 
     printf("\n[COMPILATION ASSISTANT FEEDBACK] Program executed, "
