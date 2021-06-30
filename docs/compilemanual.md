@@ -1,5 +1,7 @@
 # Manually Compilation
 
+**Warning**: Import and Export Function requires executable to be in the main directory. After manual compilation, please move that file to its parent folder.
+
 ## For English Version
 
 Compile VectorCalc.c
