@@ -136,7 +136,7 @@ void printOperationMenu(void)
 void vectorOperation(void)
 {
     int choice, temp;
-    int u, v;
+    int u, v = -1;
     cls();
     printOperationMenu();
     choice = getInt("選んでいる機能: ");

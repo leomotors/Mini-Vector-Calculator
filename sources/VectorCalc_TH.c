@@ -134,7 +134,7 @@ void printOperationMenu(void)
 void vectorOperation(void)
 {
     int choice, temp;
-    int u, v;
+    int u, v = -1;
     cls();
     printOperationMenu();
     choice = getInt("ฟังก์ชันการดำเนินการที่เลือก: ");
