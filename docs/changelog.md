@@ -52,5 +52,5 @@
   
   **2021-06-20** Multilingual Update 2 (4.0): Now works on Linux!
 
-  **2021-06-30** Compilation Assistant (4.1): Compilation Assistant added to help you!
+  **2021-06-30** Compilation Assistant Update (4.1): Compilation Assistant added to help you!
   
