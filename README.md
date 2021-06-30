@@ -45,11 +45,9 @@
 
 ## 🏃‍♂️ How to Run Program
 
-  Compile the source code with gcc and done!
+  Compile `COMPILE.c` and have the assistant take care for you!
 
-  Note: To use import/export function, VectorSave Folder must be in the same directory.
-
-  Which file to compile?
+  For Manual/Direct Compilation,
    <a href="https://github.com/Leomotors/Mini-Vector-Calculator/blob/main/docs/compilemanual.md">Here is info!</a>
 
 ## 🔢 Sample Vector Data to start with

@@ -1,5 +1,5 @@
 /**
- * * Project 「Vector Calculator」
+ * * Project 「Vector Calculator」 Thai Version
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
  */
@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "SafeInput/SafeInput.h"
+#include "../SafeInput/SafeInput_TH.h"
 
 #define i 0
 #define j 1
@@ -27,7 +27,7 @@ void printOperationMenu(void);
 void vectorOperation(void);
 void settingsMenu(void);
 void fileMenu(void);
-void setColor(void); // ! Only supported on Windows
+void setColor(void);
 void cls(void);
 bool getConfirmation(const char *);
 
@@ -53,13 +53,13 @@ double *crossProduct(double *, double *);
 
 int main(void)
 {
-    printf("\nWelcome to Vector Calculator Program!\n\n");
-    printf("Press any key to continue...");
+    printf("\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n");
+    printf("กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n");
     getchar();
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V3.3|=====\n\n");
+        printf("=====|Vector Calculator V3.3 Thai Version|=====\n\n");
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -73,22 +73,22 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nPlease select Function from below list.\n");
-    printf("[1] Input new vector!\n");
-    printf("[2] Do operations!\n");
-    printf("[3] Import & Export Vectors\n");
-    printf("[4] Delete all Vectors\n");
-    printf("[5] Settings\n");
-    printf("[0] Exit\n");
+    printf("\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n");
+    printf("[1] ป้อนเวกเตอร์ใหม่\n");
+    printf("[2] คำนวณเกี่ยวกับเวกเตอร์\n");
+    printf("[3] นำเข้าและส่งออกเวกเตอร์\n");
+    printf("[4] ลบเวกเตอร์ทั้งหมด\n");
+    printf("[5] การตั้งค่า\n");
+    printf("[0] ออกจากโปรแกรม\n");
 }
 
 bool programCore(void)
 {
-    int choice = getInt("Your Choice: ");
+    int choice = getInt("ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 0:
-        printf("Thanks for using this program! Press any key to exit...");
+        printf("ขอบคุณสำหรับการใช้งานโปรแกรม กดปุ่มใดๆ เพื่อปิดโปรแกรม");
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -107,8 +107,8 @@ bool programCore(void)
         settingsMenu();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
@@ -118,31 +118,31 @@ bool programCore(void)
 void printOperationMenu(void)
 {
     printf("==========================================\n");
-    printf("Please select functions!\n");
-    printf("\tOne Vector Operation\n");
-    printf("[1] Find size of a Vector\n");
-    printf("[2] Multiply Vector with scalar\n");
-    printf("\tTwo Vectors Operation\n");
-    printf("[3] Add 2 Vectors\n");
-    printf("[4] Dot Product of 2 Vectors\n");
-    printf("[5] Cross Product of 2 Vectors\n");
-    printf("[6] Project a vector on another vector\n");
-    printf("[7] Find area of parrallelogram from 2 vectors\n");
-    printf("[0] Exit\n");
+    printf("กรุณาเลือกฟังก์ชันที่ต้องการใช้งาน\n");
+    printf("\tการดำเนินการที่ใช้เวกเตอร์อันเดียว\n");
+    printf("[1] หาขนาดของเวกเตอร์\n");
+    printf("[2] คูณเวกเตอร์ด้วยสเกลาร์\n");
+    printf("\tการดำเนินการที่ใช้เวกเตอร์สองอัน\n");
+    printf("[3] บวก 2 เวกเตอร์\n");
+    printf("[4] หาผลคูณเชิงสเกลาร์ของ 2 เวกเตอร์\n");
+    printf("[5] หาผลคูณเชิงเวกเตอร์ของ 2 เวกเตอร์\n");
+    printf("[6] โพรเจกเวกเตอร์ลงไปที่อีกเวกเตอร์\n");
+    printf("[7] หาพื้นที่ของสี่เหลี่ยมด้านขนานที่เกิดจากสองเวกเตอร์\n");
+    printf("[0] ออก\n");
 }
 
 void vectorOperation(void)
 {
     int choice, temp;
-    int u, v;
+    int u, v = -1;
     cls();
     printOperationMenu();
-    choice = getInt("Selected Operation: ");
+    choice = getInt("ฟังก์ชันการดำเนินการที่เลือก: ");
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        printf("Invalid choice, try again!\nPress any key to continue...");
+        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\nกดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         return;
     }
@@ -151,21 +151,21 @@ void vectorOperation(void)
     printf("\n");
     if (choice == 1 || choice == 2)
     {
-        u = getInt("Select Vector: ");
+        u = getInt("เลือกเวกเตอร์: ");
         if (!isVector(u))
         {
-            printf("This vector not available, Press any key to continue...");
+            printf("ไม่มีเวกเตอร์นี้, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
     }
     else
     {
-        u = getInt("Select First Vector: ");
-        v = getInt("Select Second Vector: ");
+        u = getInt("เลือกเวกเตอร์อันแรก: ");
+        v = getInt("เลือกเวกเตอร์อันที่สอง: ");
         if (!(isVector(u) && isVector(v)))
         {
-            printf("One or Both of vector not available, Press any key to continue...");
+            printf("หนึ่งหรือทั้งสองเวกเตอร์ไม่มี, กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
             getchar();
             return;
         }
@@ -176,19 +176,19 @@ void vectorOperation(void)
     switch (choice)
     {
     case 1:
-        printf("Size of Vector #%d is ", u);
+        printf("ขนาดของเวกเตอร์หมายเลข %d คือ ", u);
         printf(format, vectorSize(vector[u]));
         printf("\n");
         break;
     case 2:
-        temp = getDouble("Enter scalar to multiply with: ");
+        temp = getDouble("ใส่ค่าสเกลาร์ที่จะนำไปคูณ: ");
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
         saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Dot Product is ");
+        printf("ผลคูณเชิงสเกลาร์คือ ");
         printf(format, dotProduct(vector[u], vector[v]));
         printf("\n");
         break;
@@ -199,14 +199,14 @@ void vectorOperation(void)
         saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("Area is ");
+        printf("พื้นที่คือ \n");
         printf(format, vectorSize(crossProduct(vector[u], vector[v])));
-        printf(" Sq.Unit\n");
+        printf(" ตารางหน่วย\n");
         break;
     default:
         printf("Error 003: Default kicks in, function: vectorOperation\n");
     }
-    printf("Operation done, Please any to continue...");
+    printf("การดำเนินการเสร็จสิ้น กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     free(format);
     getchar();
 }
@@ -214,11 +214,11 @@ void vectorOperation(void)
 void settingsMenu(void)
 {
     int choice;
-    printf("\n=====|Settings|=====\n\n");
-    printf("[1] Set terminal (command prompt)'s color\n");
-    printf("[2] Set Number Precision\n");
-    printf("[0] Back\n");
-    choice = getInt("Your option: ");
+    printf("\n=====|การตั้งค่า|=====\n\n");
+    printf("[1] เปลี่ยนสีหน้าจอ\n");
+    printf("[2] เลือกความละเอียดของตัวเลข\n");
+    printf("[0] กลับ\n");
+    choice = getInt("ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 1:
@@ -227,20 +227,20 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            numberPrecision = getInt("Number of digits after decimal: ");
+            numberPrecision = getInt("จำนวนหลักหลังทศนิยม: ");
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
-                printf("Number of digits must be between 0 and 6!\n");
+                printf("จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n");
         }
         break;
     case 0:
-        printf("Press any key to continue...");
+        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
@@ -249,11 +249,11 @@ void settingsMenu(void)
 void fileMenu(void)
 {
     int choice;
-    printf("\n=====|File Menu|=====\n\n");
-    printf("[1] Import Vector\n");
-    printf("[2] Export Vector\n");
-    printf("[0] Back\n");
-    choice = getInt("Your option: ");
+    printf("\n=====|เมนูไฟล์|=====\n\n");
+    printf("[1] นำเข้าเวกเตอร์\n");
+    printf("[2] ส่งออกเวกเตอร์\n");
+    printf("[0] กลับ\n");
+    choice = getInt("ตัวเลือกที่เลือก: ");
     switch (choice)
     {
     case 1:
@@ -263,53 +263,26 @@ void fileMenu(void)
         exportVector();
         break;
     case 0:
-        printf("Press any key to continue...");
+        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf("ตัวเลือกไม่ถูกต้อง โปรดลองอีกครั้ง\n");
+        printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
         getchar();
         break;
     }
 }
-
 void setColor(void) // ! Only supported on Windows
 {
-#if defined(_WIN32)
-    char *col;
-    char syn[10];
-    printf(
-        "\nColor attributes are specified by TWO hex digits -- the first "
-        "corresponds to the background; the second the foreground."
-        "\nEach digit can be any of the following values:\n\n"
-        "\t0 = Black       8 = Gray\n"
-        "\t1 = Blue        9 = Light Blue\n"
-        "\t2 = Green       A = Light Green\n"
-        "\t3 = Aqua        B = Light Aqua\n"
-        "\t4 = Red         C = Light Red\n"
-        "\t5 = Purple      D = Light Purple\n"
-        "\t6 = Yellow      E = Light Yellow\n"
-        "\t7 = White       F = Bright White\n");
-    col = getString("Enter color: ");
-    sprintf(syn, "color %s", col);
-    system(syn);
-    free(col);
-#else
-    printf("This is only supported on Windows!\n");
-    printf("Press any to continue...");
+    printf("ฟังก์ชันนี้รองรับเฉพาะใน Windows เท่านั้น\n");
+    printf("กดปุ่มใดๆ เพื่อดำเนินการต่อ...");
     getchar();
-#endif
-    cls();
 }
 
 void cls(void) // * By @Teproanyx
 {
-#if defined(_WIN32)
-    system("cls");
-#else
     system("clear");
-#endif
 }
 
 bool getConfirmation(const char *prompt)
@@ -333,26 +306,26 @@ bool getConfirmation(const char *prompt)
 void inputVector(void)
 {
     int slot;
-    slot = getInt("Which slot you want? : ");
+    slot = getInt("ต้องการใส่เวกเตอร์ที่ช่องไหน? : ");
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            if (!getConfirmation("Vector already exists, Overwrite? [Y/N]: "))
+            if (!getConfirmation("เวกเตอร์มีอยู่แล้ว ต้องการแทนที่? [Y/N]: "))
             {
                 return;
             }
             free(vector[slot]);
         }
         double *u = malloc(sizeof(*u) * 3);
-        char *buffer = getString("Please enter vector (i,j,k): ");
+        char *buffer = getString("กรุณาใส่เวกเตอร์ในรูปแบบของ i,j,k: ");
         sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
         free(buffer);
     }
     else
     {
-        printf("Invalid index!\nPress any to continue!");
+        printf("ไม่มีช่องนั้นอยู่ กดปุ่มใดๆเพื่อดำเนินการต่อ");
         getchar();
     }
 }
@@ -378,7 +351,7 @@ void ShowAllVectors(void)
         if (vector[m] != NULL)
         {
             tmp = printvec(vector[m]);
-            printf("Vector #%d : %s\n", m, tmp);
+            printf("เวกเตอร์ หมายเลข %d : %s\n", m, tmp);
             free(tmp);
         }
     }
@@ -388,24 +361,24 @@ void saveVectorToSlot(double *u)
 {
     int w;
     char *tmp = printvec(u);
-    printf("Result Vector is %s\n", tmp);
+    printf("เวกเตอร์ผลลัพธ์คือ %s\n", tmp);
     free(tmp);
-    if (!getConfirmation("Do you want to save vector? [Y/N]: "))
+    if (!getConfirmation("ต้องการบันทึกเวกเตอร์หรือไม่? [Y/N]: "))
     {
         free(u);
         return;
     }
 
-    w = getInt("Where you want to save vector? : ");
+    w = getInt("ต้องการบันทึกเวกเตอร์ที่ไหน? : ");
     if (w < 0 || w >= VECTOR_ARRAY_SIZE)
     {
-        printf("Can't save here, Index out of range\n");
+        printf("ไม่สามารถบันทึกที่นี่ได้ ช่องนั้นอยู่นอกขอบเขต\n");
         saveVectorToSlot(u);
         return;
     }
     if (vector[w] != NULL)
     {
-        if (!getConfirmation("This slot already has vector in it. Overwrite? [Y/N]: "))
+        if (!getConfirmation("ช่องนี้มีเวกเตอร์อยู่แล้ว บันทึกทับ? [Y/N]: "))
         {
             saveVectorToSlot(u);
             return;
@@ -424,7 +397,7 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    if (!getConfirmation("Warning: This action will delete all vector. Continue? [Y/N]: "))
+    if (!getConfirmation("คำเตือน: การดำเนินการนี้จะลบเวกเตอร์ทั้งหมด ดำเนินการต่อ? [Y/N]: "))
     {
         return false;
     }
@@ -437,7 +410,7 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    printf("All vectors have been deleted, press any to continue...");
+    printf("เวกเตอร์ทั้งหมดถูกลบแล้ว กดปุ่มใดๆเพื่อดำเนินการต่อ...");
     getchar();
     return true;
 }
@@ -470,12 +443,12 @@ void importVector(void)
     char *tmp;
     char filename[100];
     FILE *inputFile;
-    tmp = getString("Enter file name: ");
+    tmp = getString("โปรดใส่ชื่อไฟล์: ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
-        printf("Error upon opening files, File may not exist.\n");
-        printf("Press any key to continue...");
+        printf("ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n");
+        printf("กดปุ่มใดๆเพื่อดำเนินการต่อ");
         free(tmp);
         getchar();
         return;
@@ -502,13 +475,13 @@ void exportVector(void)
     char *tmp;
     char filename[100];
     FILE *outputFile;
-    tmp = getString("Enter file name: ");
+    tmp = getString("โปรดใส่ชื่อไฟล์ : ");
     sprintf(filename, "VectorSave/%s.txt", tmp);
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         fclose(outputFile);
-        if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
+        if (!getConfirmation("ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "))
         {
             return;
         }
