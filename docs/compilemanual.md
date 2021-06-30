@@ -1,12 +1,16 @@
-# Compile Manual
+# Manually Compilation
 
-For English Version: Compile VectorCalc.c
+## For English Version
 
-For Thai and Japanese Version, The Compile Files varies by OS
+Compile VectorCalc.c
+
+## For Thai and Japanese Version
 
 For Windows, Compile file with `_Win`
 
-and For Linux, Compile file without `_Win`
+For Linux, Compile file without `_Win`
 
-Please do note that in Thai and Japanese Version of Windows,
-some functionality might not work due to I messing with wchar and locale.
+## Note
+
+Please do note that in Thai and Japanese Version *of Windows*,
+some functionality might not work due to the program messing with wchar and set mode stuff.
