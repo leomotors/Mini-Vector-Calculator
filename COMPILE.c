@@ -3,12 +3,15 @@
  * * 総制作　@Leomotors
  * * Honor contributor @Teproanyx
  * 
- * * Compilation Helper
- * ? Note: Direct compilation works, this project use simple stuff.
- * ? This file is to make it more convenience and make program look simpler.
+ * * Compilation Assistant
+ * 
+ * ? Note: Direct compilation also works, this project use simple single source code.
+ * ? This file is to make it more convenience to choose language 
+ * ? and make program look simpler by hiding junks.
  */
 
 #include "SafeInput/SafeInput.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,14 +33,14 @@ const char *SRC_FILES[] = {
 
 #endif
 
-int please_choose_lang(void);
+int menu_options(void);
 
 int main(void)
 {
-    printf("Operating System (Family): %s\n", WINDOWS ? "Windows" : "Unix");
+    printf("Your Operating System (Family): %s\n", WINDOWS ? "Windows" : "Unix");
     printf("\nWelcome to Vector Calculator Compilation Assistant!\n");
 
-    int user_lang = please_choose_lang();
+    int user_lang = menu_options();
     printf("\n");
 
     char toexec[100] = "";
@@ -48,20 +51,28 @@ int main(void)
 
     system(toexec);
 
-    printf("\nDone! If the compilation is success, you can now run "
-           "'Vector_Calculator' to enjoy the program!\n");
+    printf("\nDone! Starting program...\n");
+
+    sprintf(toexec, "./%s", FILE_NAME);
+    system(toexec);
+
+    printf("\n[COMPILATION ASSISTANT FEEDBACK] Program executed, "
+           "The program should have show up, otherwise there might be some problem.\n");
 }
 
-int please_choose_lang(void)
+int menu_options(void)
 {
-    printf("Please Choose Language to Compile\n");
-    printf("[1] English\n[2] Thai\n[3] Japanese\n");
+    printf("Please Choose Your Options\n");
+    printf("[1] Compile & Run English Version\n"
+           "[2] Compile & Run Thai Version\n"
+           "[3] Compile & Run Japanese Version\n");
+
     int user_lang = getInt("Your Choice: ");
 
     if (user_lang > 3 || user_lang < 0)
     {
         printf("Invalid Choice!\n\n");
-        return please_choose_lang();
+        return menu_options();
     }
     return user_lang;
 }
