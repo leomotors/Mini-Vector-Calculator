@@ -3,12 +3,13 @@
 #define PROGRAM_TITLE "=====|Vector Calculator V3.3|=====\n\n"
 
 #define PLEASE_SELECT_FUNC "\nPlease select Function from below list.\n"
-#define MENU_1 "\nPlease select Function from below list.\n"
+#define MENU_1 "[1] Input new vector!\n"
 #define MENU_2 "[2] Do operations!\n"
 #define MENU_3 "[3] Import & Export Vectors\n"
 #define MENU_4 "[4] Delete all Vectors\n"
 #define MENU_5 "[5] Settings\n"
 
+#define EXIT_PROGRAM "[0] Exit Program\n"
 #define MENU_EXIT "[0] Exit\n"
 
 #define YOUR_CHOICE "Your Choice: "

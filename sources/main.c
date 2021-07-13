@@ -81,7 +81,7 @@ void printMainMenu(void)
     printf(MENU_3);
     printf(MENU_4);
     printf(MENU_5);
-    printf(MENU_EXIT);
+    printf(EXIT_PROGRAM);
 }
 
 bool programCore(void)
