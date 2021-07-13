@@ -58,8 +58,7 @@ dkms.conf
 VectorCalc
 VectorCalc_TH
 VectorCalc_JP
-VectorCalc_TH_Win
-VectorCalc_JP_Win
+main
 
 COMPILE
 Vector_Calculator
