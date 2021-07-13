@@ -31,7 +31,7 @@ const char SLASH = '/';
 
 #endif
 
-const char *SRC_FILES[] = {"EN", "TH", "JP"};
+const char *SRC_FILES[] = {"VectorCalc_EN", "VectorCalc_TH", "VectorCalc_JP"};
 
 int menu_options(void);
 
