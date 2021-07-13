@@ -54,3 +54,4 @@
 
   **2021-06-30** Compilation Assistant Update (4.1): Compilation Assistant added to help you!
   
+  **2021-07-13** Source Code Cleaning Update (4.2): Remove Redundant Code by implementing translation files

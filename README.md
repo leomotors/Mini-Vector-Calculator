@@ -40,8 +40,8 @@
 
 * Support 3 Languages: English, Thai and Japanese
 
- __Note__: In Thai and Japanese Version on Windows is unstable, some feature might
- cause bugs. In Linux, it's working fine.
+ __Note__: Thai and Japanese Version is no longer supported in Windows, to use it
+  please compile from previous version. (<a href="https://github.com/Leomotors/Mini-Vector-Calculator/releases/tag/4.1.281">4.1</a> Recommended)
 
 ## 🏃‍♂️ How to Run Program
 
