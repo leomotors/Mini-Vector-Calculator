@@ -3,7 +3,7 @@
 
 #define IRASSHAI_1 "\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n"
-#define PROGRAM_TITLE "=====|Vector Calculator V3.3 Thai Version|=====\n\n"
+#define PROGRAM_TITLE "=====|Vector Calculator V4.2 Thai Version|=====\n\n"
 
 #define PLEASE_SELECT_FUNC "\nโปรดเลือกฟังก์ชันจากข้างล่างนี้\n"
 #define MENU_1 "[1] ป้อนเวกเตอร์ใหม่\n"
