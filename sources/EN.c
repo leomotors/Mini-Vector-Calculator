@@ -11,7 +11,10 @@
 
 #include "../SafeInput/SafeInput.h"
 
+#ifndef LANGUAGE_FILE_IMPORTED
+// * Set to Default Language, In case users run from main (or error occur)
 #include "../Language/EN.h"
+#endif
 
 #define i 0
 #define j 1
