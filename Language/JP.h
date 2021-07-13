@@ -1,3 +1,6 @@
+#ifndef LANGUAGE_FILE_IMPORTED
+#define LANGUAGE_FILE_IMPORTED
+
 #define IRASSHAI_1 "\nベクトル計算機へいらっしゃいませ！\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "続行するには任意のボタンを押してください。\n"
 #define PROGRAM_TITLE "=====|Vector Calculator V3.3 Japanese Version|=====\n\n"
@@ -71,3 +74,5 @@
 #define ENTER_FNAME "ファイル名を入力してください : "
 #define ERROR_OPENING_FILE "このファイルを開けることができないで、存在しない可能性があります。\n"
 #define F_ALREADY_EXIST "このファイルはすでに存在します。 上書きしますか？ [Y/N]: "
+
+#endif

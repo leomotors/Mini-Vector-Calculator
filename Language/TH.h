@@ -1,3 +1,6 @@
+#ifndef LANGUAGE_FILE_IMPORTED
+#define LANGUAGE_FILE_IMPORTED
+
 #define IRASSHAI_1 "\nยินดีต้อนรับสู่ โปรแกรมคำนวณเวกเตอร์\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "กดปุ่มใดๆ เพิ่อดำเนินการต่อ...\n"
 #define PROGRAM_TITLE "=====|Vector Calculator V3.3 Thai Version|=====\n\n"
@@ -71,3 +74,5 @@
 #define ENTER_FNAME "โปรดใส่ชื่อไฟล์: "
 #define ERROR_OPENING_FILE "ไม่สามารถเปิดไฟล์ได้ ไฟล์นี้อาจไม่มีอยู่\n"
 #define F_ALREADY_EXIST "ไฟล์นี้มีอยู่แล้ว เขียนทับ? [Y/N]: "
+
+#endif

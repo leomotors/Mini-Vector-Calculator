@@ -1,3 +1,6 @@
+#ifndef LANGUAGE_FILE_IMPORTED
+#define LANGUAGE_FILE_IMPORTED
+
 #define IRASSHAI_1 "\nWelcome to Vector Calculator Program!\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "Press any key to continue..."
 #define PROGRAM_TITLE "=====|Vector Calculator V3.3|=====\n\n"
@@ -71,3 +74,5 @@
 #define ENTER_FNAME "Enter file name: "
 #define ERROR_OPENING_FILE "Error upon opening files, File may not exist.\n"
 #define F_ALREADY_EXIST "File already exists, Overwrite? [Y/N]: "
+
+#endif
