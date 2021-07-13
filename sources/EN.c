@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifndef SAFE_INPUT_LANGUAGE_FILE_IMPORTED
+// * Set to Default Language, As English is default file to run
 #include "../SafeInput/SafeInput.h"
+#endif
 
 #ifndef LANGUAGE_FILE_IMPORTED
 // * Set to Default Language, As English is default file to run

@@ -16,6 +16,10 @@
 #include <string.h>
 #define INITIAL_BUFFER 8
 
+#ifndef SAFE_INPUT_LANGUAGE_FILE_IMPORTED
+#include "SI_EN.h"
+#endif
+
 // * Function Prototype (Declaration) * //
 
 long long getlong(const char *);
@@ -32,7 +36,7 @@ long getLong(const char *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        printf(SI_INPUT_ERROR);
         return getLong(prompt);
     }
 
@@ -44,7 +48,7 @@ long getLong(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        printf(SI_INPUT_ERROR);
         return getLong(prompt);
     }
 
@@ -58,7 +62,7 @@ int getInt(const char *prompt)
     long n = getLong(prompt);
     if (n > INT_MAX || n < INT_MIN)
     {
-        printf("Input error, please try again!\n");
+        printf(SI_INPUT_ERROR);
         return getInt(prompt);
     }
     return (int)n;
@@ -70,7 +74,7 @@ double getDouble(const char *prompt)
     if (buffer[0] == '\0')
     {
         free(buffer);
-        printf("Input error, please try again!\n");
+        printf(SI_INPUT_ERROR);
         return getLong(prompt);
     }
 
@@ -82,7 +86,7 @@ double getDouble(const char *prompt)
     {
         free(buffer);
         fprintf(stderr, "Value conversion error\n");
-        printf("Input error, please try again!\n");
+        printf(SI_INPUT_ERROR);
         return getDouble(prompt);
     }
 
@@ -133,7 +137,7 @@ void memoryError(const void *pointer)
 {
     if (pointer == NULL)
     {
-        printf("Not enough RAM. Terminating program...\n");
+        printf(SI_MEMORY_FULL);
         exit(EXIT_FAILURE);
     }
 }
