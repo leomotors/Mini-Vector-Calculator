@@ -11,6 +11,11 @@
 
 #include "../SafeInput/SafeInput.h"
 
+#ifndef LANGUAGE_FILE_IMPORTED
+// * Set to Default Language, As English is default file to run
+#include "../Language/EN.h"
+#endif
+
 #define i 0
 #define j 1
 #define k 2
@@ -53,13 +58,13 @@ double *crossProduct(double *, double *);
 
 int main(void)
 {
-    printf("\nWelcome to Vector Calculator Program!\n\n");
-    printf("Press any key to continue...");
+    printf(IRASSHAI_1);
+    printf(PRESS_ANY_KEY_TO_CONTINUE);
     getchar();
     while (true)
     {
         cls();
-        printf("=====|Vector Calculator V3.3|=====\n\n");
+        printf(PROGRAM_TITLE);
         ShowAllVectors();
         printMainMenu();
         if (!programCore())
@@ -73,22 +78,22 @@ int main(void)
 // * Menu's Stuff
 void printMainMenu(void)
 {
-    printf("\nPlease select Function from below list.\n");
-    printf("[1] Input new vector!\n");
-    printf("[2] Do operations!\n");
-    printf("[3] Import & Export Vectors\n");
-    printf("[4] Delete all Vectors\n");
-    printf("[5] Settings\n");
-    printf("[0] Exit\n");
+    printf(PLEASE_SELECT_FUNC);
+    printf(MENU_1);
+    printf(MENU_2);
+    printf(MENU_3);
+    printf(MENU_4);
+    printf(MENU_5);
+    printf(EXIT_PROGRAM);
 }
 
 bool programCore(void)
 {
-    int choice = getInt("Your Choice: ");
+    int choice = getInt(YOUR_CHOICE);
     switch (choice)
     {
     case 0:
-        printf("Thanks for using this program! Press any key to exit...");
+        printf(EXIT_THANK_YOU);
         getchar();
         return false; // * Tell next code in main to Exit program
     case 1:
@@ -107,8 +112,8 @@ bool programCore(void)
         settingsMenu();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf(INVALID_CHOICE);
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         break;
     }
@@ -118,17 +123,17 @@ bool programCore(void)
 void printOperationMenu(void)
 {
     printf("==========================================\n");
-    printf("Please select functions!\n");
-    printf("\tOne Vector Operation\n");
-    printf("[1] Find size of a Vector\n");
-    printf("[2] Multiply Vector with scalar\n");
-    printf("\tTwo Vectors Operation\n");
-    printf("[3] Add 2 Vectors\n");
-    printf("[4] Dot Product of 2 Vectors\n");
-    printf("[5] Cross Product of 2 Vectors\n");
-    printf("[6] Project a vector on another vector\n");
-    printf("[7] Find area of parrallelogram from 2 vectors\n");
-    printf("[0] Exit\n");
+    printf(PLEASE_SELECT_FUNC);
+    printf(ONE_VEC_OP);
+    printf(VEC_OP_1);
+    printf(VEC_OP_2);
+    printf(TWO_VEC_OP);
+    printf(VEC_OP_3);
+    printf(VEC_OP_4);
+    printf(VEC_OP_5);
+    printf(VEC_OP_6);
+    printf(VEC_OP_7);
+    printf(MENU_EXIT);
 }
 
 void vectorOperation(void)
@@ -137,12 +142,13 @@ void vectorOperation(void)
     int u, v = -1;
     cls();
     printOperationMenu();
-    choice = getInt("Selected Operation: ");
+    choice = getInt(SELECTED_OP);
     if (choice == 0)
         return;
     if (choice < 0 || choice > 7)
     {
-        printf("Invalid choice, try again!\nPress any key to continue...");
+        printf(INVALID_CHOICE);
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         return;
     }
@@ -151,21 +157,21 @@ void vectorOperation(void)
     printf("\n");
     if (choice == 1 || choice == 2)
     {
-        u = getInt("Select Vector: ");
+        u = getInt(SELECT_VECTOR);
         if (!isVector(u))
         {
-            printf("This vector not available, Press any key to continue...");
+            printf(VECTOR_NOT_AVAILABLE);
             getchar();
             return;
         }
     }
     else
     {
-        u = getInt("Select First Vector: ");
-        v = getInt("Select Second Vector: ");
+        u = getInt(SEL_FIRST_VEC);
+        v = getInt(SEL_SECOND_VEC);
         if (!(isVector(u) && isVector(v)))
         {
-            printf("One or Both of vector not available, Press any key to continue...");
+            printf(ONE_OR_BOTH_NOT_AVAILABLE);
             getchar();
             return;
         }
@@ -176,19 +182,19 @@ void vectorOperation(void)
     switch (choice)
     {
     case 1:
-        printf("Size of Vector #%d is ", u);
+        printf(SIZE_OF_VEC_IS, u);
         printf(format, vectorSize(vector[u]));
         printf("\n");
         break;
     case 2:
-        temp = getDouble("Enter scalar to multiply with: ");
+        temp = getDouble(ENTER_SCALAR);
         saveVectorToSlot((scalarMult(vector[u], temp)));
         break;
     case 3:
         saveVectorToSlot(addVector(vector[u], vector[v]));
         break;
     case 4:
-        printf("Dot Product is ");
+        printf(DOT_PROD_IS);
         printf(format, dotProduct(vector[u], vector[v]));
         printf("\n");
         break;
@@ -199,14 +205,14 @@ void vectorOperation(void)
         saveVectorToSlot(scalarMult(vector[v], dotProduct(vector[u], vector[v]) / pow(vectorSize(vector[v]), 2)));
         break;
     case 7:
-        printf("Area is ");
+        printf(AREA_IS);
         printf(format, vectorSize(crossProduct(vector[u], vector[v])));
-        printf(" Sq.Unit\n");
+        printf(SQ_UNIT);
         break;
     default:
         printf("Error 003: Default kicks in, function: vectorOperation\n");
     }
-    printf("Operation done, Please any to continue...");
+    printf(OP_DONE_AND_PRESS_ANY_KEY);
     free(format);
     getchar();
 }
@@ -214,11 +220,11 @@ void vectorOperation(void)
 void settingsMenu(void)
 {
     int choice;
-    printf("\n=====|Settings|=====\n\n");
-    printf("[1] Set terminal (command prompt)'s color\n");
-    printf("[2] Set Number Precision\n");
-    printf("[0] Back\n");
-    choice = getInt("Your option: ");
+    printf(SETTINGS_TITLE);
+    printf(SETTINGS_1);
+    printf(SETTINGS_2);
+    printf(BACK_0);
+    choice = getInt(YOUR_CHOICE);
     switch (choice)
     {
     case 1:
@@ -227,20 +233,20 @@ void settingsMenu(void)
     case 2:
         while (true)
         {
-            numberPrecision = getInt("Number of digits after decimal: ");
+            numberPrecision = getInt(N_DIGITS_A_DECIMAL);
             if (numberPrecision >= 0 && numberPrecision <= 6)
                 break;
             else
-                printf("Number of digits must be between 0 and 6!\n");
+                printf(N_DIGITS_TRACEBACK);
         }
         break;
     case 0:
-        printf("Press any key to continue...");
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf(INVALID_CHOICE);
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         break;
     }
@@ -249,11 +255,11 @@ void settingsMenu(void)
 void fileMenu(void)
 {
     int choice;
-    printf("\n=====|File Menu|=====\n\n");
-    printf("[1] Import Vector\n");
-    printf("[2] Export Vector\n");
-    printf("[0] Back\n");
-    choice = getInt("Your option: ");
+    printf(FILE_MENU);
+    printf(FILE_1);
+    printf(FILE_2);
+    printf(BACK_0);
+    choice = getInt(YOUR_CHOICE);
     switch (choice)
     {
     case 1:
@@ -263,12 +269,12 @@ void fileMenu(void)
         exportVector();
         break;
     case 0:
-        printf("Press any key to continue...");
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         break;
     default:
-        printf("Invalid choice, please try again.\n");
-        printf("Press any key to continue...");
+        printf(INVALID_CHOICE);
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         getchar();
         break;
     }
@@ -296,8 +302,8 @@ void setColor(void) // ! Only supported on Windows
     system(syn);
     free(col);
 #else
-    printf("This is only supported on Windows!\n");
-    printf("Press any to continue...");
+    printf(ONLYWINDOWS);
+    printf(PRESS_ANY_KEY_TO_CONTINUE);
     getchar();
 #endif
     cls();
@@ -333,26 +339,26 @@ bool getConfirmation(const char *prompt)
 void inputVector(void)
 {
     int slot;
-    slot = getInt("Which slot you want? : ");
+    slot = getInt(WHICH_SLOT);
     if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
     {
         if (vector[slot] != NULL)
         {
-            if (!getConfirmation("Vector already exists, Overwrite? [Y/N]: "))
+            if (!getConfirmation(VECTOR_ALR_EXIST))
             {
                 return;
             }
             free(vector[slot]);
         }
         double *u = malloc(sizeof(*u) * 3);
-        char *buffer = getString("Please enter vector (i,j,k): ");
+        char *buffer = getString(ENTER_VECTOR);
         sscanf(buffer, "%lf %lf %lf", &u[i], &u[j], &u[k]);
         vector[slot] = u;
         free(buffer);
     }
     else
     {
-        printf("Invalid index!\nPress any to continue!");
+        printf(INVALID_INDEX_PAKTC);
         getchar();
     }
 }
@@ -378,7 +384,7 @@ void ShowAllVectors(void)
         if (vector[m] != NULL)
         {
             tmp = printvec(vector[m]);
-            printf("Vector #%d : %s\n", m, tmp);
+            printf(VECTOR_N, m, tmp);
             free(tmp);
         }
     }
@@ -388,24 +394,24 @@ void saveVectorToSlot(double *u)
 {
     int w;
     char *tmp = printvec(u);
-    printf("Result Vector is %s\n", tmp);
+    printf(RESULT_VECTOR_IS, tmp);
     free(tmp);
-    if (!getConfirmation("Do you want to save vector? [Y/N]: "))
+    if (!getConfirmation(DO_YOU_WANT_TO_SAVE))
     {
         free(u);
         return;
     }
 
-    w = getInt("Where you want to save vector? : ");
+    w = getInt(WHERE_TO_SAVE);
     if (w < 0 || w >= VECTOR_ARRAY_SIZE)
     {
-        printf("Can't save here, Index out of range\n");
+        printf(INDEX_OUT_OF_RANGE);
         saveVectorToSlot(u);
         return;
     }
     if (vector[w] != NULL)
     {
-        if (!getConfirmation("This slot already has vector in it. Overwrite? [Y/N]: "))
+        if (!getConfirmation(ALREADY_EXIST))
         {
             saveVectorToSlot(u);
             return;
@@ -424,7 +430,7 @@ bool isVector(int u)
 
 bool deleteAllVectors(void)
 {
-    if (!getConfirmation("Warning: This action will delete all vector. Continue? [Y/N]: "))
+    if (!getConfirmation(THIS_WILL_DELETE_ALL_VEC))
     {
         return false;
     }
@@ -437,7 +443,7 @@ bool deleteAllVectors(void)
             vector[c] = NULL;
         }
     }
-    printf("All vectors have been deleted, press any to continue...");
+    printf(ALL_VEC_DELETED);
     getchar();
     return true;
 }
@@ -470,12 +476,12 @@ void importVector(void)
     char *tmp;
     char filename[100];
     FILE *inputFile;
-    tmp = getString("Enter file name: ");
+    tmp = getString(ENTER_FNAME);
     sprintf(filename, "VectorSave/%s.txt", tmp);
     if ((inputFile = fopen(filename, "r")) == NULL)
     {
-        printf("Error upon opening files, File may not exist.\n");
-        printf("Press any key to continue...");
+        printf(ERROR_OPENING_FILE);
+        printf(PRESS_ANY_KEY_TO_CONTINUE);
         free(tmp);
         getchar();
         return;
@@ -502,13 +508,13 @@ void exportVector(void)
     char *tmp;
     char filename[100];
     FILE *outputFile;
-    tmp = getString("Enter file name: ");
+    tmp = getString(ENTER_FNAME);
     sprintf(filename, "VectorSave/%s.txt", tmp);
     free(tmp);
     if ((outputFile = fopen(filename, "r")) != NULL)
     {
         fclose(outputFile);
-        if (!getConfirmation("File already exists, Overwrite? [Y/N]: "))
+        if (!getConfirmation(F_ALREADY_EXIST))
         {
             return;
         }

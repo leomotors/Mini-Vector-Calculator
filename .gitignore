@@ -54,12 +54,13 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# Device Variable Files
+settings.json
+
 # Linux Executable
-VectorCalc
-VectorCalc_TH
-VectorCalc_JP
-VectorCalc_TH_Win
-VectorCalc_JP_Win
+EN
+TH
+JP
 
 COMPILE
 Vector_Calculator

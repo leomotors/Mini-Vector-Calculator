@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "safeinput.h": "c",
-        "safeinput_th.h": "c",
-        "safeinput_jp.h": "c",
-        "safeinput_th_wchar.h": "c",
-        "safeinput_jp_wchar.h": "c"
-    }
-}

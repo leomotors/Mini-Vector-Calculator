@@ -24,16 +24,14 @@ const char *FILE_NAME = "Vector_Calculator";
 #if defined(_WIN32)
 const bool WINDOWS = 1;
 const char SLASH = '\\';
-const char *SRC_FILES[] = {
-    "VectorCalc", "VectorCalc_TH_Win", "VectorCalc_JP_Win"};
 
 #else
 const bool WINDOWS = 0;
 const char SLASH = '/';
-const char *SRC_FILES[] = {
-    "VectorCalc", "VectorCalc_TH", "VectorCalc_JP"};
 
 #endif
+
+const char *SRC_FILES[] = {"EN", "TH", "JP"};
 
 int menu_options(void);
 
@@ -64,6 +62,14 @@ int main(void)
 
 int menu_options(void)
 {
+    if (WINDOWS)
+    {
+        printf("Your language is automatically set to English because that is the only option you have in this OS\n");
+        printf("Note: From Build 282 (Version 4.2+), Thai and Japanese on Windows have been deprecated\n");
+        printf("To use it, please use previous version (4.1 Recommended)");
+        return 1;
+    }
+
     printf("Please Choose Your Options\n");
     printf("[1] Compile & Run English Version\n"
            "[2] Compile & Run Thai Version\n"
@@ -76,5 +82,6 @@ int menu_options(void)
         printf("Invalid Choice!\n\n");
         return menu_options();
     }
+
     return user_lang;
 }
