@@ -34,8 +34,6 @@
 
 * Tested using valgrind, however, some very small leaks are possible in rare case.
 
-* Exclude Thai and Japanese Version on Windows
-
 ### Multilingual
 
 * Support 3 Languages: English, Thai and Japanese
@@ -56,13 +54,11 @@
 
   These are generated using ```numpy```.
 
-  Note: Use Import Vector Function to import them, but please avoid using them in TH,JP Version as it is unstable.
-
 ## 🖥️ Compatibility
 
 Support both Windows and UNIX OS.
 
-Compiler : C99 or above
+Compiler : C99 or above (C17 in gcc 9.3.0 Recommend (the one I use))
 
 Note : Compile with `-lm` if you are on Linux!
 
