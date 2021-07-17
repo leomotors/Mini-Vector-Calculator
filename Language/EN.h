@@ -45,10 +45,13 @@
 #define SETTINGS_TITLE "\n=====|Settings|=====\n\n"
 #define SETTINGS_1 "[1] Set terminal (command prompt)'s color\n"
 #define SETTINGS_2 "[2] Set Number Precision\n"
+#define SETTINGS_3 "[3] Expand Vector Slot (Current: %d)\n"
 #define BACK_0 "[0] Back\n"
 
 #define N_DIGITS_A_DECIMAL "Number of digits after decimal: "
 #define N_DIGITS_TRACEBACK "Number of digits must be between 0 and 6!\n"
+#define NEW_SLOT_SIZE "Enter New Slot Size: "
+#define N_SLOT_TRACEBACK_NOT_GREATER "New Slot Size must be higher than old one!\n"
 
 #define FILE_MENU "\n=====|File Menu|=====\n\n"
 #define FILE_1 "[1] Import Vector\n"

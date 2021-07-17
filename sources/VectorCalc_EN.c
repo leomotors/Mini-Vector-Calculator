@@ -22,8 +22,14 @@
 
 int numberPrecision = 2;
 
-#define VECTOR_ARRAY_SIZE 100
-double *vector[VECTOR_ARRAY_SIZE] = {NULL};
+#define DEFAULT_VECTOR_SIZE 100
+int Current_Vector_Size = DEFAULT_VECTOR_SIZE;
+double **vector;
+
+void init(void)
+{
+    vector = calloc(DEFAULT_VECTOR_SIZE, sizeof(*vector));
+}
 
 // * Menu's Stuff
 void printMainMenu(void);
@@ -58,6 +64,7 @@ double *crossProduct(double *, double *);
 
 int main(void)
 {
+    init();
     printf(IRASSHAI_1);
     printf(PRESS_ANY_KEY_TO_CONTINUE);
     getchar();
@@ -223,6 +230,7 @@ void settingsMenu(void)
     printf(SETTINGS_TITLE);
     printf(SETTINGS_1);
     printf(SETTINGS_2);
+    printf(SETTINGS_3, Current_Vector_Size);
     printf(BACK_0);
     choice = getInt(YOUR_CHOICE);
     switch (choice)
@@ -239,6 +247,22 @@ void settingsMenu(void)
             else
                 printf(N_DIGITS_TRACEBACK);
         }
+        break;
+    case 3:;
+        int newSize = getInt(NEW_SLOT_SIZE);
+        if (newSize <= Current_Vector_Size)
+        {
+            printf(N_SLOT_TRACEBACK_NOT_GREATER);
+            break;
+        }
+
+        double **tmpPointer = calloc(newSize, sizeof(*tmpPointer));
+        for (int c = 0; c < Current_Vector_Size; c++)
+            tmpPointer[c] = vector[c];
+
+        free(vector);
+        vector = tmpPointer;
+        Current_Vector_Size = newSize;
         break;
     case 0:
         printf(PRESS_ANY_KEY_TO_CONTINUE);
@@ -340,7 +364,7 @@ void inputVector(void)
 {
     int slot;
     slot = getInt(WHICH_SLOT);
-    if (slot >= 0 && slot < VECTOR_ARRAY_SIZE)
+    if (slot >= 0 && slot < Current_Vector_Size)
     {
         if (vector[slot] != NULL)
         {
@@ -379,7 +403,7 @@ char *printvec(double *u)
 void ShowAllVectors(void)
 {
     char *tmp;
-    for (int m = 0; m < VECTOR_ARRAY_SIZE; m++)
+    for (int m = 0; m < Current_Vector_Size; m++)
     {
         if (vector[m] != NULL)
         {
@@ -403,7 +427,7 @@ void saveVectorToSlot(double *u)
     }
 
     w = getInt(WHERE_TO_SAVE);
-    if (w < 0 || w >= VECTOR_ARRAY_SIZE)
+    if (w < 0 || w >= Current_Vector_Size)
     {
         printf(INDEX_OUT_OF_RANGE);
         saveVectorToSlot(u);
@@ -423,7 +447,7 @@ void saveVectorToSlot(double *u)
 
 bool isVector(int u)
 {
-    if (u < 0 || u >= VECTOR_ARRAY_SIZE)
+    if (u < 0 || u >= Current_Vector_Size)
         return false;
     return vector[u] != NULL;
 }
@@ -435,7 +459,7 @@ bool deleteAllVectors(void)
         return false;
     }
 
-    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
+    for (int c = 0; c < Current_Vector_Size; c++)
     {
         if (vector[c] != NULL)
         {
@@ -450,7 +474,7 @@ bool deleteAllVectors(void)
 
 void freeAllVectors(void)
 {
-    for (int lc = 0; lc < VECTOR_ARRAY_SIZE; lc++)
+    for (int lc = 0; lc < Current_Vector_Size; lc++)
     {
         if (vector[lc] != NULL)
             free(vector[lc]);
@@ -461,7 +485,7 @@ void freeAllVectors(void)
 void importVector(void)
 {
     bool started = false;
-    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
+    for (int c = 0; c < Current_Vector_Size; c++)
     {
         if (isVector(c))
             started = true;
@@ -521,7 +545,7 @@ void exportVector(void)
     }
 
     outputFile = fopen(filename, "w");
-    for (int c = 0; c < VECTOR_ARRAY_SIZE; c++)
+    for (int c = 0; c < Current_Vector_Size; c++)
     {
         if (vector[c] != NULL)
             fprintf(outputFile, "%d %lf %lf %lf\n", c, vector[c][i], vector[c][j], vector[c][k]);
