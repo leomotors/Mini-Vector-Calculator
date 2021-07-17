@@ -45,10 +45,13 @@
 #define SETTINGS_TITLE "\n=====|設定|=====\n\n"
 #define SETTINGS_1 "[1] 画面の色を変化する [Windows だけできる！]\n"
 #define SETTINGS_2 "[2] 数値精度を設定する\n"
+#define SETTINGS_3 "[3] ベクトルスロット拡張する\n"
 #define BACK_0 "[0] 戻る\n"
 
 #define N_DIGITS_A_DECIMAL "小数点以下の桁数 ： "
 #define N_DIGITS_TRACEBACK "桁数は0から6の間でなければなりません。もう一度やり直してください\n"
+#define NEW_SLOT_SIZE "新スロットサイズ: "
+#define N_SLOT_TRACEBACK_NOT_GREATER "新スロットサイズは旧スロットサイズより大きくする必要があります\n"
 
 #define FILE_MENU "\n=====|ファイルメニュー|=====\n\n"
 #define FILE_1 "[1] インポート・ベクトル\n"

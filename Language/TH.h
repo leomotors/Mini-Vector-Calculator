@@ -45,10 +45,13 @@
 #define SETTINGS_TITLE "\n=====|การตั้งค่า|=====\n\n"
 #define SETTINGS_1 "[1] เปลี่ยนสีหน้าจอ\n"
 #define SETTINGS_2 "[2] เลือกความละเอียดของตัวเลข\n"
+#define SETTINGS_3 "[3] ขยายช่องเก็บเวกเตอร์\n"
 #define BACK_0 "[0] กลับ\n"
 
 #define N_DIGITS_A_DECIMAL "จำนวนหลักหลังทศนิยม: "
 #define N_DIGITS_TRACEBACK "จำนวนหลักต้องอยู่ระหว่าง 0 ถึง 6 โปรดลองอีกครั้ง\n"
+#define NEW_SLOT_SIZE "ใส่ขนาดช่องเก็บใหม่: "
+#define N_SLOT_TRACEBACK_NOT_GREATER "ขนาดช่องเก็บเวกเตอร์ใหม่ต้องมีขนาดมากกว่าเดิม\n"
 
 #define FILE_MENU "\n=====|เมนูไฟล์|=====\n\n"
 #define FILE_1 "[1] นำเข้าเวกเตอร์\n"
