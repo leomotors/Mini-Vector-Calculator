@@ -57,3 +57,5 @@
   **2021-06-30** Compilation Assistant Update (4.1): Compilation Assistant added to help you!
   
   **2021-07-13** Source Code Cleaning Update (4.2): Remove Redundant Code by implementing translation files
+
+  **2021-07-17** Slot Expansion Update (4.3): Ability to expand slot added

@@ -45,7 +45,7 @@
 #define SETTINGS_TITLE "\n=====|การตั้งค่า|=====\n\n"
 #define SETTINGS_1 "[1] เปลี่ยนสีหน้าจอ\n"
 #define SETTINGS_2 "[2] เลือกความละเอียดของตัวเลข\n"
-#define SETTINGS_3 "[3] ขยายช่องเก็บเวกเตอร์\n"
+#define SETTINGS_3 "[3] ขยายช่องเก็บเวกเตอร์ (ขนาดปัจจุบัน: %d)\n"
 #define BACK_0 "[0] กลับ\n"
 
 #define N_DIGITS_A_DECIMAL "จำนวนหลักหลังทศนิยม: "

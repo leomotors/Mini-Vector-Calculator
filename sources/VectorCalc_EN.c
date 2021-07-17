@@ -252,7 +252,9 @@ void settingsMenu(void)
         int newSize = getInt(NEW_SLOT_SIZE);
         if (newSize <= Current_Vector_Size)
         {
-            printf(N_SLOT_TRACEBACK_NOT_GREATER);
+            printf(N_SLOT_TRACEBACK_NOT_GREATER);\
+            printf(PRESS_ANY_KEY_TO_CONTINUE);
+            getchar();
             break;
         }
 

@@ -45,7 +45,7 @@
 #define SETTINGS_TITLE "\n=====|設定|=====\n\n"
 #define SETTINGS_1 "[1] 画面の色を変化する [Windows だけできる！]\n"
 #define SETTINGS_2 "[2] 数値精度を設定する\n"
-#define SETTINGS_3 "[3] ベクトルスロット拡張する\n"
+#define SETTINGS_3 "[3] ベクトルスロット拡張する (現在サイズ: %d)\n"
 #define BACK_0 "[0] 戻る\n"
 
 #define N_DIGITS_A_DECIMAL "小数点以下の桁数 ： "
