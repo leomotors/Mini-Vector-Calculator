@@ -3,7 +3,7 @@
 
 #define IRASSHAI_1 "\nWelcome to Vector Calculator Program!\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "Press any key to continue..."
-#define PROGRAM_TITLE "=====|Vector Calculator V4.2|=====\n\n"
+#define PROGRAM_TITLE "=====|Vector Calculator Version 4|=====\n\n"
 
 #define PLEASE_SELECT_FUNC "\nPlease select Function from below list.\n"
 #define MENU_1 "[1] Input new vector!\n"

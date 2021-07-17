@@ -3,7 +3,7 @@
 
 #define IRASSHAI_1 "\nベクトル計算機へいらっしゃいませ！\n\n"
 #define PRESS_ANY_KEY_TO_CONTINUE "続行するには任意のボタンを押してください。\n"
-#define PROGRAM_TITLE "=====|Vector Calculator V4.2 Japanese Version|=====\n\n"
+#define PROGRAM_TITLE "=====|Vector Calculator Version 4 - Japanese Language|=====\n\n"
 
 #define PLEASE_SELECT_FUNC "\n下の機能を選んでください。\n"
 #define MENU_1 "[1] 新ベクトルを入力する\n"
