@@ -16,6 +16,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define COMPILE_ASSISTANT_VERSION "1.2.301"
+
 // * Static Data
 
 const char *SRC_FOLDER = "sources";
@@ -37,7 +39,8 @@ int menu_options(void);
 
 int main(void)
 {
-    printf("Your Operating System (Family): %s\n", WINDOWS ? "Windows" : "Unix");
+    printf("\nYour Operating System (Family): %s\n", WINDOWS ? "Windows" : "Unix");
+    printf("Compiler Assistant Version: %s\n", COMPILE_ASSISTANT_VERSION);
     printf("\nWelcome to Vector Calculator Compilation Assistant!\n");
 
     int user_lang = menu_options();
@@ -77,7 +80,7 @@ int menu_options(void)
 
     int user_lang = getInt("Your Choice: ");
 
-    if (user_lang > 3 || user_lang < 0)
+    if (user_lang > 3 || user_lang < 1)
     {
         printf("Invalid Choice!\n\n");
         return menu_options();
