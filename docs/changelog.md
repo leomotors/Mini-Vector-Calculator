@@ -48,7 +48,9 @@
 
   *Would like to say this is final version but since I ever tell myself that version 3 is final so this sentence can't be trusted.*
   
-  *(Maybe) Final Version to improve overall performance at most as I can without rewriting the code.*
+  ~~*(Maybe) Final Version to improve overall performance at most as I can without rewriting the code.*~~
+  
+  **Update 7/17**: Guess no, thanks to Code Cleaning Update, it is not hard anymore for me to continue this project.
   
   **2021-06-20** Multilingual Update 2 (4.0): Now works on Linux!
 
