@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define COMPILE_ASSISTANT_VERSION "1.2.301"
+#define COMPILE_ASSISTANT_VERSION "1.2.7 (Based on Build 301)"
 
 // * Static Data
 
